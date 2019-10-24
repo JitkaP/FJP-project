@@ -1,0 +1,33 @@
+program = block "." .
+
+block = [ "const int" ident ":=" number {"," ident ":=" number} ";"]
+		[ "const bool" ident ":=" boolean {"," ident ":=" boolean} ";"]
+        [ "var int" ident {"," ident} ";"]	
+		[ "var bool" ident {"," ident} ";"]	
+        { "procedure" ident ";" block ";" } 
+		statement .	
+
+statement = [ 
+				ident {":=" ident} ":=" expression 
+				| "call" ident 
+				| "?" ident 
+				| "!" expression 
+				| "begin" statement {";" statement } "end" 
+				| "if" condition "then" statement [ "else" statement ]
+				| "while" condition "do" statement
+				| "do" statement "while" condition ";"
+				| "for" ident ":=" expression "to" expression "do" statement
+				| "{" ident {, ident} "}n := {" expression {, expression}n "}" {":= {" expression {, expression} "}"} 
+				| ident ":=" condition " ?" expression : expression
+			].
+
+condition = "(" "odd" expression ")"
+				| "(" expression ("="|"!="|"<"|"<="|">"|">=") expression ")".
+
+expression = [ "+"|"-"] term { ("+"|"-") term}.
+
+term = factor {("*"|"/") factor}.
+
+factor = ident 
+			| number 
+			| "(" expression ")".
