@@ -1,21 +1,20 @@
 program = block "."
 
-block = [ "const" "int" ident ":=" number { "," ident ":=" number } ";" ]
-		[ "const" "bool" ident ":=" boolean { "," ident ":=" boolean } ";" ]
-        [ "var" "int" ident { , ident } ";" ]	
-		[ "var" "bool" ident { , ident } ";" ]	
-        { "procedure" ident ";" block ";" } 
-		statement
+block = { declaration } { "procedure" ident ";" block ";" } statement
+		
+declaration = 
+			  "const" type ident ":=" number | boolean | letter ";"
+			| "const" type ident "[]" ":= " "{" number | boolean | letter {, number | boolean | letter } "};"
+			| "var" type ident [ "[" number "]" ] { , ident [ "[" number "]" ] } ";"
+			
 
 statement = [
 				ident { ":=" ident } ":=" expression 
-				| "call" ident 
-				| "?" ident 
-				| "!" expression 
+				| "call" ident
 				| "begin" statement { statement } "end"
 				| "if" condition "then" statement [ "else" statement ]
 				| "while" condition "do" statement
-				| "do" statement "while" condition ";"
+				| "do" statement "while" condition
 				| "for" ident ":=" number_expression "to" number_expression "do" statement
 				| "{" ident { "," ident } "}" ":="
 					"{" expression { "," expression } "}" 
@@ -29,7 +28,7 @@ condition = "("
 					| expression ( "=" | "!=" ) expression )	
 			")"
 
-expression = number_expression | boolean
+expression = number_expression | boolean | """ { letter | number } """
 
 number_expression = [ "+" | "-" ] term { ( "+" | "-" ) term }
 
@@ -39,6 +38,9 @@ factor = ident
 			| number 
 			| "(" number_expression ")"
 			
-ident = a..z
-number = 0..9
+ident = letter { letter | number }
+
+type = int | bool | string
+letter = { "a"|"b"|"c"|... |"x"|"y"|"z" }
+number = { "0"|"1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9" }
 boolean = "true" | "false"
