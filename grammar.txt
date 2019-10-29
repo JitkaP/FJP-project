@@ -21,8 +21,8 @@ statement = [
 			] ";"
 
 condition = "(" 
-				( "odd" number_expression
-					| number_expression ( "<" | "<=" | ">" | ">=" ) number_expression 
+				(	  
+					  number_expression ( "<" | "<=" | ">" | ">=" ) number_expression 
 					| expression ( "=" | "!=" ) expression 
 					| bool_expression
 				)	
