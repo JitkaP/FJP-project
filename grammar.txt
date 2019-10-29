@@ -24,11 +24,13 @@ condition = "("
 				( "odd" number_expression
 					| number_expression ( "<" | "<=" | ">" | ">=" ) number_expression 
 					| expression ( "=" | "!=" ) expression 
-					| bool_value
+					| bool_expression
 				)	
 			")"
 
-expression = number_expression | bool_value | string_expression
+expression = number_expression | bool_expression | string_expression
+
+bool_expression = [ "!" ] ( boolean | ident ) { ( "&&" | "||") bool_expression }
 
 string_expression = ( ident | string_value ) { "+" ( ident | string_value ) }
 
@@ -44,9 +46,7 @@ type = "int" | "bool" | "string"
 
 ident = letter { letter | number }
 
-value = number | bool_value | string_value
-
-bool_value = [ "!" ] bool_value | bool_value ( "&&" "||" ) bool_value | boolean
+value = number | boolean | string_value
 
 string_value = """ { letter | number } """
 
