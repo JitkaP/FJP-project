@@ -8,8 +8,7 @@ declaration =
 			| "var" type ident [ "[" number "]" ] { "," ident [ "[" number "]" ] } ";"
 			
 statement = [			
-				ident [ "[" number "]" ] { ":=" ident [ "[" number "]" ] } ":=" expression 				
-				| ident ":=" ( ident | string_value ) "+" ( ident | string_value )
+				ident [ "[" number "]" ] { ":=" ident [ "[" number "]" ] } ":=" expression
 				| "call" ident
 				| "begin" statement { statement } "end"
 				| "if" condition "then" statement [ "else" statement ]
@@ -17,7 +16,7 @@ statement = [
 				| "do" statement "while" condition
 				| "for" ident ":=" number_expression "to" number_expression "do" statement				
 				| ident ":=" condition "?" expression ":" expression
-				| "write" "(" string_value ")"
+				| "write" "(" string_expression ")"
 				| "read" "(" ident ")"
 			] ";"
 
@@ -29,7 +28,9 @@ condition = "("
 				)	
 			")"
 
-expression = number_expression | bool_value | string_value
+expression = number_expression | bool_value | string_expression
+
+string_expression = ( ident | string_value ) { "+" ( ident | string_value ) }
 
 number_expression = [ "+" | "-" ] term { ( "+" | "-" ) term }
 
