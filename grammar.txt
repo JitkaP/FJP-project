@@ -3,32 +3,33 @@ program = block "."
 block = { declaration } { "procedure" ident ";" block ";" } statement
 		
 declaration = 
-			  "const" type ident ":=" number | boolean | letter ";"
-			| "const" type ident "[]" ":= " "{" number | boolean | letter {, number | boolean | letter } "};"
-			| "var" type ident [ "[" number "]" ] { , ident [ "[" number "]" ] } ";"
+			  "const" type ident ":=" value ";"
+			| "const" type ident "[]" ":= " "{" value { "," value } "};"
+			| "var" type ident [ "[" number "]" ] { "," ident [ "[" number "]" ] } ";"
 			
-
-statement = [
-				ident { ":=" ident } ":=" expression 
+statement = [			
+				ident [ "[" number "]" ] { ":=" ident [ "[" number "]" ] } ":=" expression 				
+				| ident ":=" ( ident | string_value ) "+" ( ident | string_value )
 				| "call" ident
 				| "begin" statement { statement } "end"
 				| "if" condition "then" statement [ "else" statement ]
 				| "while" condition "do" statement
 				| "do" statement "while" condition
-				| "for" ident ":=" number_expression "to" number_expression "do" statement
-				| "{" ident { "," ident } "}" ":="
-					"{" expression { "," expression } "}" 
-					":=" "{" expression { "," expression } "}"
+				| "for" ident ":=" number_expression "to" number_expression "do" statement				
 				| ident ":=" condition "?" expression ":" expression
+				| "write" "(" string_value ")"
+				| "read" "(" ident ")"
 			] ";"
 
 condition = "(" 
 				( "odd" number_expression
 					| number_expression ( "<" | "<=" | ">" | ">=" ) number_expression 
-					| expression ( "=" | "!=" ) expression )	
+					| expression ( "=" | "!=" ) expression 
+					| bool_value
+				)	
 			")"
 
-expression = number_expression | boolean | """ { letter | number } """
+expression = number_expression | bool_value | string_value
 
 number_expression = [ "+" | "-" ] term { ( "+" | "-" ) term }
 
@@ -36,11 +37,18 @@ term = factor { ( "*" | "/" ) factor }
 
 factor = ident 
 			| number 
-			| "(" number_expression ")"
-			
+			| "(" number_expression ")"		
+
+type = "int" | "bool" | "string"
+
 ident = letter { letter | number }
 
-type = int | bool | string
-letter = { "a"|"b"|"c"|... |"x"|"y"|"z" }
+value = number | bool_value | string_value
+
+bool_value = [ "!" ] bool_value | bool_value ( "&&" "||" ) bool_value | boolean
+
+string_value = """ { letter | number } """
+
+letter = { "a"|"b"|"c"|...|"x"|"y"|"z" }
 number = { "0"|"1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9" }
 boolean = "true" | "false"
