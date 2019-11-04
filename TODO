@@ -1,0 +1,6 @@
+- statement - středníky - vynucení dvou
+- použít rozšířenou PL/0 nebo vykrást jen instrukce z rozšířené pro read a write
+- ternární operátor - typování???
+- typování/vyjímky - jak při read???
+- ve foru - umožnit/neumožnit v těle měnit hodnotu řídící proměnné???
+- pole - ukončovací znak (C)/na začátku počet prvků pole (Pascal) 
