@@ -1,23 +1,3 @@
-// OUR GRAMMAR
-
-/*
-program
-   : block '.'
-   ;
-
-block
-   //: consts? vars? procedure* statement
-   : declaration? (PROCEDURE ident ';' block ';')* statement
-   ;
-
-declaration
-    : CONST type ident ':=' value ';'
-    | CONST type ident '[]' ':=' '{' value (',' value)* '}' ';'
-    | VAR type ident ( '[' number ']' ) ( ',' ident ( '[' number ']' ) )* ';'
-    ;
-    */
-
-// PL0
 grammar lang;
 
 program
@@ -25,63 +5,92 @@ program
    ;
 
 block
-   : consts? vars? procedure* statement
+   : (declaration)* (PROCEDURE IDENT ';' block ';')* statement
    ;
+
+declaration
+    : (consts | constarrays | vars)
+    ;
 
 consts
-   : CONST ident '=' number (',' ident '=' number)* ';'
+   : CONST TYPE IDENT ':=' VALUE ';'
    ;
+
+constarrays
+    : CONST TYPE IDENT '[]' ':=' '{' VALUE (',' VALUE)* '}' ';'
+    ;
 
 vars
-   : VAR ident (',' ident)* ';'
-   ;
-
-procedure
-   : PROCEDURE ident ';' block ';'
+   : VAR TYPE IDENT ( '[' NUMBER ']' )? ( ',' IDENT ( '[' NUMBER ']' )? )* ';'
    ;
 
 statement
-   : (assignstmt | callstmt | writestmt | qstmt | bangstmt | beginstmt | ifstmt | whilestmt)?
+   : (assignstmt | callstmt | beginstmt | ifstmt | whilestmt | dowhilestmt | forstmt | ternarstmt | writestmt | readstmt)? ';'
    ;
 
 assignstmt
-   : ident ':=' expression
+   : IDENT ('[' NUMBER ']')? (':=' IDENT ('[' NUMBER ']')?)* ':=' expression
    ;
 
 callstmt
-   : CALL ident
-   ;
-
-writestmt
-   : WRITE ident
-   ;
-
-qstmt
-   : '?' ident
-   ;
-
-bangstmt
-   : '!' expression
+   : CALL IDENT
    ;
 
 beginstmt
-   : BEGIN statement (';' statement)* END
+   : BEGIN statement (statement)* END
    ;
 
 ifstmt
-   : IF condition THEN statement
+   : IF condition THEN statement (ELSE statement)?
    ;
 
 whilestmt
    : WHILE condition DO statement
    ;
 
+dowhilestmt
+    : DO statement WHILE condition
+    ;
+
+forstmt
+    : FOR IDENT ':=' number_expression TO number_expression DO statement
+    ;
+
+ternarstmt
+    : IDENT ':=' condition '?' expression ':' expression
+    ;
+
+writestmt
+    : WRITE '(' string_expression ')'
+    ;
+
+readstmt
+    : READ '(' IDENT ')'
+    ;
+
 condition
-   : ODD expression
-   | expression ('=' | '#' | '<' | '<=' | '>' | '>=') expression
+   : '('
+        (
+        (number_expression ( '<' | '<=' | '>' | '>=' ) number_expression)
+        | (expression ( '=' | '!=' ) expression)
+        | (bool_expression)
+        )
+     ')'
    ;
 
 expression
+    : (number_expression | bool_expression | string_expression)
+    ;
+
+bool_expression
+    : ('!')? (BOOLEAN | IDENT) (('&&' | '||') bool_expression)*
+    ;
+
+string_expression
+    : (IDENT | STRING_VALUE) ('+' (IDENT | STRING_VALUE))*
+    ;
+
+number_expression
    : ('+' | '-')? term (('+' | '-') term)*
    ;
 
@@ -90,220 +99,103 @@ term
    ;
 
 factor
-   : ident
-   | number
-   | '(' expression ')'
-   ;
-
-ident
-   : STRING
-   ;
-
-number
    : NUMBER
+   | IDENT
+   | ('(' number_expression ')')
    ;
-
-
-WRITE
-   : W R I T E
-   ;
-
-
-WHILE
-   : W H I L E
-   ;
-
-
-DO
-   : D O
-   ;
-
-
-IF
-   : I F
-   ;
-
-
-THEN
-   : T H E N
-   ;
-
-
-ODD
-   : O D D
-   ;
-
-
-BEGIN
-   : B E G I N
-   ;
-
-
-END
-   : E N D
-   ;
-
 
 CALL
-   : C A L L
-   ;
-
-
-CONST
-   : C O N S T
-   ;
-
-
-VAR
-   : V A R
-   ;
-
+    : 'call'
+    ;
 
 PROCEDURE
-   : P R O C E D U R E
-   ;
+    : 'procedure'
+    ;
 
+VAR
+    : 'var'
+    ;
 
-fragment A
-   : ('a' | 'A')
-   ;
+THEN
+    : 'then'
+    ;
 
+BEGIN
+    : 'begin'
+    ;
 
-fragment B
-   : ('b' | 'B')
-   ;
+END
+    : 'end'
+    ;
 
+ELSE
+    : 'else'
+    ;
 
-fragment C
-   : ('c' | 'C')
-   ;
+WHILE
+    : 'while'
+    ;
 
+DO
+    : 'do'
+    ;
 
-fragment D
-   : ('d' | 'D')
-   ;
+FOR
+    : 'for'
+    ;
 
+TO
+    : 'to'
+    ;
 
-fragment E
-   : ('e' | 'E')
-   ;
+IF
+    : 'if'
+    ;
 
+READ
+    : 'read'
+    ;
 
-fragment F
-   : ('f' | 'F')
-   ;
+WRITE
+    : 'write'
+    ;
 
+CONST
+    : 'const'
+    ;
 
-fragment G
-   : ('g' | 'G')
-   ;
+TYPE
+    : ('int' | 'bool' | 'string')
+    ;
 
+IDENT
+    : LETTER (LETTER | NUMBER)*
+    ;
 
-fragment H
-   : ('h' | 'H')
-   ;
+VALUE
+    : (NUMBER | BOOLEAN | STRING_VALUE)
+    ;
 
+STRING_VALUE
+    : '"' (LETTER | NUMBER)* '"'
+    ;
 
-fragment I
-   : ('i' | 'I')
-   ;
+BOOLEAN
+    : ('true' | 'false')
+    ;
 
-
-fragment J
-   : ('j' | 'J')
-   ;
-
-
-fragment K
-   : ('k' | 'K')
-   ;
-
-
-fragment L
-   : ('l' | 'L')
-   ;
-
-
-fragment M
-   : ('m' | 'M')
-   ;
-
-
-fragment N
-   : ('n' | 'N')
-   ;
-
-
-fragment O
-   : ('o' | 'O')
-   ;
-
-
-fragment P
-   : ('p' | 'P')
-   ;
-
-
-fragment Q
-   : ('q' | 'Q')
-   ;
-
-
-fragment R
-   : ('r' | 'R')
-   ;
-
-
-fragment S
-   : ('s' | 'S')
-   ;
-
-
-fragment T
-   : ('t' | 'T')
-   ;
-
-
-fragment U
-   : ('u' | 'U')
-   ;
-
-
-fragment V
-   : ('v' | 'V')
-   ;
-
-
-fragment W
-   : ('w' | 'W')
-   ;
-
-
-fragment X
-   : ('x' | 'X')
-   ;
-
-
-fragment Y
-   : ('y' | 'Y')
-   ;
-
-
-fragment Z
-   : ('z' | 'Z')
-   ;
-
-
-STRING
-   : [a-zA-Z] [a-zA-Z]*
-   ;
-
+LETTER
+    : [a-zA-Z]
+    ;
 
 NUMBER
-   : [0-9] +
+    : [0-9]+
+    ;
+
+WS
+   : [ \t\r\n] -> channel(HIDDEN)
    ;
 
-
-//WS
-//   : [ \t\r\n] -> skip
-//   ;
+LINE_COMMENT
+    :   '//' ~[\r\n]* -> channel(HIDDEN)
+    ;
