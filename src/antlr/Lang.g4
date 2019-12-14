@@ -1,4 +1,4 @@
-grammar lang;
+grammar Lang;
 
 program
    : block '.'
