@@ -1,0 +1,2 @@
+const bool b := "true";
+const int a := 5;

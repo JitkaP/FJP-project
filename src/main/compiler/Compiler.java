@@ -2,6 +2,8 @@ package main.compiler;
 
 import antlr.gen.LangLexer;
 import antlr.gen.LangParser;
+import main.compiler.entity.Program;
+import main.compiler.visitor.ProgramVisitor;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -21,12 +23,13 @@ public class Compiler {
 
         LangLexer langLexer = new LangLexer(convertedInput);
         CommonTokenStream tokens = new CommonTokenStream(langLexer);
-
         LangParser langParser = new LangParser(tokens);
 
         langParser.setBuildParseTree(true);
 
-        ParseTree parseTree = langParser.block();
+        ParseTree parseTree = langParser.program();
+
+        Program program = new ProgramVisitor().visit(parseTree);
 
     }
 
