@@ -1,2 +1,4 @@
-const bool b := "true";
+const bool b := true;
 const int a := 5;
+;
+.

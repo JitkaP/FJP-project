@@ -168,12 +168,12 @@ TYPE
     : ('int' | 'bool' | 'string')
     ;
 
-IDENT
-    : LETTER (LETTER | NUMBER)*
-    ;
-
 VALUE
     : (NUMBER | BOOLEAN | STRING_VALUE)
+    ;
+
+IDENT
+    : LETTER (LETTER | NUMBER)*
     ;
 
 STRING_VALUE
