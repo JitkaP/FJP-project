@@ -5,7 +5,7 @@ program
    ;
 
 block
-   : (declaration)* (PROCEDURE IDENT ';' block ';')* statement
+   : (declaration)* (PROCEDURE ident ';' block ';')* statement
    ;
 
 declaration
@@ -13,15 +13,15 @@ declaration
     ;
 
 consts
-   : CONST TYPE IDENT ':=' VALUE ';'
+   : CONST TYPE ident ':=' value ';'
    ;
 
 constarrays
-    : CONST TYPE IDENT '[]' ':=' '{' VALUE (',' VALUE)* '}' ';'
+    : CONST TYPE ident '[]' ':=' '{' value (',' value)* '}' ';'
     ;
 
 vars
-   : VAR TYPE IDENT ( '[' NUMBER ']' )? ( ',' IDENT ( '[' NUMBER ']' )? )* ';'
+   : VAR TYPE ident ( '[' NUMBER ']' )? ( ',' ident ( '[' NUMBER ']' )? )* ';'
    ;
 
 statement
@@ -29,11 +29,11 @@ statement
    ;
 
 assignstmt
-   : IDENT ('[' NUMBER ']')? (':=' IDENT ('[' NUMBER ']')?)* ':=' expression
+   : ident ('[' NUMBER ']')? (':=' ident ('[' NUMBER ']')?)* ':=' expression
    ;
 
 callstmt
-   : CALL IDENT
+   : CALL ident
    ;
 
 beginstmt
@@ -53,11 +53,11 @@ dowhilestmt
     ;
 
 forstmt
-    : FOR IDENT ':=' number_expression TO number_expression DO statement
+    : FOR ident ':=' number_expression TO number_expression DO statement
     ;
 
 ternarstmt
-    : IDENT ':=' condition '?' expression ':' expression
+    : ident ':=' condition '?' expression ':' expression
     ;
 
 writestmt
@@ -65,7 +65,7 @@ writestmt
     ;
 
 readstmt
-    : READ '(' IDENT ')'
+    : READ '(' ident ')'
     ;
 
 condition
@@ -83,11 +83,11 @@ expression
     ;
 
 bool_expression
-    : ('!')? (BOOLEAN | IDENT) (('&&' | '||') bool_expression)*
+    : ('!')? (BOOLEAN | ident) (('&&' | '||') bool_expression)*
     ;
 
 string_expression
-    : (IDENT | STRING_VALUE) ('+' (IDENT | STRING_VALUE))*
+    : (ident | STRING_VALUE) ('+' (ident | STRING_VALUE))*
     ;
 
 number_expression
@@ -100,9 +100,17 @@ term
 
 factor
    : NUMBER
-   | IDENT
+   | ident
    | ('(' number_expression ')')
    ;
+
+ident
+    : LETTER (LETTER | NUMBER)*
+    ;
+
+value
+    : (NUMBER | BOOLEAN | STRING_VALUE)
+    ;
 
 CALL
     : 'call'
@@ -166,14 +174,6 @@ CONST
 
 TYPE
     : ('int' | 'bool' | 'string')
-    ;
-
-VALUE
-    : (NUMBER | BOOLEAN | STRING_VALUE)
-    ;
-
-IDENT
-    : LETTER (LETTER | NUMBER)*
     ;
 
 STRING_VALUE
