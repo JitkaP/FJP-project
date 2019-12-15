@@ -7,7 +7,12 @@ import main.compiler.visitor.ProgramVisitor;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
+
+import java.text.ParseException;
 
 //Singleton
 public class Compiler {
@@ -27,9 +32,16 @@ public class Compiler {
 
         langParser.setBuildParseTree(true);
 
-        ParseTree parseTree = langParser.program();
+        langParser.removeErrorListeners();
+        langParser.addErrorListener(ThrowingErrorListener.INSTANCE);
 
-        Program program = new ProgramVisitor().visit(parseTree);
+        try {
+            ParseTree parseTree = langParser.program();
+
+            Program program = new ProgramVisitor().visit(parseTree);
+        } catch (ParseCancellationException e) {
+            System.err.println(e.getMessage());
+        }
 
     }
 

@@ -25,7 +25,7 @@ vars
    ;
 
 statement
-   : (assignstmt | callstmt | beginstmt | ifstmt | whilestmt | dowhilestmt | forstmt | ternarstmt | writestmt | readstmt)? ';'
+   : (assignstmt | callstmt | beginstmt | ifstmt | whilestmt | dowhilestmt | forstmt | ternarstmt | writestmt | readstmt)?
    ;
 
 assignstmt
@@ -37,7 +37,7 @@ callstmt
    ;
 
 beginstmt
-   : BEGIN statement (statement)* END
+   : BEGIN statement (';' statement)* END
    ;
 
 ifstmt
