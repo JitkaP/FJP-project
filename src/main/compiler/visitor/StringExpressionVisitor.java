@@ -2,20 +2,25 @@ package main.compiler.visitor;
 
 import antlr.gen.LangBaseVisitor;
 import antlr.gen.LangParser;
-import main.compiler.entity.NumberExpression;
 import main.compiler.entity.StringExpression;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StringExpressionVisitor extends LangBaseVisitor<StringExpression> {
 
     @Override
     public StringExpression visitString_expression(LangParser.String_expressionContext ctx) {
-        //Block programBlock = new BlockVisitor().visit(ctx.block());
-        //return new Program(programBlock);
+        String result = "";
 
-        System.out.println("ctx.children = " + ctx.children.toString());
+        // todo -> v := "aaa" + s + "bbb" (with ident)
+        for (ParseTree child : ctx.children) { // example: ctx.children = ["aaa", +, "bbb", +, "ccc"]
+            String s = child.getText();
+            if (s.equals("+")) continue;
 
-        ctx.ident();
-        ctx.STRING_VALUE();
-        return null;
+            s = s.replace("\"", ""); // todo not replace if inside string
+            result += s;
+        }
+
+        System.out.println("result = " + result);
+        return new StringExpression(result);
     }
 }

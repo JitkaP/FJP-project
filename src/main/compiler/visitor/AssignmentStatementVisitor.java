@@ -2,10 +2,8 @@ package main.compiler.visitor;
 
 import antlr.gen.LangBaseVisitor;
 import antlr.gen.LangParser;
-import main.compiler.entity.Block;
-import main.compiler.entity.Program;
-import main.compiler.entity.Statement;
-import main.compiler.entity.Variable;
+import main.compiler.entity.*;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.List;
 
@@ -22,12 +20,19 @@ public class AssignmentStatementVisitor extends LangBaseVisitor<Variable> {
         String exp = ctx.expression().getText();
         System.out.println("exp = " + exp);
 
+        LangParser.ExpressionContext expression = ctx.expression();
+        if (expression.string_expression() != null) {
+            StringExpression stringExpression = new StringExpressionVisitor().visit(ctx.expression().string_expression());
+        } else if (expression.number_expression() != null) {
+            NumberExpression numberExpression = new NumberExpressionVisitor().visit(expression.number_expression());
+        } else if (expression.bool_expression() != null) {
+            BoolExpression boolExpression = new BoolExpressionVisitor().visit(expression.bool_expression());
+        }
+
         //VariableType type = VariableType.valueOf(ctx.consts().TYPE().getText().toUpperCase());
         //Value value = new Value(ctx.consts().value().getText());
+        // todo - to variable
 
         return null;
-
-        //Block programBlock = new BlockVisitor().visit(ctx.block());
-        //return new Program(programBlock);
     }
 }
