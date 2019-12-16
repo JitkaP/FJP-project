@@ -1,4 +1,4 @@
-// Generated from C:/workspace/KIV_FJP/src/antlr\Lang.g4 by ANTLR 4.7.2
+// Generated from C:/Users/Jitka/Desktop/1920-ZS/FJP/FJP-project/src/antlr\Lang.g4 by ANTLR 4.7.2
 package antlr.gen;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -28,6 +28,12 @@ public interface LangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDeclaration(LangParser.DeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LangParser#procedure}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProcedure(LangParser.ProcedureContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LangParser#consts}.
 	 * @param ctx the parse tree
@@ -154,4 +160,16 @@ public interface LangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFactor(LangParser.FactorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LangParser#ident}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdent(LangParser.IdentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LangParser#value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValue(LangParser.ValueContext ctx);
 }

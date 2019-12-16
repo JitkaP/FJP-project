@@ -1,24 +1,16 @@
 package main.compiler.entity;
 
-public class Variable {
+public class Variable extends Symbol {
 
-    private String name;
     private Value value;
     private boolean isConst;
+    private VariableType type;
 
-    public Variable(String name, Value value, boolean isConst)
+    public Variable(String name, VariableType type, boolean isConst)
     {
-        this.name = name;
-        this.value = value;
+        super.setName(name);
+        this.type = type;
         this.isConst = isConst;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Value getValue() {
@@ -35,5 +27,15 @@ public class Variable {
 
     public void setConst(boolean aConst) {
         isConst = aConst;
+    }
+
+    @Override
+    public String toString() {
+        return "Variable{" +
+                "name=" + getName() +
+                ", value=" + value +
+                ", type=" + type +
+                ", isConst=" + isConst +
+                '}';
     }
 }

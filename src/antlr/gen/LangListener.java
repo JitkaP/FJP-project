@@ -1,4 +1,4 @@
-// Generated from C:/workspace/KIV_FJP/src/antlr\Lang.g4 by ANTLR 4.7.2
+// Generated from C:/Users/Jitka/Desktop/1920-ZS/FJP/FJP-project/src/antlr\Lang.g4 by ANTLR 4.7.2
 package antlr.gen;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -37,6 +37,16 @@ public interface LangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDeclaration(LangParser.DeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LangParser#procedure}.
+	 * @param ctx the parse tree
+	 */
+	void enterProcedure(LangParser.ProcedureContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LangParser#procedure}.
+	 * @param ctx the parse tree
+	 */
+	void exitProcedure(LangParser.ProcedureContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LangParser#consts}.
 	 * @param ctx the parse tree
@@ -247,4 +257,24 @@ public interface LangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFactor(LangParser.FactorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LangParser#ident}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdent(LangParser.IdentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LangParser#ident}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdent(LangParser.IdentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LangParser#value}.
+	 * @param ctx the parse tree
+	 */
+	void enterValue(LangParser.ValueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LangParser#value}.
+	 * @param ctx the parse tree
+	 */
+	void exitValue(LangParser.ValueContext ctx);
 }

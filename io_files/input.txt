@@ -1,4 +1,11 @@
 const bool b := true;
 const int a := 5;
+var string v;
+
+procedure proc;
+const bool c := false;
+const int d := 111;
 ;
+
+v := aaa+bbb+ccc
 .

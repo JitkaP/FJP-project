@@ -19,4 +19,9 @@ public class Value {
     public boolean getBooleanValue() {
         return Boolean.parseBoolean(value.toString());
     }
+
+    @Override
+    public String toString() {
+        return getStringValue();
+    }
 }

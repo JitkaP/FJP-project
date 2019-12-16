@@ -5,12 +5,16 @@ program
    ;
 
 block
-   : (declaration)* (PROCEDURE ident ';' block ';')* statement
+   : (declaration)* (procedure)* statement
    ;
 
 declaration
     : (consts | constarrays | vars)
     ;
+
+procedure
+   : PROCEDURE ident ';' block ';'
+   ;
 
 consts
    : CONST TYPE ident ':=' value ';'

@@ -11,14 +11,31 @@ public class BlockVisitor extends LangBaseVisitor<Block> {
 
     @Override
     public Block visitBlock(LangParser.BlockContext ctx) {
+        for (LangParser.ProcedureContext procedureContext: ctx.procedure()) {
+            Procedure proc = new ProcedureVisitor().visit(procedureContext);
+        }
 
         List<Variable> variables = getVariables(ctx.declaration());
-        //List<Procedure> procedures = getProcedures();
+        List<Procedure> procedures = getProcedures(ctx.procedure());
         //List<Block> blocks = getBlocks();
         //Statement statement = getStatement();
 
-        //return new Block(variables, procedures, blocks, statement);
-        return null;
+        new AssignmentStatementVisitor().visit(ctx.statement());
+
+        return new Block(variables, procedures, null, null);
+        //return null;
+    }
+
+    private List<Procedure> getProcedures(List<LangParser.ProcedureContext> procedureContextList) {
+        List<Procedure> procedures = new ArrayList<>();
+
+        Procedure currentProcedure;
+        for (LangParser.ProcedureContext procedureContext: procedureContextList) {
+            currentProcedure = new ProcedureVisitor().visitProcedure(procedureContext);
+            procedures.add(currentProcedure);
+        }
+
+        return procedures;
     }
 
     private List<Variable> getVariables(List<LangParser.DeclarationContext> declarationContextList) {
