@@ -11,28 +11,40 @@ public class BlockVisitor extends LangBaseVisitor<Block> {
 
     @Override
     public Block visitBlock(LangParser.BlockContext ctx) {
-        for (LangParser.ProcedureContext procedureContext: ctx.procedure()) {
+        /*for (LangParser.ProcedureContext procedureContext: ctx.procedure()) {
             Procedure proc = new ProcedureVisitor().visit(procedureContext);
-        }
+        }*/ //podle me dat pryc..
 
         List<Variable> variables = getVariables(ctx.declaration());
         List<Procedure> procedures = getProcedures(ctx.procedure());
-        //List<Block> blocks = getBlocks();
-        //Statement statement = getStatement();
+        Statement statement = getStatement(ctx.statement());
 
-        new AssignmentStatementVisitor().visit(ctx.statement());
+        new AssignmentStatementVisitor().visit(ctx.statement()); //pak smazat
 
-        return new Block(variables, procedures, null, null);
-        //return null;
+        return new Block(variables, procedures, statement);
+    }
+
+    private Statement getStatement(LangParser.StatementContext statementContext) {
+        //Statement statement = new StatementVisitor().visit(statementContext); //nechat, jen aby to šlo spustit
+
+        //return statement; //nechat, jen aby to šlo spustit
+        return null;
     }
 
     private List<Procedure> getProcedures(List<LangParser.ProcedureContext> procedureContextList) {
         List<Procedure> procedures = new ArrayList<>();
-
         Procedure currentProcedure;
-        for (LangParser.ProcedureContext procedureContext: procedureContextList) {
-            currentProcedure = new ProcedureVisitor().visitProcedure(procedureContext);
-            procedures.add(currentProcedure);
+
+        for (LangParser.ProcedureContext procedureContext : procedureContextList) {
+            currentProcedure = new ProcedureVisitor().visit(procedureContext);
+
+            if (!containsProcedure(procedures, currentProcedure)) {
+                procedures.add(currentProcedure);
+            }
+            else {
+                //vyhodit vyjimku
+            }
+
         }
 
         return procedures;
@@ -59,6 +71,15 @@ public class BlockVisitor extends LangBaseVisitor<Block> {
     private boolean containsVariable(List<Variable> variables, Variable variable) {
         for (Variable currentVariable : variables) {
             if (currentVariable.getName().equals(variable.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean containsProcedure(List<Procedure> procedures, Procedure procedure) {
+        for (Procedure currentProcedure : procedures) {
+            if (currentProcedure.getName().equals(procedure.getName())) {
                 return true;
             }
         }

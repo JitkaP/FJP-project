@@ -7,14 +7,12 @@ public class Block {
 
     private List<Variable> variables;
     private List<Procedure> procedures;
-    //private List<Block> blocks;
     private Statement statement;
     private HashMap<String, Symbol> symbolTable = new HashMap<>();
 
-    public Block(List<Variable> variables, List<Procedure> procedures, List<Block> blocks, Statement statement) {
+    public Block(List<Variable> variables, List<Procedure> procedures, Statement statement) {
         this.variables = variables;
         this.procedures = procedures;
-        //this.blocks = blocks;
         this.statement = statement;
         addToHashMap(variables, procedures);
     }
@@ -40,10 +38,6 @@ public class Block {
     public List<Procedure> getProcedures() {
         return procedures;
     }
-
-    /*public List<Block> getBlocks() {
-        return blocks;
-    }*/
 
     public Statement getStatement() {
         return statement;
