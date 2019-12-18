@@ -8,7 +8,8 @@ public class ReadStatementVisitor extends LangBaseVisitor<ReadStatement> {
 
     @Override
     public ReadStatement visitReadstmt(LangParser.ReadstmtContext ctx) {
-        return new ReadStatement(); // prozatim, aby slo prelozit
+        String name = ctx.ident().getText();
+        return new ReadStatement(name);
     }
 
 }

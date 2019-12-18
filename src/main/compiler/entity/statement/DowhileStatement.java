@@ -1,4 +1,14 @@
 package main.compiler.entity.statement;
 
+import main.compiler.entity.Condition;
+
 public class DowhileStatement extends Statement {
+
+    private Condition condition;
+    private Statement statement;
+
+    public DowhileStatement(Condition condition, Statement statement) {
+        this.condition = condition;
+        this.statement = statement;
+    }
 }

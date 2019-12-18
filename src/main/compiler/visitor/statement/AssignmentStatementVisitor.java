@@ -2,24 +2,34 @@ package main.compiler.visitor.statement;
 
 import antlr.gen.LangBaseVisitor;
 import antlr.gen.LangParser;
+import main.compiler.entity.Variable;
 import main.compiler.entity.expression.Expression;
+import main.compiler.entity.statement.AssignmentStatement;
 import main.compiler.visitor.expression.ExpressionVisitor;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AssignmentStatementVisitor extends LangBaseVisitor<Expression> {
+public class AssignmentStatementVisitor extends LangBaseVisitor<AssignmentStatement> {
 
     @Override
-    public Expression visitAssignstmt(LangParser.AssignstmtContext ctx) {
+    public AssignmentStatement visitAssignstmt(LangParser.AssignstmtContext ctx) {
+        List<Variable> variables = new ArrayList<>();
+
+        String exp = ctx.expression().getText();
+        //System.out.println("exp = " + exp);
+
         List<LangParser.IdentContext> names = ctx.ident();
         for (LangParser.IdentContext identContext: names) {
             String name = identContext.getText();
-            System.out.println("name = " + name);
+            //System.out.println("name = " + name);
+
+            // type je null, zde jen prirazujeme, v tabulce symbolu by ovsem tato promenna uz mela byt
+            Variable variable = new Variable(name, exp, null, false);
+
+            variables.add(variable);
         }
 
-        String exp = ctx.expression().getText();
-        System.out.println("exp = " + exp);
-
-        return new ExpressionVisitor().visit(ctx.expression()); //tady se musi vracet AssignmentStatement.. jinak to nebude fungovat
+        return new AssignmentStatement(variables);
     }
 }

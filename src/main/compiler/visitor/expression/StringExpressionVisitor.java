@@ -20,7 +20,7 @@ public class StringExpressionVisitor extends LangBaseVisitor<StringExpression> {
             result += s;
         }
 
-        System.out.println("result = " + result);
+        //System.out.println("result = " + result);
         return new StringExpression(result);
     }
 }

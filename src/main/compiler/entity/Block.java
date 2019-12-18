@@ -10,6 +10,7 @@ public class Block {
     private List<Variable> variables;
     private List<Procedure> procedures;
     private Statement statement;
+
     private HashMap<String, Symbol> symbolTable = new HashMap<>();
 
     public Block(List<Variable> variables, List<Procedure> procedures, Statement statement) {

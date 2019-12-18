@@ -1,10 +1,18 @@
-package main.compiler.entity;
+package main.compiler.entity.value;
 
-public class Value {
+public abstract class Value {
 
     private Object value;
 
-    public Value(Object value) {
+    public Object getValue() {
+        return value;
+    }
+
+    protected void setValue(Object value) {
+        this.value = value;
+    }
+
+    /*public Value(Object value) {
         this.value = value;
     }
 
@@ -18,10 +26,12 @@ public class Value {
 
     public boolean getBooleanValue() {
         return Boolean.parseBoolean(value.toString());
-    }
+    } */
 
     @Override
     public String toString() {
-        return getStringValue();
+        if (value == null) return ""; // asi jen docasne?
+
+        return value.toString();
     }
 }

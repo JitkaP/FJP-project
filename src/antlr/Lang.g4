@@ -75,8 +75,8 @@ readstmt
 condition
    : '('
         (
-        (number_expression ( '<' | '<=' | '>' | '>=' ) number_expression)
-        | (expression ( '=' | '!=' ) expression)
+        (number_expression ( LESS | LESS_EQ | GREATER | GREATER_EQ ) number_expression)
+        | (expression ( EQ | NOT_EQ ) expression)
         | (bool_expression)
         )
      ')'
@@ -87,19 +87,19 @@ expression
     ;
 
 bool_expression
-    : ('!')? (BOOLEAN | ident) (('&&' | '||') ('!')? (BOOLEAN | ident))*
+    : (NEG)? (BOOLEAN | ident) ((AND | OR) (NEG)? (BOOLEAN | ident))*
     ;
 
 string_expression
-    : (ident | STRING_VALUE) ('+' (ident | STRING_VALUE))*
+    : (ident | STRING_VALUE) (PLUS (ident | STRING_VALUE))*
     ;
 
 number_expression
-   : ('+' | '-')? term (('+' | '-') term)*
+   : (PLUS | MINUS)? term ((PLUS | MINUS) term)*
    ;
 
 term
-   : factor (('*' | '/') factor)*
+   : factor ((MUL | DIV) factor)*
    ;
 
 factor
@@ -194,6 +194,58 @@ LETTER
 
 NUMBER
     : [0-9]+
+    ;
+
+LESS
+    : '<'
+    ;
+
+LESS_EQ
+    : '<='
+    ;
+
+GREATER
+    : '>'
+    ;
+
+GREATER_EQ
+    : '>='
+    ;
+
+EQ
+    : '='
+    ;
+
+NOT_EQ
+    : '!='
+    ;
+
+NEG
+    : '!'
+    ;
+
+AND
+    : '&&'
+    ;
+
+OR
+    : '||'
+    ;
+
+MUL
+    : '*'
+    ;
+
+DIV
+    : ':'
+    ;
+
+PLUS
+    : '+'
+    ;
+
+MINUS
+    : '-'
     ;
 
 WS

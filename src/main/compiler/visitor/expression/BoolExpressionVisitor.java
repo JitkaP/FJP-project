@@ -16,7 +16,7 @@ public class BoolExpressionVisitor extends LangBaseVisitor<BoolExpression> {
         }
 
 
-        System.out.println("result = " + result);
+        //System.out.println("result = " + result);
         return new BoolExpression(result);
     }
 }

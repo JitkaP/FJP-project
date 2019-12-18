@@ -8,7 +8,8 @@ public class CallStatementVisitor extends LangBaseVisitor<CallStatement> {
 
     @Override
     public CallStatement visitCallstmt(LangParser.CallstmtContext ctx) {
-        return new CallStatement(); // prozatim, aby slo prelozit
+        String name = ctx.ident().getText();
+        return new CallStatement(name);
     }
 
 }
