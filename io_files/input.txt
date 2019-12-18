@@ -1,12 +1,16 @@
 const bool b := true;
 const int a := 5;
 const string s := "nejakyretezec";
-var string v;
+var string v, boov1, boov2;
 
 procedure proc;
 const bool c := false;
 const int d := 111;
 ;
 
-v := "aaa" + "bbb" + "ccc"
+begin
+v := "aaa" + "bbb" + "ccc";
+boov1 := false || true;
+boov2 := false && !true;
+end
 .

@@ -1,6 +1,6 @@
-package main.compiler.entity;
+package main.compiler.entity.expression;
 
-public class StringExpression {
+public class StringExpression extends Expression {
 
     private String string;
 

@@ -1,8 +1,8 @@
-package main.compiler.visitor;
+package main.compiler.visitor.expression;
 
 import antlr.gen.LangBaseVisitor;
 import antlr.gen.LangParser;
-import main.compiler.entity.NumberExpression;
+import main.compiler.entity.expression.NumberExpression;
 
 public class NumberExpressionVisitor extends LangBaseVisitor<NumberExpression> {
 

@@ -1,8 +1,8 @@
-package main.compiler.visitor;
+package main.compiler.visitor.expression;
 
 import antlr.gen.LangBaseVisitor;
 import antlr.gen.LangParser;
-import main.compiler.entity.StringExpression;
+import main.compiler.entity.expression.StringExpression;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class StringExpressionVisitor extends LangBaseVisitor<StringExpression> {

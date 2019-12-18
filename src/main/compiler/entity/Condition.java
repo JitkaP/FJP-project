@@ -1,4 +1,4 @@
 package main.compiler.entity;
 
-public class BoolExpression {
+public class Condition {
 }

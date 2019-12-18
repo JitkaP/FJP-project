@@ -87,7 +87,7 @@ expression
     ;
 
 bool_expression
-    : ('!')? (BOOLEAN | ident) (('&&' | '||') bool_expression)*
+    : ('!')? (BOOLEAN | ident) (('&&' | '||') ('!')? (BOOLEAN | ident))*
     ;
 
 string_expression
