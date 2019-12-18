@@ -4,8 +4,7 @@ import antlr.gen.LangBaseVisitor;
 import antlr.gen.LangParser;
 import main.compiler.entity.Value;
 import main.compiler.entity.Variable;
-import main.compiler.entity.VariableType;
-import org.antlr.v4.runtime.tree.TerminalNode;
+import main.compiler.enums.EVariableType;
 
 public class DeclarationVisitor extends LangBaseVisitor<Variable> {
 
@@ -21,7 +20,7 @@ public class DeclarationVisitor extends LangBaseVisitor<Variable> {
         // consts
         if (ctx.consts() != null && !ctx.consts().isEmpty()) {
             String name = ctx.consts().ident().getText();
-            VariableType type = VariableType.valueOf(ctx.consts().TYPE().getText().toUpperCase());
+            EVariableType type = EVariableType.valueOf(ctx.consts().TYPE().getText().toUpperCase());
             Value value = new Value(ctx.consts().value().getText());
 
             variable = new Variable(name, type,true);
@@ -37,7 +36,7 @@ public class DeclarationVisitor extends LangBaseVisitor<Variable> {
         } else if (ctx.vars() != null && !ctx.vars().isEmpty()) {
             for (LangParser.IdentContext identContext : ctx.vars().ident()) {
                 String name = identContext.getText();
-                VariableType type = VariableType.valueOf(ctx.vars().TYPE().getText().toUpperCase());
+                EVariableType type = EVariableType.valueOf(ctx.vars().TYPE().getText().toUpperCase());
                 variable = new Variable(name, type,false);
             }
         }

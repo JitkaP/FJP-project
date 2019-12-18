@@ -3,6 +3,8 @@ package main.compiler.visitor;
 import antlr.gen.LangBaseVisitor;
 import antlr.gen.LangParser;
 import main.compiler.entity.*;
+import main.compiler.entity.statement.Statement;
+import main.compiler.visitor.statement.StatementVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,24 +13,18 @@ public class BlockVisitor extends LangBaseVisitor<Block> {
 
     @Override
     public Block visitBlock(LangParser.BlockContext ctx) {
-        /*for (LangParser.ProcedureContext procedureContext: ctx.procedure()) {
-            Procedure proc = new ProcedureVisitor().visit(procedureContext);
-        }*/ //podle me dat pryc..
 
         List<Variable> variables = getVariables(ctx.declaration());
         List<Procedure> procedures = getProcedures(ctx.procedure());
         Statement statement = getStatement(ctx.statement());
 
-        new AssignmentStatementVisitor().visit(ctx.statement()); //pak smazat
-
         return new Block(variables, procedures, statement);
     }
 
     private Statement getStatement(LangParser.StatementContext statementContext) {
-        //Statement statement = new StatementVisitor().visit(statementContext); //nechat, jen aby to šlo spustit
+        Statement statement = new StatementVisitor().visit(statementContext);
 
-        //return statement; //nechat, jen aby to šlo spustit
-        return null;
+        return statement;
     }
 
     private List<Procedure> getProcedures(List<LangParser.ProcedureContext> procedureContextList) {

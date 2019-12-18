@@ -1,12 +1,14 @@
 package main.compiler.entity;
 
+import main.compiler.enums.EVariableType;
+
 public class Variable extends Symbol {
 
     private Value value;
     private boolean isConst;
-    private VariableType type;
+    private EVariableType type;
 
-    public Variable(String name, VariableType type, boolean isConst)
+    public Variable(String name, EVariableType type, boolean isConst)
     {
         super.setName(name);
         this.type = type;

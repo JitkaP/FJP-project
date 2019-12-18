@@ -1,5 +1,7 @@
 package main.compiler.entity;
 
+import main.compiler.entity.statement.Statement;
+
 import java.util.HashMap;
 import java.util.List;
 
