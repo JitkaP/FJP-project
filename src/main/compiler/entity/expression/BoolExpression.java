@@ -1,10 +1,12 @@
 package main.compiler.entity.expression;
 
+import java.util.List;
+
 public class BoolExpression extends Expression {
 
-    private String string;
+    private List<Object> tokens; // !, &&, ||, ident, bool_value
 
-    public BoolExpression(String string) {
-        this.string = string;
+    public BoolExpression(List<Object> tokens) {
+        this.tokens = tokens;
     }
 }

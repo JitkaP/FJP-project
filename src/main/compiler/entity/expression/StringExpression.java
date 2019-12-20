@@ -1,11 +1,15 @@
 package main.compiler.entity.expression;
 
+import main.compiler.entity.value.Value;
+
+import java.util.List;
+
 public class StringExpression extends Expression {
 
-    private String string;
+    private List<Value> values; // idents and string_values, only need to concatenate
 
-    public StringExpression(String string) {
-        this.string = string;
+    public StringExpression(List<Value> values) {
+        this.values = values;
     }
 
 }

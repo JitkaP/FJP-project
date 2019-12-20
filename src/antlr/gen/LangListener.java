@@ -258,6 +258,16 @@ public interface LangListener extends ParseTreeListener {
 	 */
 	void exitFactor(LangParser.FactorContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link LangParser#ident_arr}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdent_arr(LangParser.Ident_arrContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LangParser#ident_arr}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdent_arr(LangParser.Ident_arrContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link LangParser#ident}.
 	 * @param ctx the parse tree
 	 */

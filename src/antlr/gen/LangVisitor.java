@@ -161,6 +161,12 @@ public interface LangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFactor(LangParser.FactorContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link LangParser#ident_arr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdent_arr(LangParser.Ident_arrContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link LangParser#ident}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

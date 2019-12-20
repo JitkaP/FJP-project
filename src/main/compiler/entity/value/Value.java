@@ -2,6 +2,7 @@ package main.compiler.entity.value;
 
 public abstract class Value {
 
+    private int length;
     private Object value;
 
     public Object getValue() {
@@ -12,21 +13,13 @@ public abstract class Value {
         this.value = value;
     }
 
-    /*public Value(Object value) {
-        this.value = value;
+    public int getLength() {
+        return length;
     }
 
-    public int getIntValue() {
-        return Integer.parseInt(value.toString());
+    public void setLength(int length) {
+        this.length = length;
     }
-
-    public String getStringValue() {
-        return (String)value;
-    }
-
-    public boolean getBooleanValue() {
-        return Boolean.parseBoolean(value.toString());
-    } */
 
     @Override
     public String toString() {

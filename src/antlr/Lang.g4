@@ -25,7 +25,7 @@ constarrays
     ;
 
 vars
-   : VAR TYPE ident ( '[' NUMBER ']' )? ( ',' ident ( '[' NUMBER ']' )? )* ';'
+   : VAR TYPE (ident | ident_arr ) ( ',' (ident | ident_arr))* ';'
    ;
 
 statement
@@ -33,7 +33,7 @@ statement
    ;
 
 assignstmt
-   : ident ('[' NUMBER ']')? (':=' ident ('[' NUMBER ']')?)* ':=' expression
+   : (ident | ident_arr) (':=' (ident | ident_arr))* ':=' expression
    ;
 
 callstmt
@@ -107,6 +107,10 @@ factor
    | ident
    | ('(' number_expression ')')
    ;
+
+ident_arr
+    : ident '[' NUMBER ']'
+    ;
 
 ident
     : LETTER (LETTER | NUMBER)*
@@ -237,7 +241,7 @@ MUL
     ;
 
 DIV
-    : ':'
+    : '/'
     ;
 
 PLUS

@@ -3,24 +3,34 @@ package main.compiler.visitor.expression;
 import antlr.gen.LangBaseVisitor;
 import antlr.gen.LangParser;
 import main.compiler.entity.expression.StringExpression;
+import main.compiler.entity.value.IdentValue;
+import main.compiler.entity.value.StringValue;
+import main.compiler.entity.value.Value;
 import org.antlr.v4.runtime.tree.ParseTree;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StringExpressionVisitor extends LangBaseVisitor<StringExpression> {
 
     @Override
     public StringExpression visitString_expression(LangParser.String_expressionContext ctx) {
-        String result = "";
+        List<Value> values = new ArrayList<>();
 
-        // todo -> v := "aaa" + s + "bbb" (with ident)
-        for (ParseTree child : ctx.children) { // example: ctx.children = ["aaa", +, "bbb", +, "ccc"]
+        for (ParseTree child : ctx.children) {
             String s = child.getText();
-            if (s.equals("+")) continue;
+            if (s.equals("+")) continue; // no need to store this char
 
-            s = s.replace("\"", ""); // todo not replace if inside string
-            result += s;
+            Value value;
+            if (s.startsWith("\"")) {
+                value = new StringValue(s);
+            } else {
+                value = new IdentValue(s);
+            }
+
+            values.add(value);
         }
 
-        //System.out.println("result = " + result);
-        return new StringExpression(result);
+        return new StringExpression(values);
     }
 }
