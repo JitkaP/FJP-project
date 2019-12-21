@@ -12,5 +12,11 @@ begin
 v := "aaa" + "bbb" + "ccc";
 boov1 := false || true;
 boov2 := false && !true;
+
+    if (v = "asdasd") then
+    begin
+
+    end
+
 end
 .

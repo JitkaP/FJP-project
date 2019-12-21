@@ -14,22 +14,24 @@ import main.compiler.visitor.expression.NumberExpressionVisitor;
 
 public class ConditionVisitor extends LangBaseVisitor<Condition> {
 
+    public static final byte operatorIndex = 2;
+
     @Override
     public Condition visitCondition(LangParser.ConditionContext ctx) {
 
-        if (ctx.number_expression() != null) {
+        if (ctx.number_expression().size() != 0) {
             NumberExpression letfNumberExpression = new NumberExpressionVisitor().visit(ctx.number_expression(0));
             NumberExpression rightNumberExpression = new NumberExpressionVisitor().visit(ctx.number_expression(1));
 
-            EConditionOperator operator = EConditionOperator.getSymbol(ctx.children.get(1).getText());
+            EConditionOperator operator = EConditionOperator.getSymbol(ctx.children.get(operatorIndex).getText());
 
             return new Condition(letfNumberExpression, rightNumberExpression, operator, EConditionType.NUMBER);
         }
-        else if (ctx.expression() != null) {
+        else if (ctx.expression().size() != 0) {
             Expression leftExpression = new ExpressionVisitor().visit(ctx.expression(0));
             Expression rightExpression = new ExpressionVisitor().visit(ctx.expression(1));
 
-            EConditionOperator operator = EConditionOperator.getSymbol(ctx.children.get(1).getText());
+            EConditionOperator operator = EConditionOperator.getSymbol(ctx.children.get(operatorIndex).getText());
 
             return new Condition(leftExpression, rightExpression, operator, EConditionType.GENERAL);
         }
