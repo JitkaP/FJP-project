@@ -8,11 +8,11 @@ import main.compiler.enums.EVariableType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeclarationVisitor extends LangBaseVisitor<Variable> {
+public class DeclarationVisitor extends LangBaseVisitor<List<Variable>> {
 
     @Override
-    public Variable visitDeclaration(LangParser.DeclarationContext ctx) {
-        Variable variable = null;
+    public List<Variable> visitDeclaration(LangParser.DeclarationContext ctx) {
+        List<Variable> variables = new ArrayList<>();
 
         // consts
         if (ctx.consts() != null && !ctx.consts().isEmpty()) {
@@ -20,7 +20,8 @@ public class DeclarationVisitor extends LangBaseVisitor<Variable> {
             EVariableType type = EVariableType.valueOf(ctx.consts().TYPE().getText().toUpperCase());
             String valueString = ctx.consts().value().getText();
 
-            variable = new Variable(name, valueString, type,true);
+            Variable variable = new Variable(name, valueString, type,true);
+            variables.add(variable);
 
         // constarrays
         } else if (ctx.constarrays() != null && !ctx.constarrays().isEmpty()) {
@@ -34,7 +35,8 @@ public class DeclarationVisitor extends LangBaseVisitor<Variable> {
                 newValues.add(s);
             }
 
-            variable =  new Variable(name, newValues, type,true);
+            Variable variable =  new Variable(name, newValues, type,true);
+            variables.add(variable);
 
         // vars
         } else if (ctx.vars() != null && !ctx.vars().isEmpty()) {
@@ -42,17 +44,27 @@ public class DeclarationVisitor extends LangBaseVisitor<Variable> {
 
             for (LangParser.IdentContext identContext : ctx.vars().ident()) {
                 String name = identContext.getText();
-                variable = new Variable(name, "", type,false);
+                Variable variable = new Variable(name, "", type,false);
+                variables.add(variable);
             }
 
             for (LangParser.Ident_arrContext ident_arrContext : ctx.vars().ident_arr()) {
-                String name = ident_arrContext.ident().getText();
-                int length = Integer.parseInt(ident_arrContext.NUMBER().getText());
-                variable = new Variable(name, length, type,false);
+                String name = ident_arrContext.ident(0).getText();
+
+                Variable variable;
+                if (ident_arrContext.NUMBER() != null) {
+                    int length = Integer.parseInt(ident_arrContext.NUMBER().getText());
+                    variable = new Variable(name, length, type,false);
+                } else {
+                    String lengthName = ident_arrContext.ident(1).getText();
+                    variable = new Variable(name, lengthName, type,false);
+                }
+
+                variables.add(variable);
             }
         }
 
-        return variable;
+        return variables;
     }
 
 }

@@ -31,7 +31,17 @@ public class BoolExpressionVisitor extends LangBaseVisitor<BoolExpression> {
                 token = EBoolOp.OR;
             } else if (tree instanceof LangParser.IdentContext) {
                 token = new IdentValue(tree.getText());
-            } else { //if (tree instanceof TerminalNode) { // should be BOOLEAN
+            } else if (tree instanceof LangParser.Ident_arrContext) {
+                LangParser.Ident_arrContext arr_ctx = (LangParser.Ident_arrContext) tree;
+                String name = arr_ctx.ident(0).getText();
+                if (arr_ctx.NUMBER() != null) {
+                    int index = Integer.parseInt(arr_ctx.NUMBER().getText());
+                    token = new IdentValue(name, index);
+                } else {
+                    String indexName = arr_ctx.ident(1).getText();
+                    token = new IdentValue(name, indexName);
+                }
+            }else { //if (tree instanceof TerminalNode) { // should be BOOLEAN
                 token = new BoolValue(Boolean.parseBoolean(tree.getText()));
             }
 

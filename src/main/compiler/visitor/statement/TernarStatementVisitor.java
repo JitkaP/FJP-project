@@ -12,12 +12,24 @@ public class TernarStatementVisitor extends LangBaseVisitor<TernarStatement> {
 
     @Override
     public TernarStatement visitTernarstmt(LangParser.TernarstmtContext ctx) {
-        String name = ctx.ident().getText();
         Condition condition = new ConditionVisitor().visit(ctx.condition());
         Expression leftExpression = new ExpressionVisitor().visit(ctx.expression(0));
         Expression rightExpression = new ExpressionVisitor().visit(ctx.expression(1));
+        String name;
 
-        return new TernarStatement(name, condition, leftExpression, rightExpression);
+        if (ctx.ident() != null) {
+            name = ctx.ident().getText();
+            return new TernarStatement(name, condition, leftExpression, rightExpression);
+        } else {
+            name = ctx.ident_arr().ident(0).getText();
+            if (ctx.ident_arr().NUMBER() != null) {
+                int index = Integer.parseInt(ctx.ident_arr().NUMBER().getText());
+                return new TernarStatement(name, index, condition, leftExpression, rightExpression);
+            } else {
+                String indexName = ctx.ident_arr().ident(1).getText();
+                return new TernarStatement(name, indexName, condition, leftExpression, rightExpression);
+            }
+        }
     }
 
 }

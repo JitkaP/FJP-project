@@ -61,7 +61,7 @@ forstmt
     ;
 
 ternarstmt
-    : ident ':=' condition '?' expression ':' expression
+    : (ident | ident_arr) ':=' condition '?' expression ':' expression
     ;
 
 writestmt
@@ -69,7 +69,7 @@ writestmt
     ;
 
 readstmt
-    : READ '(' ident ')'
+    : READ '(' (ident | ident_arr) ')'
     ;
 
 condition
@@ -87,7 +87,7 @@ expression
     ;
 
 bool_expression
-    : (NEG)? (BOOLEAN | ident) ((AND | OR) (NEG)? (BOOLEAN | ident))*
+    : (NEG)? (BOOLEAN | (ident | ident_arr)) ((AND | OR) (NEG)? (BOOLEAN | (ident | ident_arr)))*
     ;
 
 string_expression
@@ -105,11 +105,12 @@ term
 factor
    : NUMBER
    | ident
+   | ident_arr
    | ('(' number_expression ')')
    ;
 
 ident_arr
-    : ident '[' NUMBER ']'
+    : ident '[' (NUMBER | ident) ']'
     ;
 
 ident

@@ -17,6 +17,17 @@ public class FactorVisitor extends LangBaseVisitor<Factor> {
         if (ctx.ident() != null) {
             Value value = new IdentValue(ctx.ident().getText());
             return new Factor(value);
+        } else if (ctx.ident_arr() != null) {
+            String name = ctx.ident_arr().ident(0).getText();
+            if (ctx.ident_arr().NUMBER() != null) {
+                int index = Integer.parseInt(ctx.ident_arr().NUMBER().getText());
+                Value value = new IdentValue(name, index);
+                return new Factor(value);
+            } else {
+                String indexName = ctx.ident_arr().ident(1).getText();
+                Value value = new IdentValue(name, indexName);
+                return new Factor(value);
+            }
         } else if (ctx.NUMBER() != null) {
             Value value = new IntValue(Integer.parseInt(ctx.NUMBER().getText()));
             return new Factor(value);

@@ -15,28 +15,33 @@ public class AssignmentStatementVisitor extends LangBaseVisitor<AssignmentStatem
     @Override
     public AssignmentStatement visitAssignstmt(LangParser.AssignstmtContext ctx) {
         List<Variable> variables = new ArrayList<>();
-        String exp = ctx.expression().getText();
+        Expression exp = new ExpressionVisitor().visit(ctx.expression());
 
         List<LangParser.IdentContext> names = ctx.ident();
         for (LangParser.IdentContext identContext: names) {
             String name = identContext.getText();
 
-            // type je null, zde jen prirazujeme, v tabulce symbolu by ovsem tato promenna uz mela byt
-            Variable variable = new Variable(name, exp, null, false); // todo asi spis predelat, je divne prirazovat skrze konstruktor
-
+            Variable variable = new Variable(name, exp, null, false);
             variables.add(variable);
         }
 
         for (LangParser.Ident_arrContext ident_arrContext : ctx.ident_arr()) {
-            String name = ident_arrContext.ident().getText();
-            int index = Integer.parseInt(ident_arrContext.NUMBER().getText());
-            //variable = new Variable(name, length, type,false);
+            String name = ident_arrContext.ident(0).getText();
 
-            // todo - prirazeni, zde tedy mame nazev promenne a pripadne index a pak expression, ktery chceme priradit
-            // todo - je to slozitejsi, nebot muzeme napriklad priradit jedno pole druhemu, co pak?
-            // todo PROMYSLET
+            Variable variable;
+            if (ident_arrContext.NUMBER() != null) {
+                int index = Integer.parseInt(ident_arrContext.NUMBER().getText());
+                variable = new Variable(name, exp, index, null, false);
+            } else {
+                String indexName = ident_arrContext.ident(0).getText();
+                variable = new Variable(name, exp, indexName, null, false);
+            }
+
+            variables.add(variable);
         }
 
+        // vsechny promenne maji type = null, zde jen prirazujeme (a nevime ani, do ceho),
+        // ale v tabulce symbolu by ovsem tato promenna uz mela byt (vcetne toho typu)
         return new AssignmentStatement(variables);
     }
 }

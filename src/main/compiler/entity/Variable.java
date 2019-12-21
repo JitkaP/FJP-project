@@ -1,5 +1,6 @@
 package main.compiler.entity;
 
+import main.compiler.entity.expression.Expression;
 import main.compiler.entity.value.*;
 import main.compiler.enums.EVariableType;
 
@@ -7,9 +8,17 @@ import java.util.List;
 
 public class Variable extends Symbol {
 
-    private Value value;
+    // assignment - either value or expression is set (other is null)
+    private Value value = null;
+    private Expression expression = null;
+
     private boolean isConst;
     private EVariableType type;
+
+    private int length;
+    private String lengthName;
+    private int index;
+    private String indexName;
 
     private Variable(String name, EVariableType type, boolean isConst)
     {
@@ -21,19 +30,47 @@ public class Variable extends Symbol {
     public Variable(String name, int length, EVariableType type, boolean isConst)
     {
         this(name, type, isConst);
-        setValue(length);
+        setValueWithLength(length);
+        this.length = length;
     }
 
-    public Variable(String name, String valueString, EVariableType type, boolean isConst)
+    public Variable(String name, String lengthName, EVariableType type, boolean isConst)
+    {
+        this(name, type, isConst);
+        this.lengthName = lengthName;
+        //setValue(length);
+    }
+
+    /*public Variable(String name, String valueString, EVariableType type, boolean isConst)
     {
         this(name, type, isConst);
         setValue(valueString);
-    }
+    }/*/
 
     public Variable(String name, List<Object> values, EVariableType type, boolean isConst)
     {
         this(name, type, isConst);
         setValue(values);
+    }
+
+    public Variable(String name, Expression expression, EVariableType type, boolean isConst)
+    {
+        this(name, type, isConst);
+        this.expression = expression;
+    }
+
+    public Variable(String name, Expression expression, int index, EVariableType type, boolean isConst)
+    {
+        this(name, expression, type, isConst);
+        //this.value.setIndex(index);
+        this.index = index;
+    }
+
+    public Variable(String name, Expression expression, String indexName, EVariableType type, boolean isConst)
+    {
+        this(name, expression, type, isConst);
+        //this.value.setIndex(index);
+        this.indexName = indexName;
     }
 
     public Value getValue() {
@@ -60,7 +97,7 @@ public class Variable extends Symbol {
         }
     }
 
-    public void setValue(int length) {
+    public void setValueWithLength(int length) {
         if (this.type == null) return; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
 
         switch (this.type) {

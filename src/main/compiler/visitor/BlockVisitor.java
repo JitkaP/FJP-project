@@ -48,16 +48,17 @@ public class BlockVisitor extends LangBaseVisitor<Block> {
 
     private List<Variable> getVariables(List<LangParser.DeclarationContext> declarationContextList) {
         List<Variable> variables = new ArrayList<>();
-        Variable currentVariable;
+        List<Variable> currentVariables;
 
         for (LangParser.DeclarationContext declarationContext : declarationContextList) {
-            currentVariable = new DeclarationVisitor().visit(declarationContext);
+            currentVariables = new DeclarationVisitor().visit(declarationContext);
 
-            if (!containsVariable(variables, currentVariable)) {
-                variables.add(currentVariable);
-            }
-            else {
-                // vyhodit vyjimku
+            for (Variable currentVariable: currentVariables) {
+                if (!containsVariable(variables, currentVariable)) {
+                    variables.add(currentVariable);
+                } else {
+                    // vyhodit vyjimku
+                }
             }
         }
 
