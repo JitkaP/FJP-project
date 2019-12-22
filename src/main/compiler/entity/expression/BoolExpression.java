@@ -9,4 +9,8 @@ public class BoolExpression extends Expression {
     public BoolExpression(List<Object> tokens) {
         this.tokens = tokens;
     }
+
+    public List<Object> getTokens() {
+        return tokens;
+    }
 }

@@ -10,4 +10,7 @@ public class Term {
         this.tokens = tokens;
     }
 
+    public List<Object> getTokens() {
+        return tokens;
+    }
 }

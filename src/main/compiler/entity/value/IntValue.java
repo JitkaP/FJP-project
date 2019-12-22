@@ -9,4 +9,7 @@ public class IntValue extends Value {
         setValue(integer);
     }
 
+    public int getInteger() {
+        return integer;
+    }
 }

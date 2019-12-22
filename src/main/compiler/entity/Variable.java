@@ -17,8 +17,6 @@ public class Variable extends Symbol {
 
     private int length;
     private String lengthName;
-    private int index;
-    private String indexName;
 
     private Variable(String name, EVariableType type, boolean isConst)
     {
@@ -38,14 +36,7 @@ public class Variable extends Symbol {
     {
         this(name, type, isConst);
         this.lengthName = lengthName;
-        //setValue(length);
     }
-
-    /*public Variable(String name, String valueString, EVariableType type, boolean isConst)
-    {
-        this(name, type, isConst);
-        setValue(valueString);
-    }/*/
 
     public Variable(String name, List<Object> values, EVariableType type, boolean isConst)
     {
@@ -53,28 +44,43 @@ public class Variable extends Symbol {
         setValue(values);
     }
 
-    public Variable(String name, Expression expression, EVariableType type, boolean isConst)
-    {
-        this(name, type, isConst);
-        this.expression = expression;
-    }
-
-    public Variable(String name, Expression expression, int index, EVariableType type, boolean isConst)
-    {
-        this(name, expression, type, isConst);
-        //this.value.setIndex(index);
-        this.index = index;
-    }
-
-    public Variable(String name, Expression expression, String indexName, EVariableType type, boolean isConst)
-    {
-        this(name, expression, type, isConst);
-        //this.value.setIndex(index);
-        this.indexName = indexName;
-    }
-
     public Value getValue() {
         return value;
+    }
+
+    public int getIntValue() {
+        switch (this.type) {
+            case STRING:
+                return ((StringValue) this.value).getString().charAt(0); // jen na zkousku se vrati ascii prvniho znaku - todo!!
+            case BOOL:
+                boolean b = ((BoolValue) this.value).getBool();
+                return b ? 1 : 0; // 1=true, 0=false
+            case INT:
+                return ((IntValue) this.value).getInteger();
+        }
+
+        return -1;
+    }
+
+    public void setValue(Value value) {
+        switch (this.type) {
+            case STRING:
+                if (!(value instanceof StringValue)) {
+                    // vyjimka
+                }
+                break;
+            case BOOL:
+                if (!(value instanceof BoolValue)) {
+                    // vyjimka
+                }
+                break;
+            case INT:
+                if (!(value instanceof IntValue)) {
+                    // vyjimka
+                }
+                break;
+        }
+        this.value = value;
     }
 
     // type system check
@@ -97,7 +103,7 @@ public class Variable extends Symbol {
         }
     }
 
-    public void setValueWithLength(int length) {
+    private void setValueWithLength(int length) {
         if (this.type == null) return; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
 
         switch (this.type) {
@@ -151,4 +157,21 @@ public class Variable extends Symbol {
                 ", isConst=" + isConst +
                 '}';
     }
+
+    public EVariableType getType() {
+        return type;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public Expression getExpression() {
+        return expression;
+    }
+
+    public String getLengthName() {
+        return lengthName;
+    }
+
 }

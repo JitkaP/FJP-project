@@ -10,4 +10,7 @@ public class BeginStatement extends Statement {
         this.statements = statements;
     }
 
+    public List<Statement> getStatements() {
+        return statements;
+    }
 }

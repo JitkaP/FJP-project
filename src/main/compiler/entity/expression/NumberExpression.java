@@ -9,4 +9,8 @@ public class NumberExpression extends Expression {
     public NumberExpression(List<Object> tokens) {
         this.tokens = tokens;
     }
+
+    public List<Object> getTokens() {
+        return tokens;
+    }
 }

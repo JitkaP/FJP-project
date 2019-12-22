@@ -19,4 +19,11 @@ public class Factor {
         this.numberExpression = numberExpression;
     }
 
+    public Value getValue() {
+        return value;
+    }
+
+    public NumberExpression getNumberExpression() {
+        return numberExpression;
+    }
 }

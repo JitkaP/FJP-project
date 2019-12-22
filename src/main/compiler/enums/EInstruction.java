@@ -2,23 +2,15 @@ package main.compiler.enums;
 
 public enum EInstruction {
 
-    LIT("LIT"),
-    OPR("OPR"),
-    LOD("LOD"),
-    STO("STO"),
-    CAL("CAL"),
-    INT("INT"),
-    JMP("JMP"),
-    JMC("JMC"),
-    RET("RET");
+    LIT,
+    OPR,
+    LOD,
+    STO,
+    CAL,
+    INT,
+    JMP,
+    JMC,
+    RET,
+    SIO
 
-    private String value;
-
-    EInstruction(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
 }

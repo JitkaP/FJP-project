@@ -6,8 +6,10 @@ public class StringValue extends Value {
 
     public StringValue(String string) {
         this.string = string;
-
         setValue(string);
     }
 
+    public String getString() {
+        return string;
+    }
 }

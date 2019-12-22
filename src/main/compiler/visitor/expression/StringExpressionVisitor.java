@@ -23,6 +23,7 @@ public class StringExpressionVisitor extends LangBaseVisitor<StringExpression> {
 
             Value value;
             if (s.startsWith("\"")) {
+                s = s.replace("\"", "");
                 value = new StringValue(s);
             } else {
                 value = new IdentValue(s);

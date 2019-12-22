@@ -6,7 +6,10 @@ public class BoolValue extends Value {
 
     public BoolValue(boolean bool) {
         this.bool = bool;
-        //this.value = bool;
         setValue(bool);
+    }
+
+    public boolean getBool() {
+        return bool;
     }
 }

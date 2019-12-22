@@ -12,4 +12,7 @@ public class StringExpression extends Expression {
         this.values = values;
     }
 
+    public List<Value> getValues() {
+        return values;
+    }
 }
