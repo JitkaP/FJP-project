@@ -18,6 +18,6 @@ public class InstructionGenerator {
         ProgramGenerator generator = new ProgramGenerator(program);
         generator.generate();
 
-        return null; //vratit instrukce
+        return generator.getInstructions();
     }
 }

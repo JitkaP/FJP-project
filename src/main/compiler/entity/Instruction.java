@@ -16,10 +16,9 @@ public class Instruction {
 
     @Override
     public String toString() {
-        return "Instruction{" +
-                code +
-                "  " + level +
-                "  " + m +
-                "}\n";
+        return code +
+                "   " + level +
+                "   " + m +
+                "\n";
     }
 }

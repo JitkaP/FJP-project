@@ -17,13 +17,14 @@ public class ProgramGenerator {
 
     private int stackPointer = 0;
     private Program program;
+    private List<Instruction> instructions;
 
     public ProgramGenerator(Program program) {
         this.program = program;
+        instructions = new ArrayList<>();
     }
 
     public void generate() {
-        List<Instruction> instructions = new ArrayList<>();
 
         Block block = this.program.getBlock();
         HashMap<String, Symbol> symbolTable = block.getSymbolTable();
@@ -70,6 +71,10 @@ public class ProgramGenerator {
         }
 
         instructions.add(new Instruction(EInstruction.RET, 0, 0));
-        System.out.println(instructions.toString());
+        //System.out.println(instructions.toString());
+    }
+
+    public List<Instruction> getInstructions() {
+        return instructions;
     }
 }

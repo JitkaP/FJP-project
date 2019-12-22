@@ -25,7 +25,7 @@ public class Compiler {
 
     private static final Compiler INSTANCE = new Compiler();
 
-    public void run(String in) {
+    public List<Instruction> run(String in) {
         CharStream convertedInput = CharStreams.fromString(in);
 
         LangLexer langLexer = new LangLexer(convertedInput);
@@ -57,10 +57,12 @@ public class Compiler {
             InstructionGenerator instructionGenerator = new InstructionGenerator(program);
             List<Instruction> instructions = instructionGenerator.generate();
 
+            return instructions;
+
         } catch (ParseCancellationException e) {
             System.err.println(e.getMessage());
+            return null;
         }
-
     }
 
     public static Compiler getInstance() {
