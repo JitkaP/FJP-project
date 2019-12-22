@@ -6,19 +6,19 @@ public class Instruction {
 
     private EInstruction code;
     private int level;
-    private int m;
+    private int data;
 
-    public Instruction(EInstruction code, int level, int m) {
+    public Instruction(EInstruction code, int level, int data) {
         this.code = code;
         this.level = level;
-        this.m = m;
+        this.data = data;
     }
 
     @Override
     public String toString() {
         return code +
                 "   " + level +
-                "   " + m +
+                "   " + data +
                 "\n";
     }
 }
