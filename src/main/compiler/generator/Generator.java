@@ -1,9 +1,11 @@
 package main.compiler.generator;
 
 import main.compiler.entity.Instruction;
+import main.compiler.entity.Symbol;
 import main.compiler.enums.EInstruction;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class Generator {
@@ -14,8 +16,10 @@ public abstract class Generator {
 
     private static int stackPointer = 3;
 
-    public static void addInstruction(EInstruction instruction, int level, int m) {
-        instructions.add(new Instruction(instruction, level, m));
+    private static List<HashMap<String, Symbol>> tables = new ArrayList<>();
+
+    public static void addInstruction(EInstruction instruction, int level, int data) {
+        instructions.add(new Instruction(instruction, level, data));
         numberOfInstructions++;
     }
 
@@ -38,4 +42,19 @@ public abstract class Generator {
     public static void increaseStackPointer() {
         stackPointer++;
     }
+
+    public static void addSymbolTable(HashMap<String, Symbol> symbolTable) {
+        tables.add(symbolTable);
+    }
+
+    public static int getAddress(String name) {
+        for (HashMap<String, Symbol> table: tables) {
+            if (table.get(name) != null) {
+                return table.get(name).getAddress();
+            }
+        }
+
+        return -1; // todo - zde misto toho vyjimka
+    }
+
 }
