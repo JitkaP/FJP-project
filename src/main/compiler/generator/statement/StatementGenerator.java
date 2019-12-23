@@ -37,6 +37,9 @@ public class StatementGenerator extends Generator {
             case DOWHILE:
                 new DowhileStatementGenerator((DowhileStatement) this.statement).generate();
                 break;
+            case FOR:
+                new ForStatementGenerator((ForStatement) this.statement).generate();
+                break;
         }
     }
 }

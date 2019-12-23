@@ -15,4 +15,20 @@ public class ForStatement extends Statement {
         this.to = to;
         this.statement = statement;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public NumberExpression getFrom() {
+        return from;
+    }
+
+    public NumberExpression getTo() {
+        return to;
+    }
+
+    public Statement getStatement() {
+        return statement;
+    }
 }
