@@ -21,7 +21,7 @@ public abstract class Generator {
     private static List<HashMap<String, Symbol>> tables = new ArrayList<>();
 
     public static void addInstruction(EInstruction instruction, int level, int data) {
-        instructions.add(new Instruction(instruction, level, data));
+        instructions.add(new Instruction(getNumberOfInstructions(), instruction, level, data));
         numberOfInstructions++;
     }
 

@@ -13,4 +13,16 @@ public class IfStatement extends Statement {
         this.ifStatement = ifStatement;
         this.elseStatement = elseStatement;
     }
+
+    public Condition getCondition() {
+        return condition;
+    }
+
+    public Statement getIfStatement() {
+        return ifStatement;
+    }
+
+    public Statement getElseStatement() {
+        return elseStatement;
+    }
 }

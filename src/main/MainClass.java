@@ -42,8 +42,8 @@ public class MainClass {
             PrintStream out = new PrintStream(new File(outputFile), "UTF-8");
 
             for (int i = 0; i < instructions.size(); i++) {
-                out.print(i + "  " + instructions.get(i));
-                System.out.print(i + "  " + instructions.get(i)); // todo: jen pro test! pak smazat!
+                out.print(instructions.get(i));
+                System.out.print(instructions.get(i)); // todo: jen pro test! pak smazat!
             }
 
             out.close();

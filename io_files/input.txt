@@ -1,10 +1,7 @@
-var int a, b;
-var bool c, d;
-var string s;
+var int a;
 begin
-  b := 8;
-  a := 9;
-  d := false;
-  c := true;
-  s := "ahoj";
+  a:=1;
+  if (a=1) then begin
+    a := 1*2+3*4;
+  end;
 end.
