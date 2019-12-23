@@ -182,7 +182,7 @@ CONST
     ;
 
 TYPE
-    : ('int' | 'bool' | 'string')
+    : ('int' | 'bool' | 'char')
     ;
 
 STRING_VALUE

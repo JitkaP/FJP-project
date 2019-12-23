@@ -1,14 +1,11 @@
 package main.compiler.entity;
 
 import main.compiler.entity.expression.*;
-import main.compiler.entity.value.BoolValue;
-import main.compiler.entity.value.StringValue;
-import main.compiler.entity.value.Value;
 
 public class AssignVariable {
 
     private String name;
-    private int index = 0;
+    private int index = -1;
     private String indexName = null;
 
     private Expression expression;

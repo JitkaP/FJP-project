@@ -14,14 +14,18 @@ public class ExpressionGenerator extends Generator {
         this.expression = expression;
     }
 
-    public void generate() {
+    public void generate(int index) {
         if (expression instanceof NumberExpression) {
             (new NumberExpressionGenerator((NumberExpression) expression)).generate();
         } else if (expression instanceof BoolExpression) {
             (new BoolExpressionGenerator((BoolExpression) expression)).generate();
         } else if (expression instanceof StringExpression) {
-            (new StringExpressionGenerator((StringExpression) expression)).generate();
+            (new StringExpressionGenerator((StringExpression) expression)).generate(index);
         }
+    }
+
+    public void generate() {
+        generate(0);
     }
 
 }

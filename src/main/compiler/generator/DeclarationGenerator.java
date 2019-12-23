@@ -29,13 +29,13 @@ public class DeclarationGenerator extends Generator {
                      Value value = getVariableValue(variable.getLengthName());
                      if (value instanceof IntValue) {
                          int length = ((IntValue) value).getInteger();
-                         counter += length;
+                         counter += length + 1;
                      } else {
                          // chyba (nejspis)
                      }
                 } else {
-                    counter += variable.getLength();
-                    increaseStackPointer(variable.getLength());
+                    counter += variable.getLength() + 1;
+                    increaseStackPointer(variable.getLength() + 1);
                 }
             }
         }

@@ -1,10 +1,12 @@
 package main.compiler.generator.statement;
 
 import main.compiler.entity.AssignVariable;
+import main.compiler.entity.Variable;
 import main.compiler.entity.statement.AssignmentStatement;
 import main.compiler.entity.value.IntValue;
 import main.compiler.entity.value.Value;
 import main.compiler.enums.EInstruction;
+import main.compiler.enums.EVariableType;
 import main.compiler.generator.Generator;
 import main.compiler.generator.expression.ExpressionGenerator;
 
@@ -18,9 +20,9 @@ public class AssignmentStatementGenerator extends Generator {
 
     public void generate() {
         for (AssignVariable assignVariable: this.assignmentStatement.getVariables()) {
-            new ExpressionGenerator(assignVariable.getExpression()).generate();
+            Variable variable = getVariable(assignVariable.getName());
 
-            int index = 0;
+            int index = -1;
             if (assignVariable.getIndexName() != null && !assignVariable.getIndexName().isEmpty()) {
                 Value value = getVariableValue(assignVariable.getIndexName());
                 if (value instanceof IntValue) {
@@ -32,7 +34,42 @@ public class AssignmentStatementGenerator extends Generator {
                 index = assignVariable.getIndex();
             }
 
-            int address = getAddress(assignVariable.getName());
+            EVariableType type = variable.getType();
+            if (type == EVariableType.BOOL || type == EVariableType.CHAR || type == EVariableType.INT) {
+                generateSimple(assignVariable, 0);
+            } else { // arrays
+                if (index > -1) { // assign to given index
+                    generateSimple(assignVariable, index);
+                } else { // assign to whole array
+                    generateArray(assignVariable);
+                }
+            }
+        }
+    }
+
+    private void generateArray(AssignVariable assignVariable) {
+        Variable variable = getVariable(assignVariable.getName());
+        int address = getAddress(assignVariable.getName());
+        int length = variable.getLength();
+
+        // store length
+        addInstruction(EInstruction.LIT, 0, length);
+        addInstruction(EInstruction.STO, 0, address - 1);
+
+        for (int i = 0; i < length; i++) {
+            int size = getInstructions().size();
+            new ExpressionGenerator(assignVariable.getExpression()).generate(i);
+            if (size < getInstructions().size()) {
+                addInstruction(EInstruction.STO, 0, address + i);
+            }
+        }
+    }
+
+    private void generateSimple(AssignVariable assignVariable, int index) {
+        int size = getInstructions().size();
+        new ExpressionGenerator(assignVariable.getExpression()).generate();
+        int address = getAddress(assignVariable.getName());
+        if (size < getInstructions().size()) {
             addInstruction(EInstruction.STO, 0, address + index);
         }
     }

@@ -15,8 +15,17 @@ public class Variable extends Symbol {
     private boolean isConst;
     private EVariableType type;
 
-    private int length = 1; // is 1 or is set to different length (arrays)
+    private int length = 0;
     private String lengthName = null;
+
+    @Override
+    public int getAddress() {
+        if (type == EVariableType.BOOL || type == EVariableType.CHAR || type == EVariableType.INT) {
+            return super.getAddress();
+        } else { // arrays
+            return super.getAddress() + 1; // at address[0] is stored array length
+        }
+    }
 
     private Variable(String name, EVariableType type, boolean isConst)
     {
@@ -50,8 +59,8 @@ public class Variable extends Symbol {
 
     public void setValue(Value value) {
         switch (this.type) {
-            case STRING:
-                if (!(value instanceof StringValue)) {
+            case CHAR:
+                if (!(value instanceof CharValue)) {
                     // vyjimka
                 }
                 break;
@@ -75,8 +84,8 @@ public class Variable extends Symbol {
         if (valueString == null || valueString.isEmpty()) return; // mozna pak odebrat?
 
         switch (this.type) {
-            case STRING:
-                this.value = new StringValue(valueString);
+            case CHAR:
+                this.value = new CharValue(valueString.charAt(0));
                 break;
             case BOOL:
                 boolean b = Boolean.parseBoolean(valueString);
@@ -93,8 +102,8 @@ public class Variable extends Symbol {
         if (this.type == null) return; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
 
         switch (this.type) {
-            case ARRAY_STRING:
-                this.value = new ArrayStringValue(new String[length]);
+            case ARRAY_CHAR:
+                this.value = new ArrayCharValue(new char[length]);
                 break;
             case ARRAY_BOOL:
                 this.value = new ArrayBoolValue(new boolean[length]);
@@ -110,8 +119,10 @@ public class Variable extends Symbol {
 
         Object[] array = values.toArray();
         switch (this.type) {
-            case ARRAY_STRING:
-                this.value = new ArrayStringValue((String[]) values.toArray());
+            case ARRAY_CHAR:
+                char[] char_arr = new char[array.length];
+                for(int i = 0; i < array.length; i++) char_arr[i] = (char) array[i];
+                this.value = new ArrayCharValue(char_arr);
                 break;
             case ARRAY_BOOL:
                 boolean[] boolean_arr = new boolean[array.length];

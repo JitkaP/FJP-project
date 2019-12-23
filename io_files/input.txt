@@ -1,5 +1,11 @@
 var int a;
+var char s[4];
+var char b, c;
 begin
+    s := "ahoj";
+    b := c := s[0];
+    s[1] := 777;
+
     for a := 1 to 3 do
     begin
         a := a + 1;

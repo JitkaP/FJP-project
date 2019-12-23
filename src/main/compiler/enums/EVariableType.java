@@ -4,9 +4,9 @@ public enum EVariableType {
 
     INT,
     BOOL,
-    STRING,
+    CHAR,
     ARRAY_INT,
     ARRAY_BOOL,
-    ARRAY_STRING
+    ARRAY_CHAR
 
 }

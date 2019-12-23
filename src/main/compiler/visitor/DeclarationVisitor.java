@@ -49,6 +49,8 @@ public class DeclarationVisitor extends LangBaseVisitor<List<Variable>> {
             }
 
             for (LangParser.Ident_arrContext ident_arrContext : ctx.vars().ident_arr()) {
+                type = EVariableType.valueOf(("array_" + ctx.vars().TYPE().getText()).toUpperCase());
+
                 String name = ident_arrContext.ident(0).getText();
 
                 Variable variable;

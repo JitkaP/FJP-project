@@ -3,8 +3,9 @@ package main.compiler.visitor.expression;
 import antlr.gen.LangBaseVisitor;
 import antlr.gen.LangParser;
 import main.compiler.entity.expression.StringExpression;
+import main.compiler.entity.value.ArrayCharValue;
 import main.compiler.entity.value.IdentValue;
-import main.compiler.entity.value.StringValue;
+import main.compiler.entity.value.CharValue;
 import main.compiler.entity.value.Value;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -24,7 +25,7 @@ public class StringExpressionVisitor extends LangBaseVisitor<StringExpression> {
             Value value;
             if (s.startsWith("\"")) {
                 s = s.replace("\"", "");
-                value = new StringValue(s);
+                value = new ArrayCharValue(s.toCharArray());
             } else {
                 value = new IdentValue(s);
             }
