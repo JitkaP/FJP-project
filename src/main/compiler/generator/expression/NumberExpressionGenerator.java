@@ -80,7 +80,7 @@ public class NumberExpressionGenerator extends Generator {
                 addInstruction(EInstruction.LIT, 0, ((IntValue) value).getInteger());
             } else if (value instanceof IdentValue) {
                 int address = getAddress(((IdentValue) value).getName());
-                addInstruction(EInstruction.LIT, 0, address);
+                addInstruction(EInstruction.LOD, 0, address);
             }
         } else if (factor.getNumberExpression() != null){
             NumberExpression numberExpression = factor.getNumberExpression();

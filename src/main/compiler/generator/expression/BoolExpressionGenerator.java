@@ -85,7 +85,7 @@ public class BoolExpressionGenerator extends Generator {
             addInstruction(EInstruction.LIT, 0, intValue);
         } else if (token instanceof IdentValue) {
             int address = getAddress(((IdentValue) token).getName());
-            addInstruction(EInstruction.LIT, 0, address);
+            addInstruction(EInstruction.LOD, 0, address);
         }
     }
 }
