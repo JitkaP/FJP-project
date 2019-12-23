@@ -19,7 +19,7 @@ public class IfStatementGenerator extends Generator {
 
         int jmcRow = getNumberOfInstructions();
 
-        addInstruction(EInstruction.JMC, 0, -1); // teď nevíme adresu skoku
+        addInstruction(EInstruction.JMC, 0, -1);
 
         new StatementGenerator(ifStatement.getIfStatement()).generate();
 
