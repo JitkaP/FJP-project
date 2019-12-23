@@ -11,4 +11,12 @@ public class DowhileStatement extends Statement {
         this.condition = condition;
         this.statement = statement;
     }
+
+    public Condition getCondition() {
+        return condition;
+    }
+
+    public Statement getStatement() {
+        return statement;
+    }
 }
