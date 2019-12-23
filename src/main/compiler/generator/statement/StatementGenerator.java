@@ -17,6 +17,11 @@ public class StatementGenerator extends Generator {
     }
 
     public void generate() {
+
+        if (this.statement == null) {
+            return;
+        }
+
         switch (this.statement.getType()) {
             case BEGIN:
                 new BeginStatementGenerator((BeginStatement) this.statement).generate();
@@ -25,9 +30,5 @@ public class StatementGenerator extends Generator {
                 new AssignmentStatementGenerator((AssignmentStatement) this.statement).generate();
                 break;
         }
-
-
-        addInstruction(EInstruction.RET, 0, 0);
-
     }
 }
