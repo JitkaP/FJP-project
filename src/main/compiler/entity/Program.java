@@ -15,8 +15,4 @@ public class Program {
     public Block getBlock() {
         return block;
     }
-
-    public Stack<HashMap<String, Symbol>> getSymbolTableStack() {
-        return symbolTableStack;
-    }
 }

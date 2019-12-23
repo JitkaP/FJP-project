@@ -57,4 +57,7 @@ public abstract class Generator {
         return -1; // todo - zde misto toho vyjimka
     }
 
+    public static List<HashMap<String, Symbol>> getTables() {
+        return tables;
+    }
 }
