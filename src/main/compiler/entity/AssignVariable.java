@@ -11,11 +11,11 @@ public class AssignVariable {
     private int index;
     private String indexName = null;
 
-    private Value value;
+    private Expression expression;
 
     public AssignVariable(String name, Expression exp) {
         this.name = name;
-        this.value = exp;
+        this.expression = exp;
     }
 
     public AssignVariable(String name, Expression exp, int index) {
@@ -37,18 +37,18 @@ public class AssignVariable {
         return index;
     }
 
-    public Value getValue() {
-        if (this.value instanceof NumberExpression) {
-            Term t = (Term) ((NumberExpression) this.value).getTokens().get(0);
+    public Expression getExpression() {
+        /*if (this.expression instanceof NumberExpression) {
+            Term t = (Term) ((NumberExpression) this.expression).getTokens().get(0);
             Factor f = (Factor) t.getTokens().get(0);
             return f.getValue();
-        } else if (this.value instanceof BoolExpression) {
-            BoolValue boolValue = (BoolValue) ((BoolExpression) this.value).getTokens().get(0);
+        } else if (this.expression instanceof BoolExpression) {
+            BoolValue boolValue = (BoolValue) ((BoolExpression) this.expression).getTokens().get(0);
             return boolValue;
-        } else if (this.value instanceof StringExpression) {
-            StringValue stringValue = (StringValue) ((StringExpression) this.value).getValues().get(0);
+        } else if (this.expression instanceof StringExpression) {
+            StringValue stringValue = (StringValue) ((StringExpression) this.expression).getValues().get(0);
             return stringValue;
-        }
-        return value;
+        } */
+        return expression;
     }
 }

@@ -19,4 +19,8 @@ public class IdentValue extends Value {
         this.name = name;
         this.indexName = indexName;
     }
+
+    public String getName() {
+        return name;
+    }
 }

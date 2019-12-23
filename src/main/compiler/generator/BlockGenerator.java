@@ -1,13 +1,7 @@
 package main.compiler.generator;
 
-import main.compiler.entity.AssignVariable;
 import main.compiler.entity.Block;
-import main.compiler.entity.Variable;
-import main.compiler.entity.statement.AssignmentStatement;
-import main.compiler.entity.statement.BeginStatement;
-import main.compiler.entity.statement.Statement;
-import main.compiler.enums.EInstruction;
-import java.util.List;
+import main.compiler.generator.statement.StatementGenerator;
 
 public class BlockGenerator extends Generator {
 
