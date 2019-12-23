@@ -29,4 +29,29 @@ public class TernarStatement extends Statement {
         this(name, condition, leftExpression, rightExpression);
         this.indexName = indexName;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getIndexName() {
+        return indexName;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public Condition getCondition() {
+        return condition;
+    }
+
+    public Expression getLeftExpression() {
+        return leftExpression;
+    }
+
+    public Expression getRightExpression() {
+        return rightExpression;
+    }
+
 }

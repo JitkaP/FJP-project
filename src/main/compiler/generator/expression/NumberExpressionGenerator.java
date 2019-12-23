@@ -11,6 +11,8 @@ import main.compiler.enums.EInstructionOpr;
 import main.compiler.enums.ENumberOp;
 import main.compiler.generator.Generator;
 
+import java.util.List;
+
 public class NumberExpressionGenerator extends Generator {
 
     private NumberExpression numberExpression;
@@ -20,29 +22,51 @@ public class NumberExpressionGenerator extends Generator {
     }
 
     public void generate() {
-        for (Object token: this.numberExpression.getTokens()) { // +, -, term
+        List<Object> tokens = this.numberExpression.getTokens();
+
+        if (tokens.size() == 1) {
+            termGenerate((Term) tokens.get(0));
+        }
+
+        for (int i = 0; i < tokens.size(); i++) {
+            Object token = tokens.get(i);
+
             if (token instanceof  ENumberOp) {
-                if (token == ENumberOp.PLUS) {
-                    addInstruction(EInstruction.OPR, 0, EInstructionOpr.PLUS.getValue());
-                } else if (token == ENumberOp.MINUS) {
-                    addInstruction(EInstruction.OPR, 0, EInstructionOpr.MINUS.getValue());
+                if (i == 0) {
+                    if (token == ENumberOp.MINUS) {
+                        termGenerate((Term) tokens.get(i+1));
+                        addInstruction(EInstruction.OPR, 0, EInstructionOpr.UN_MINUS.getValue());
+                    }
+                } else {
+                    termGenerate((Term) tokens.get(i - 1));
+                    termGenerate((Term) tokens.get(i + 1));
+                    if (token == ENumberOp.PLUS) {
+                        addInstruction(EInstruction.OPR, 0, EInstructionOpr.PLUS.getValue());
+                    } else if (token == ENumberOp.MINUS) {
+                        addInstruction(EInstruction.OPR, 0, EInstructionOpr.MINUS.getValue());
+                    }
                 }
-            } else if (token instanceof Term) {
-                termGenerate((Term) token);
             }
         }
     }
 
     public void termGenerate(Term term) {
-        for (Object token: term.getTokens()) { // *, /, factor
+        List<Object> tokens = term.getTokens();
+
+        if (tokens.size() == 1) {
+            factorGenerate((Factor) tokens.get(0));
+        }
+
+        for (int i = 0; i < tokens.size(); i++) {
+            Object token = tokens.get(i);
             if (token instanceof ENumberOp) {
+                factorGenerate((Factor) tokens.get(i-1));
+                factorGenerate((Factor) tokens.get(i+1));
                 if (token == ENumberOp.MUL) {
                     addInstruction(EInstruction.OPR, 0, EInstructionOpr.MULTIPLY.getValue());
                 } else if (token == ENumberOp.DIV) {
                     addInstruction(EInstruction.OPR, 0, EInstructionOpr.DIVIDE.getValue());
                 }
-            } else if (token instanceof Factor) {
-                factorGenerate((Factor) token);
             }
         }
     }
@@ -58,7 +82,7 @@ public class NumberExpressionGenerator extends Generator {
                 int address = getAddress(((IdentValue) value).getName());
                 addInstruction(EInstruction.LIT, 0, address);
             }
-        } else {
+        } else if (factor.getNumberExpression() != null){
             NumberExpression numberExpression = factor.getNumberExpression();
             NumberExpressionGenerator generator = new NumberExpressionGenerator(numberExpression);
             generator.generate();

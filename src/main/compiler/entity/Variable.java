@@ -15,8 +15,8 @@ public class Variable extends Symbol {
     private boolean isConst;
     private EVariableType type;
 
-    private int length;
-    private String lengthName;
+    private int length = 1; // is 1 or is set to different length (arrays)
+    private String lengthName = null;
 
     private Variable(String name, EVariableType type, boolean isConst)
     {
@@ -46,20 +46,6 @@ public class Variable extends Symbol {
 
     public Value getValue() {
         return value;
-    }
-
-    public int getIntValue() {
-        switch (this.type) {
-            case STRING:
-                return ((StringValue) this.value).getString().charAt(0); // jen na zkousku se vrati ascii prvniho znaku - todo!!
-            case BOOL:
-                boolean b = ((BoolValue) this.value).getBool();
-                return b ? 1 : 0; // 1=true, 0=false
-            case INT:
-                return ((IntValue) this.value).getInteger();
-        }
-
-        return -1;
     }
 
     public void setValue(Value value) {

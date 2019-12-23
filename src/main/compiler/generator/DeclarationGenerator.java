@@ -2,6 +2,8 @@ package main.compiler.generator;
 
 import main.compiler.entity.Symbol;
 import main.compiler.entity.Variable;
+import main.compiler.entity.value.IntValue;
+import main.compiler.entity.value.Value;
 import main.compiler.enums.EInstruction;
 
 import java.util.HashMap;
@@ -22,8 +24,19 @@ public class DeclarationGenerator extends Generator {
             if (symbol instanceof Variable && !((Variable) symbol).isConst()) {
                 Variable variable = (Variable) symbol;
                 variable.setAddress(getStackPointer());
-                increaseStackPointer();
-                counter++;
+
+                if (variable.getLengthName() != null && !variable.getLengthName().isEmpty()) {
+                     Value value = getVariableValue(variable.getLengthName());
+                     if (value instanceof IntValue) {
+                         int length = ((IntValue) value).getInteger();
+                         counter += length;
+                     } else {
+                         // chyba (nejspis)
+                     }
+                } else {
+                    counter += variable.getLength();
+                    increaseStackPointer(variable.getLength());
+                }
             }
         }
 

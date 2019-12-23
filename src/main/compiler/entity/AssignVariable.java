@@ -8,7 +8,7 @@ import main.compiler.entity.value.Value;
 public class AssignVariable {
 
     private String name;
-    private int index;
+    private int index = 0;
     private String indexName = null;
 
     private Expression expression;
@@ -32,23 +32,15 @@ public class AssignVariable {
         return name;
     }
 
-    public Object getIndex() {
-        if (indexName != null) return indexName;
+    public int getIndex() {
         return index;
     }
 
+    public String getIndexName() {
+        return indexName;
+    }
+
     public Expression getExpression() {
-        /*if (this.expression instanceof NumberExpression) {
-            Term t = (Term) ((NumberExpression) this.expression).getTokens().get(0);
-            Factor f = (Factor) t.getTokens().get(0);
-            return f.getValue();
-        } else if (this.expression instanceof BoolExpression) {
-            BoolValue boolValue = (BoolValue) ((BoolExpression) this.expression).getTokens().get(0);
-            return boolValue;
-        } else if (this.expression instanceof StringExpression) {
-            StringValue stringValue = (StringValue) ((StringExpression) this.expression).getValues().get(0);
-            return stringValue;
-        } */
         return expression;
     }
 }

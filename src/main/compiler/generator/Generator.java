@@ -2,6 +2,8 @@ package main.compiler.generator;
 
 import main.compiler.entity.Instruction;
 import main.compiler.entity.Symbol;
+import main.compiler.entity.Variable;
+import main.compiler.entity.value.Value;
 import main.compiler.enums.EInstruction;
 
 import java.util.ArrayList;
@@ -39,8 +41,8 @@ public abstract class Generator {
         Generator.stackPointer = stackPointer;
     }
 
-    public static void increaseStackPointer() {
-        stackPointer++;
+    public static void increaseStackPointer(int value) {
+        stackPointer += value;
     }
 
     public static void addSymbolTable(HashMap<String, Symbol> symbolTable) {
@@ -55,6 +57,20 @@ public abstract class Generator {
         }
 
         return -1; // todo - zde misto toho vyjimka
+    }
+
+    public static Value getVariableValue(String name) {
+        for (HashMap<String, Symbol> table: tables) {
+            if (table.get(name) != null) {
+                Symbol symbol = table.get(name);
+                if (symbol instanceof Variable) {
+                    Variable variable = (Variable) symbol;
+                    return variable.getValue();
+                }
+            }
+        }
+
+        return null; // todo - zde misto toho vyjimka
     }
 
     public static List<HashMap<String, Symbol>> getTables() {
