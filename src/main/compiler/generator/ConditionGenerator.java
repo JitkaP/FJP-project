@@ -27,7 +27,7 @@ public class ConditionGenerator extends Generator {
         } else if (this.condition.getLeftExpression() != null && this.condition.getRightExpression() != null) {
             Expression left = this.condition.getLeftExpression();
             new ExpressionGenerator(left).generate();
-            Expression right = this.condition.getLeftExpression();
+            Expression right = this.condition.getRightExpression();
             new ExpressionGenerator(right).generate();
 
             EConditionOperator op = this.condition.getOperator();

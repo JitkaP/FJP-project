@@ -50,17 +50,18 @@ public class AssignmentStatementGenerator extends Generator {
     private void generateArray(AssignVariable assignVariable) {
         Variable variable = getVariable(assignVariable.getName());
         int address = getAddress(assignVariable.getName());
+        int level = getLevel(assignVariable.getName());
         int length = variable.getLength();
 
         // store length
         addInstruction(EInstruction.LIT, 0, length);
-        addInstruction(EInstruction.STO, 0, address - 1);
+        addInstruction(EInstruction.STO, level, address - 1);
 
         for (int i = 0; i < length; i++) {
             int size = getInstructions().size();
             new ExpressionGenerator(assignVariable.getExpression()).generate(i);
             if (size < getInstructions().size()) {
-                addInstruction(EInstruction.STO, 0, address + i);
+                addInstruction(EInstruction.STO, level, address + i);
             }
         }
     }
@@ -69,8 +70,10 @@ public class AssignmentStatementGenerator extends Generator {
         int size = getInstructions().size();
         new ExpressionGenerator(assignVariable.getExpression()).generate();
         int address = getAddress(assignVariable.getName());
+        int level = getLevel(assignVariable.getName());
+
         if (size < getInstructions().size()) {
-            addInstruction(EInstruction.STO, 0, address + index);
+            addInstruction(EInstruction.STO, level, address + index);
         }
     }
 

@@ -17,7 +17,7 @@ public abstract class Generator {
 
     private static int numberOfInstructions = 0;
 
-    private static int stackPointer = 3;
+   // private static int stackPointer = 3;
 
     private static List<HashMap<String, Symbol>> tables = new ArrayList<>();
 
@@ -34,7 +34,7 @@ public abstract class Generator {
         return numberOfInstructions;
     }
 
-    public static int getStackPointer() {
+   /* public static int getStackPointer() {
         return stackPointer;
     }
 
@@ -44,10 +44,14 @@ public abstract class Generator {
 
     public static void increaseStackPointer(int value) {
         stackPointer += value;
-    }
+    } */
 
     public static void addSymbolTable(HashMap<String, Symbol> symbolTable) {
         tables.add(symbolTable);
+    }
+
+    public static void removeLastTable() {
+        tables.remove(tables.size() - 1);
     }
 
     public static Variable getVariable(String name) {
@@ -61,6 +65,20 @@ public abstract class Generator {
         }
 
         return null; // todo - zde misto toho vyjimka
+    }
+
+    public static int getLevel(String name) {
+        int count = 0;
+        for (int i = tables.size() - 1; i >= 0; i--) {
+            HashMap<String, Symbol> table = tables.get(i);
+            if (table.get(name) != null) {
+                return count;
+            }
+
+            count++;
+        }
+
+        return -1; // todo - zde misto toho vyjimka
     }
 
     public static int getAddress(String name) {

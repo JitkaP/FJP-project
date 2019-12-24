@@ -1,14 +1,11 @@
 var int a;
-var char s[4];
-var char b, c;
+procedure pr;
+  var int b;
+  begin
+    a:=10;
+    b:=20;
+  end;
 begin
-    s := "ahoj";
-    b := c := s[0];
-    s[1] := 777;
-
-    for a := 1 to 3 do
-    begin
-        a := a + 1;
-    end
-end
-.
+  a:=100;
+  call pr;
+end.

@@ -13,6 +13,8 @@ public class DeclarationGenerator extends Generator {
 
     private static final int INT_OFFSET = 3;
 
+    private int stackPointer = INT_OFFSET;
+
     public void generate() {
 
         int counter = 0;
@@ -23,7 +25,7 @@ public class DeclarationGenerator extends Generator {
         for (Symbol symbol : tables.get(tablesSize - 1).values()) {
             if (symbol instanceof Variable && !((Variable) symbol).isConst()) {
                 Variable variable = (Variable) symbol;
-                variable.setAddress(getStackPointer());
+                variable.setAddress(stackPointer);
 
                 if (variable.getLengthName() != null && !variable.getLengthName().isEmpty()) {
                      Value value = getVariableValue(variable.getLengthName());
@@ -35,7 +37,7 @@ public class DeclarationGenerator extends Generator {
                      }
                 } else {
                     counter += variable.getLength() + 1;
-                    increaseStackPointer(variable.getLength() + 1);
+                    stackPointer += (variable.getLength() + 1);
                 }
             }
         }

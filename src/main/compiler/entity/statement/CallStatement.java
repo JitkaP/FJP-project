@@ -7,4 +7,8 @@ public class CallStatement extends Statement {
     public CallStatement(String name) {
         this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
 }

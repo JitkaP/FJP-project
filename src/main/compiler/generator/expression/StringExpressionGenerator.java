@@ -27,8 +27,10 @@ public class StringExpressionGenerator extends Generator {
                     addInstruction(EInstruction.LIT, 0, c);
                 }
             } else if (token instanceof IdentValue) {
-                int address = getAddress(((IdentValue) token).getName());
-                addInstruction(EInstruction.LOD, 0, address);
+                String name = ((IdentValue) token).getName();
+                int address = getAddress(name);
+                int level = getLevel(name);
+                addInstruction(EInstruction.LOD, level, address);
             }
         }
     }

@@ -40,6 +40,18 @@ public class StatementGenerator extends Generator {
             case FOR:
                 new ForStatementGenerator((ForStatement) this.statement).generate();
                 break;
+            case CALL:
+                new CallStatementGenerator((CallStatement) this.statement).generate();
+                break;
+            case READ:
+                // todo
+                break;
+            case WRITE:
+                // todo
+                break;
+            case TERNAR:
+                // todo
+                break;
         }
     }
 }

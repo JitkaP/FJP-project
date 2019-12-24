@@ -19,6 +19,7 @@ public class BlockGenerator extends Generator {
         new ProcedureGenerator().generate();
         new StatementGenerator(block.getStatement()).generate();
 
+        removeLastTable();
         addInstruction(EInstruction.RET, 0, 0);
     }
 }
