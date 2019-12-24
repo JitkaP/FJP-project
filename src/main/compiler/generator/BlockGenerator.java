@@ -15,8 +15,17 @@ public class BlockGenerator extends Generator {
     public void generate() {
         addSymbolTable(block.getSymbolTable());
 
-        new DeclarationGenerator().generate();
+        int jmcRow = getNumberOfInstructions();
+        addInstruction(EInstruction.JMP, 0, -1);
+
+        int intData = new DeclarationGenerator().generate();
+
         new ProcedureGenerator().generate();
+
+        getInstructions().get(jmcRow).setData(getNumberOfInstructions());
+
+        addInstruction(EInstruction.INT, 0, intData);
+
         new StatementGenerator(block.getStatement()).generate();
 
         removeLastTable();

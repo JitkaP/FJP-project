@@ -14,8 +14,6 @@ public class ProgramGenerator extends Generator {
     public void generate() {
         Block block = program.getBlock();
 
-        addInstruction(EInstruction.JMP, 0, 1);
-
         new BlockGenerator(block).generate();
     }
 }

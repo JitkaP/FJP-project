@@ -15,7 +15,7 @@ public class DeclarationGenerator extends Generator {
 
     private int stackPointer = INT_OFFSET;
 
-    public void generate() {
+    public int generate() {
 
         int counter = 0;
 
@@ -42,7 +42,7 @@ public class DeclarationGenerator extends Generator {
             }
         }
 
-        addInstruction(EInstruction.INT, 0, (counter + INT_OFFSET));
-
+        //addInstruction(EInstruction.INT, 0, (counter + INT_OFFSET));
+        return counter + INT_OFFSET;
     }
 }
