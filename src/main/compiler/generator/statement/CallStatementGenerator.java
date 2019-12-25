@@ -14,6 +14,6 @@ public class CallStatementGenerator extends Generator {
 
     public void generate() {
         String name = this.callStatement.getName();
-        addInstruction(EInstruction.CAL, 0, getAddress(name));
+        addInstruction(EInstruction.CAL, getLevel(name), getAddress(name));
     }
 }

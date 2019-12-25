@@ -25,6 +25,11 @@ public class AssignVariable {
         this.indexName = indexName;
     }
 
+    public AssignVariable(String name, Expression exp, int index, String indexName) {
+        this(name, exp, index);
+        this.indexName = indexName;
+    }
+
     public String getName() {
         return name;
     }

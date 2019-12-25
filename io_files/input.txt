@@ -1,19 +1,7 @@
-var int a;
-procedure pr1; 
-  var int b;
-  procedure pr2; 
-    var int c;
-    begin 
-      c:=11; 
-      b:=22; 
-      a:=33; 
-    end; 
-  begin 
-    a:=10; 
-    b:=20; 
-    call pr2; 
-  end; 
-begin 
-  a:=100; 
-  call pr1; 
-end. 
+var int i;
+var int a[3];
+begin
+  i := 2;
+  a[i] := (true) ? 5 : 10;
+  if (true) then a[i] := 5 else a[i] :=10;
+end.
