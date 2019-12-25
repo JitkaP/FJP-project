@@ -14,8 +14,10 @@ public class WriteStatementGenerator extends Generator {
     }
 
     public void generate() {
-        new StringExpressionGenerator(writeStatement.getStringExpression());
+        new StringExpressionGenerator(writeStatement.getStringExpression()).generate(0);
 
-        addInstruction(EInstruction.SIO, 0, 1);
+        for (int i = 0; i < writeStatement.getStringExpression().getLength(); i++){
+            addInstruction(EInstruction.SIO, 0, 1);
+        }
     }
 }

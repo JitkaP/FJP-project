@@ -21,7 +21,7 @@ public class ForStatementGenerator extends Generator {
         new NumberExpressionGenerator(forStatement.getFrom()).generate();
 
         if (getVariable(forStatement.getName()).getType() == EVariableType.INT) {
-            addInstruction(EInstruction.STO, 0, identAddress);
+            addInstruction(EInstruction.STO, getLevel(forStatement.getName()), identAddress);
         }
         else {
             // chyba prirazeni
@@ -29,7 +29,7 @@ public class ForStatementGenerator extends Generator {
         }
 
         int startRow = getNumberOfInstructions();
-        addInstruction(EInstruction.LOD, 0, identAddress);
+        addInstruction(EInstruction.LOD, getLevel(forStatement.getName()), identAddress);
 
         new NumberExpressionGenerator(forStatement.getTo()).generate();
         addInstruction(EInstruction.OPR, 0, EInstructionOpr.LESS_EQUAL.getValue());
@@ -39,12 +39,12 @@ public class ForStatementGenerator extends Generator {
 
         new StatementGenerator(forStatement.getStatement()).generate();
 
-        addInstruction(EInstruction.LOD, 0, identAddress);
+        addInstruction(EInstruction.LOD, getLevel(forStatement.getName()), identAddress);
         addInstruction(EInstruction.LIT, 0, 1);
         addInstruction(EInstruction.OPR, 0, EInstructionOpr.PLUS.getValue());
 
         if (getVariable(forStatement.getName()).getType() == EVariableType.INT) {
-            addInstruction(EInstruction.STO, 0, identAddress);
+            addInstruction(EInstruction.STO, getLevel(forStatement.getName()), identAddress);
         }
         else {
             // chyba prirazeni
