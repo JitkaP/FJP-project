@@ -44,13 +44,13 @@ public class StatementGenerator extends Generator {
                 new CallStatementGenerator((CallStatement) this.statement).generate();
                 break;
             case READ:
-                // todo
+                new ReadStatementGenerator((ReadStatement) this.statement).generate();
                 break;
             case WRITE:
-                // todo
+                new WriteStatementGenerator((WriteStatement) this.statement).generate();
                 break;
             case TERNAR:
-                // todo
+                new TernarStatementGenerator((TernarStatement) this.statement).generate();
                 break;
         }
     }

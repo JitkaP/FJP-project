@@ -19,4 +19,16 @@ public class ReadStatement extends Statement {
         this.name = name;
         this.indexName = indexName;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public String getIndexName() {
+        return indexName;
+    }
 }

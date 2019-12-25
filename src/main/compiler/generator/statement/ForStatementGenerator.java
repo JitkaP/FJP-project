@@ -3,6 +3,7 @@ package main.compiler.generator.statement;
 import main.compiler.entity.statement.ForStatement;
 import main.compiler.enums.EInstruction;
 import main.compiler.enums.EInstructionOpr;
+import main.compiler.enums.EVariableType;
 import main.compiler.generator.Generator;
 import main.compiler.generator.expression.NumberExpressionGenerator;
 
@@ -19,7 +20,13 @@ public class ForStatementGenerator extends Generator {
 
         new NumberExpressionGenerator(forStatement.getFrom()).generate();
 
-        addInstruction(EInstruction.STO, 0, identAddress);
+        if (getVariable(forStatement.getName()).getType() == EVariableType.INT) {
+            addInstruction(EInstruction.STO, 0, identAddress);
+        }
+        else {
+            // chyba prirazeni
+            return;
+        }
 
         int startRow = getNumberOfInstructions();
         addInstruction(EInstruction.LOD, 0, identAddress);
@@ -35,7 +42,15 @@ public class ForStatementGenerator extends Generator {
         addInstruction(EInstruction.LOD, 0, identAddress);
         addInstruction(EInstruction.LIT, 0, 1);
         addInstruction(EInstruction.OPR, 0, EInstructionOpr.PLUS.getValue());
-        addInstruction(EInstruction.STO, 0, identAddress);
+
+        if (getVariable(forStatement.getName()).getType() == EVariableType.INT) {
+            addInstruction(EInstruction.STO, 0, identAddress);
+        }
+        else {
+            // chyba prirazeni
+            return;
+        }
+
         addInstruction(EInstruction.JMP, 0, startRow);
 
         getInstructions().get(jmcRow).setData(getNumberOfInstructions());

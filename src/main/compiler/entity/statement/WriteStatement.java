@@ -10,4 +10,7 @@ public class WriteStatement extends Statement {
         this.stringExpression = stringExpression;
     }
 
+    public StringExpression getStringExpression() {
+        return stringExpression;
+    }
 }
