@@ -19,7 +19,7 @@ public class ReadStatementGenerator extends Generator {
 
         for (int i = 0; i < getVariable(readStatement.getName()).getLength(); i++) {
 
-            if ()
+            //if ()
 
             addInstruction(EInstruction.STO, 0, identAddress); // overeni, zda je spravny datovy typ..?
 

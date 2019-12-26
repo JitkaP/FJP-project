@@ -98,6 +98,16 @@ public interface LangListener extends ParseTreeListener {
 	 */
 	void exitAssignstmt(LangParser.AssignstmtContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link LangParser#parallelstmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterParallelstmt(LangParser.ParallelstmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LangParser#parallelstmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitParallelstmt(LangParser.ParallelstmtContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link LangParser#callstmt}.
 	 * @param ctx the parse tree
 	 */

@@ -29,12 +29,16 @@ vars
    ;
 
 statement
-   : (assignstmt | callstmt | beginstmt | ifstmt | whilestmt | dowhilestmt | forstmt | ternarstmt | writestmt | readstmt)?
+   : (assignstmt | parallelstmt | callstmt | beginstmt | ifstmt | whilestmt | dowhilestmt | forstmt | ternarstmt | writestmt | readstmt)?
    ;
 
 assignstmt
    : (ident | ident_arr) (':=' (ident | ident_arr))* ':=' expression
    ;
+
+parallelstmt
+    : '{' (ident | ident_arr) (',' (ident | ident_arr))* '}' ':=' '{' (expression) (',' (expression))* '}'
+    ;
 
 callstmt
    : CALL ident

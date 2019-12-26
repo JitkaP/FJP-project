@@ -65,6 +65,12 @@ public interface LangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignstmt(LangParser.AssignstmtContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link LangParser#parallelstmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParallelstmt(LangParser.ParallelstmtContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link LangParser#callstmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

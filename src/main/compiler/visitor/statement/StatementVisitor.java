@@ -49,6 +49,9 @@ public class StatementVisitor extends LangBaseVisitor<Statement> {
         else if (ctx.readstmt() != null) {
             statement = new ReadStatementVisitor().visit(ctx.readstmt());
             statement.setType(EStatementType.READ);
+        } else if (ctx.parallelstmt() != null) {
+            statement = new ParallelStatementVisitor().visit(ctx.parallelstmt());
+            statement.setType(EStatementType.PARALLEL);
         }
 
         return statement;

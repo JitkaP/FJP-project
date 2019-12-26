@@ -11,6 +11,7 @@ public enum EStatementType {
     FOR,
     TERNAR,
     WRITE,
+    PARALLEL,
     READ
 
 }

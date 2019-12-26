@@ -1,7 +1,6 @@
-var int i;
-var int a[3];
+var int a, b, c, d;
 begin
-  i := 2;
-  a[i] := (true) ? 5 : 10;
-  if (true) then a[i] := 5 else a[i] :=10;
+  a := 21;
+  b := 22;
+  {c, d} := {21, 22};
 end.

@@ -26,6 +26,7 @@ public class StatementGenerator extends Generator {
                 new BeginStatementGenerator((BeginStatement) this.statement).generate();
                 break;
             case ASSIGN:
+            case PARALLEL:
                 new AssignmentStatementGenerator((AssignmentStatement) this.statement).generate();
                 break;
             case IF:
