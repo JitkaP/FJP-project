@@ -34,7 +34,7 @@ public class AssignmentStatementVisitor extends LangBaseVisitor<AssignmentStatem
                 int index = Integer.parseInt(ident_arrContext.NUMBER().getText());
                 variable = new AssignVariable(name, exp, index);
             } else {
-                String indexName = ident_arrContext.ident(0).getText();
+                String indexName = ident_arrContext.ident(1).getText();
                 variable = new AssignVariable(name, exp, indexName);
             }
 

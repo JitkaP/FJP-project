@@ -68,12 +68,16 @@ public class AssignmentStatementGenerator extends Generator {
 
     private void generateSimple(AssignVariable assignVariable, int index) {
         int size = getInstructions().size();
-        new ExpressionGenerator(assignVariable.getExpression()).generate();
+        ExpressionGenerator expressionGenerator = new ExpressionGenerator(assignVariable.getExpression());
+        expressionGenerator.generate();
+        Value value = expressionGenerator.getValue();
         int address = getAddress(assignVariable.getName());
         int level = getLevel(assignVariable.getName());
 
         if (size < getInstructions().size()) {
             addInstruction(EInstruction.STO, level, address + index);
+            Variable variable = getVariable(assignVariable.getName());
+            variable.setValue(value, index);
         }
     }
 

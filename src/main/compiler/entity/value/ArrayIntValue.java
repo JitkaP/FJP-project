@@ -9,4 +9,7 @@ public class ArrayIntValue extends Value {
         setValue(array);
     }
 
+    public int[] getArray() {
+        return array;
+    }
 }

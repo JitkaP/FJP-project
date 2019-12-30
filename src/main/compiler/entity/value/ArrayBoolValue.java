@@ -9,4 +9,7 @@ public class ArrayBoolValue extends Value {
         setValue(array);
     }
 
+    public boolean[] getArray() {
+        return array;
+    }
 }

@@ -92,12 +92,16 @@ public abstract class Generator {
     }
 
     public static Value getVariableValue(String name) {
+        return getVariableValue(name, -1);
+    }
+
+    public static Value getVariableValue(String name, int index) {
         for (HashMap<String, Symbol> table: tables) {
             if (table.get(name) != null) {
                 Symbol symbol = table.get(name);
                 if (symbol instanceof Variable) {
                     Variable variable = (Variable) symbol;
-                    return variable.getValue();
+                    return variable.getValue(index);
                 }
             }
         }

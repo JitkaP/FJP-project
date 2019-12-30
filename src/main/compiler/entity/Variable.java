@@ -57,6 +57,41 @@ public class Variable extends Symbol {
         return value;
     }
 
+    public Value getValue(int index) {
+        if (index < 0) return getValue();
+        if (this.type == null) return null; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
+
+        switch (this.type) {
+            case ARRAY_CHAR:
+                char[] char_array = ((ArrayCharValue) this.value).getArray();
+                return new CharValue(char_array[index]);
+            case ARRAY_BOOL:
+                boolean[] bool_array = ((ArrayBoolValue) this.value).getArray();
+                return new BoolValue(bool_array[index]);
+            case ARRAY_INT:
+                int[] int_array = ((ArrayIntValue) this.value).getArray();
+                return new IntValue(int_array[index]);
+        }
+
+        return null;
+    }
+
+    public void setValue(Value value, int index) {
+        if (this.type == null) return; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
+
+        switch (this.type) {
+            case ARRAY_CHAR:
+                ((ArrayCharValue) this.value).getArray()[index] = ((CharValue) value).getChar();
+                break;
+            case ARRAY_BOOL:
+                ((ArrayBoolValue) this.value).getArray()[index] = ((BoolValue) value).getBool();
+                break;
+            case ARRAY_INT:
+                ((ArrayIntValue) this.value).getArray()[index] = ((IntValue) value).getInteger();
+                break;
+        }
+    }
+
     public void setValue(Value value) {
         switch (this.type) {
             case CHAR:
