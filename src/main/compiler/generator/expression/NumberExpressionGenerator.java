@@ -66,7 +66,6 @@ public class NumberExpressionGenerator extends Generator {
             }
         }
 
-        System.out.println("value = " + value);
         return value;
     }
 

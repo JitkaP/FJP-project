@@ -19,6 +19,8 @@ public class BoolExpressionGenerator extends Generator {
     }
 
     public void generate() {
+        Object left = null;
+        Object right;
         List<Object> tokens = this.boolExpression.getTokens();
 
         if (tokens.size() == 1) {
@@ -36,16 +38,20 @@ public class BoolExpressionGenerator extends Generator {
                     addInstruction(EInstruction.LIT, 0, 0);
                     addInstruction(EInstruction.OPR, 0, EInstructionOpr.EQUAL.getValue());
                 } else if (token == EBoolOp.AND) {
-                    Object left = tokens.get(i-1);
+                    if (left == null) {
+                        left = tokens.get(i - 1);
+                    }
                     generateValue(left);
-                    Object right = tokens.get(i+1);
+                    right = tokens.get(i+1);
                     generateValue(right);
 
                     addInstruction(EInstruction.OPR, 0, EInstructionOpr.MULTIPLY.getValue());
                 } else if (token == EBoolOp.OR) {
-                    Object left = tokens.get(i-1);
+                    if (left == null) {
+                        left = tokens.get(i - 1);
+                    }
                     generateValue(left);
-                    Object right = tokens.get(i+1);
+                    right = tokens.get(i+1);
                     generateValue(right);
 
                     addInstruction(EInstruction.OPR, 0, EInstructionOpr.PLUS.getValue());
@@ -55,27 +61,6 @@ public class BoolExpressionGenerator extends Generator {
             }
         }
 
-        /*for (Object token: this.boolExpression.getTokens()) { // !, &&, ||, ident, bool_value
-            if (token instanceof BoolValue) {
-                boolean b = ((BoolValue) token).getBool();
-                int intValue = (b) ? 1 : 0; // 1=true, 0=false
-                addInstruction(EInstruction.LIT, 0, intValue);
-            } else if (token instanceof IdentValue) {
-                int address = getAddress(((IdentValue) token).getName());
-                addInstruction(EInstruction.LIT, 0, address);
-            } else if (token instanceof EBoolOp) {
-                if (token == EBoolOp.NEG) {
-                    addInstruction(EInstruction.LIT, 0, 0);
-                    addInstruction(EInstruction.OPR, 0, EInstructionOpr.EQUAL.getValue());
-                } else if (token == EBoolOp.AND) {
-                    addInstruction(EInstruction.OPR, 0, EInstructionOpr.MULTIPLY.getValue());
-                } else if (token == EBoolOp.OR) {
-                    addInstruction(EInstruction.OPR, 0, EInstructionOpr.PLUS.getValue());
-                    addInstruction(EInstruction.LIT, 0, 0);
-                    addInstruction(EInstruction.OPR, 0, EInstructionOpr.NOT_EQUAL.getValue());
-                }
-            }
-        } */
     }
 
     private void generateValue(Object token) {

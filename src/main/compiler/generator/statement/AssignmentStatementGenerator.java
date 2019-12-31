@@ -2,9 +2,14 @@ package main.compiler.generator.statement;
 
 import main.compiler.entity.AssignVariable;
 import main.compiler.entity.Variable;
+import main.compiler.entity.expression.BoolExpression;
+import main.compiler.entity.expression.Expression;
+import main.compiler.entity.expression.NumberExpression;
+import main.compiler.entity.expression.StringExpression;
 import main.compiler.entity.statement.AssignmentStatement;
 import main.compiler.entity.value.IntValue;
 import main.compiler.entity.value.Value;
+import main.compiler.enums.EErrorType;
 import main.compiler.enums.EInstruction;
 import main.compiler.enums.EVariableType;
 import main.compiler.generator.Generator;
@@ -35,6 +40,7 @@ public class AssignmentStatementGenerator extends Generator {
             }
 
             EVariableType type = variable.getType();
+            typeCheck(assignVariable, type);
             if (type == EVariableType.BOOL || type == EVariableType.CHAR || type == EVariableType.INT) {
                 generateSimple(assignVariable, 0);
             } else { // arrays
@@ -53,17 +59,37 @@ public class AssignmentStatementGenerator extends Generator {
         int level = getLevel(assignVariable.getName());
         int length = variable.getLength();
 
-        // store length
-        addInstruction(EInstruction.LIT, 0, length);
+        // length instruction
+        int row = getNumberOfInstructions();
+        addInstruction(EInstruction.LIT, 0, -1); // length is not set here
         addInstruction(EInstruction.STO, level, address - 1);
 
-        for (int i = 0; i < length; i++) {
+        int actualLength = 0;
+        int i;
+        for (i = 0; i < length; i++) {
             int size = getInstructions().size();
             new ExpressionGenerator(assignVariable.getExpression()).generate(i);
             if (size < getInstructions().size()) {
                 addInstruction(EInstruction.STO, level, address + i);
+                actualLength++;
             }
         }
+
+        getInstructions().get(row).setData(actualLength); // set length
+    }
+
+    private void typeCheck(AssignVariable assignVariable, EVariableType variableType) {
+        boolean check = false;
+        Expression expression = assignVariable.getExpression();
+        if (variableType == EVariableType.INT || variableType == EVariableType.ARRAY_INT) {
+            check = expression instanceof NumberExpression;
+        } else if (variableType == EVariableType.BOOL || variableType == EVariableType.ARRAY_BOOL) {
+            check = expression instanceof BoolExpression;
+        } else if (variableType == EVariableType.CHAR || variableType == EVariableType.ARRAY_CHAR) {
+            check = expression instanceof StringExpression;
+        }
+
+        if (!check) throwError(EErrorType.INCOMPATIBLE_TYPES, assignVariable.getName());
     }
 
     private void generateSimple(AssignVariable assignVariable, int index) {
