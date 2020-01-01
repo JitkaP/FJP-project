@@ -1694,14 +1694,14 @@ public class LangParser extends Parser {
 	}
 
 	public static class ExpressionContext extends ParserRuleContext {
-		public Number_expressionContext number_expression() {
-			return getRuleContext(Number_expressionContext.class,0);
-		}
 		public Bool_expressionContext bool_expression() {
 			return getRuleContext(Bool_expressionContext.class,0);
 		}
 		public String_expressionContext string_expression() {
 			return getRuleContext(String_expressionContext.class,0);
+		}
+		public Number_expressionContext number_expression() {
+			return getRuleContext(Number_expressionContext.class,0);
 		}
 		public ExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1734,19 +1734,19 @@ public class LangParser extends Parser {
 			case 1:
 				{
 				setState(265);
-				number_expression();
+				bool_expression();
 				}
 				break;
 			case 2:
 				{
 				setState(266);
-				bool_expression();
+				string_expression();
 				}
 				break;
 			case 3:
 				{
 				setState(267);
-				string_expression();
+				number_expression();
 				}
 				break;
 			}
@@ -2592,8 +2592,8 @@ public class LangParser extends Parser {
 		"\5\60\31\2\u0101\u0108\3\2\2\2\u0102\u0103\5*\26\2\u0103\u0104\t\3\2\2"+
 		"\u0104\u0105\5*\26\2\u0105\u0108\3\2\2\2\u0106\u0108\5,\27\2\u0107\u00fe"+
 		"\3\2\2\2\u0107\u0102\3\2\2\2\u0107\u0106\3\2\2\2\u0108\u0109\3\2\2\2\u0109"+
-		"\u010a\7\r\2\2\u010a)\3\2\2\2\u010b\u010f\5\60\31\2\u010c\u010f\5,\27"+
-		"\2\u010d\u010f\5.\30\2\u010e\u010b\3\2\2\2\u010e\u010c\3\2\2\2\u010e\u010d"+
+		"\u010a\7\r\2\2\u010a)\3\2\2\2\u010b\u010f\5,\27\2\u010c\u010f\5.\30\2"+
+		"\u010d\u010f\5\60\31\2\u010e\u010b\3\2\2\2\u010e\u010c\3\2\2\2\u010e\u010d"+
 		"\3\2\2\2\u010f+\3\2\2\2\u0110\u0112\7*\2\2\u0111\u0110\3\2\2\2\u0111\u0112"+
 		"\3\2\2\2\u0112\u0118\3\2\2\2\u0113\u0119\7!\2\2\u0114\u0117\58\35\2\u0115"+
 		"\u0117\5\66\34\2\u0116\u0114\3\2\2\2\u0116\u0115\3\2\2\2\u0117\u0119\3"+

@@ -87,7 +87,7 @@ condition
    ;
 
 expression
-    : (number_expression | bool_expression | string_expression)
+    : (bool_expression | string_expression | number_expression)
     ;
 
 bool_expression
