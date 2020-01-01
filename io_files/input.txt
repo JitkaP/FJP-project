@@ -11,7 +11,7 @@ begin
     // aaa := 5;
     a := "ahoj";
     b := "ahok";
-    if (a[2] = b[2]) then
+    if (a != b) then
         begin
             i := 5;
         end

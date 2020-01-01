@@ -3,6 +3,8 @@ package main.compiler.generator;
 import main.compiler.entity.Instruction;
 import main.compiler.entity.Symbol;
 import main.compiler.entity.Variable;
+import main.compiler.entity.value.IdentValue;
+import main.compiler.entity.value.IntValue;
 import main.compiler.entity.value.Value;
 import main.compiler.enums.EErrorType;
 import main.compiler.enums.EInstruction;
@@ -101,6 +103,40 @@ public abstract class Generator {
 
     static List<HashMap<String, Symbol>> getTables() {
         return tables;
+    }
+
+    public int getIndex(IdentValue identValue) {
+        int index = -1;
+        if (identValue.getIndexName() != null && !identValue.getIndexName().isEmpty()) {
+            Value value = getVariableValue(identValue.getIndexName());
+            if (value instanceof IntValue) {
+                index = ((IntValue) value).getInteger();
+            } else {
+                // chyba (nejspis)
+            }
+        } else {
+            index = identValue.getIndex();
+        }
+
+        return index;
+    }
+
+    public static int getLength(String name) {
+        Variable variable = getVariable(name);
+
+        int length = 0;
+        if (variable.getLengthName() != null && !variable.getLengthName().isEmpty()) {
+            Value value = getVariableValue(variable.getLengthName());
+            if (value instanceof IntValue) {
+                length = ((IntValue) value).getInteger();
+            } else {
+                // chyba (nejspis)
+            }
+        } else {
+            length = variable.getLength();
+        }
+
+        return length;
     }
 
     public static void throwError(EErrorType type) {

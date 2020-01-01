@@ -6,6 +6,9 @@ import main.compiler.enums.EInstruction;
 import main.compiler.generator.ConditionGenerator;
 import main.compiler.generator.Generator;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class IfStatementGenerator extends Generator {
 
     private IfStatement ifStatement;
@@ -15,11 +18,17 @@ public class IfStatementGenerator extends Generator {
     }
 
     public void generate() {
-        new ConditionGenerator(ifStatement.getCondition()).generate();
+        ConditionGenerator conditionGenerator;
+        List<Integer> jmcRows = new LinkedList<>();
 
-        int jmcRow = getNumberOfInstructions();
-
-        addInstruction(EInstruction.JMC, 0, -1);
+        int i = -1;
+        do {
+            conditionGenerator = new ConditionGenerator(ifStatement.getCondition());
+            conditionGenerator.generate(i++);
+            int jmcRow = getNumberOfInstructions();
+            jmcRows.add(jmcRow);
+            addInstruction(EInstruction.JMC, 0, -1);
+        } while (conditionGenerator.isBoolContinue());
 
         new StatementGenerator(ifStatement.getIfStatement()).generate();
 
@@ -31,7 +40,9 @@ public class IfStatementGenerator extends Generator {
             addInstruction(EInstruction.JMP, 0, -1);
         }
 
-        getInstructions().get(jmcRow).setData(getNumberOfInstructions());
+        for (int jmcRow: jmcRows) {
+            getInstructions().get(jmcRow).setData(getNumberOfInstructions());
+        }
 
         if (elseStatement != null) {
             new StatementGenerator(elseStatement).generate();

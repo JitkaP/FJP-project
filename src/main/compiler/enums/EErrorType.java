@@ -3,7 +3,8 @@ package main.compiler.enums;
 public enum EErrorType {
 
     VARIABLE_NOT_DECLARED("Usage of not declared variable."),
-    INCOMPATIBLE_TYPES("Incompatible types when assigning.")
+    INCOMPATIBLE_TYPES("Incompatible types when assigning."),
+    INDEX_OUT_OF_BOUNDS("Index is out of bounds.")
     ;
 
     private String message;

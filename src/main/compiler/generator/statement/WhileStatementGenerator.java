@@ -5,6 +5,9 @@ import main.compiler.enums.EInstruction;
 import main.compiler.generator.ConditionGenerator;
 import main.compiler.generator.Generator;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class WhileStatementGenerator extends Generator {
 
     private WhileStatement whileStatement;
@@ -16,16 +19,24 @@ public class WhileStatementGenerator extends Generator {
     public void generate() {
         int startRow = getNumberOfInstructions();
 
-        new ConditionGenerator(whileStatement.getCondition()).generate();
+        ConditionGenerator conditionGenerator;
+        List<Integer> jmcRows = new LinkedList<>();
 
-        int jmcRow = getNumberOfInstructions();
-
-        addInstruction(EInstruction.JMC, 0 , -1);
+        int i = -1;
+        do {
+            conditionGenerator = new ConditionGenerator(whileStatement.getCondition());
+            conditionGenerator.generate(i++);
+            int jmcRow = getNumberOfInstructions();
+            jmcRows.add(jmcRow);
+            addInstruction(EInstruction.JMC, 0, -1);
+        } while (conditionGenerator.isBoolContinue());
 
         new StatementGenerator(whileStatement.getStatement()).generate();
 
         addInstruction(EInstruction.JMP, 0, startRow);
 
-        getInstructions().get(jmcRow).setData(getNumberOfInstructions());
+        for (int jmcRow: jmcRows) {
+            getInstructions().get(jmcRow).setData(getNumberOfInstructions());
+        }
     }
 }

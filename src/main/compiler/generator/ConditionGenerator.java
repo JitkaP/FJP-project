@@ -13,22 +13,34 @@ import main.compiler.generator.expression.ExpressionGenerator;
 public class ConditionGenerator extends Generator {
 
     private Condition condition;
+    private boolean boolContinue = false;
 
     public ConditionGenerator(Condition condition) {
         this.condition = condition;
     }
 
     public void generate() {
+        generate(0);
+    }
+
+    public void generate(int index) {
         // bool_exp / 2x num exp / 2x exp
 
         if (this.condition.getBoolExpression() != null) {
             BoolExpression boolExpression = this.condition.getBoolExpression();
-            new BoolExpressionGenerator(boolExpression).generate();
+            new BoolExpressionGenerator(boolExpression).generate(index);
         } else if (this.condition.getLeftExpression() != null && this.condition.getRightExpression() != null) {
             Expression left = this.condition.getLeftExpression();
-            new ExpressionGenerator(left).generate();
+            ExpressionGenerator leftExpressionGen = new ExpressionGenerator(left);
+            leftExpressionGen.generate(index);
+            boolean boolLeft = leftExpressionGen.isBoolContinue();
+
             Expression right = this.condition.getRightExpression();
-            new ExpressionGenerator(right).generate();
+            ExpressionGenerator rightExpressionGen = new ExpressionGenerator(right);
+            rightExpressionGen.generate(index);
+            boolean boolRight = rightExpressionGen.isBoolContinue();
+
+            this.boolContinue = boolLeft && boolRight;
 
             EConditionOperator op = this.condition.getOperator();
             switch (op) {
@@ -41,9 +53,9 @@ public class ConditionGenerator extends Generator {
             }
         } else if (this.condition.getLeftNumberExpression() != null && this.condition.getRightNumberExpression() != null) {
             NumberExpression left = this.condition.getLeftNumberExpression();
-            new ExpressionGenerator(left).generate();
+            new ExpressionGenerator(left).generate(index);
             NumberExpression right = this.condition.getRightNumberExpression();
-            new ExpressionGenerator(right).generate();
+            new ExpressionGenerator(right).generate(index);
 
             EConditionOperator op = this.condition.getOperator();
             switch (op) {
@@ -64,4 +76,7 @@ public class ConditionGenerator extends Generator {
 
     }
 
+    public boolean isBoolContinue() {
+        return boolContinue;
+    }
 }

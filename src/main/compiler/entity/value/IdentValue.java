@@ -3,7 +3,7 @@ package main.compiler.entity.value;
 public class IdentValue extends Value {
 
     private String name;
-    private int index;
+    private int index = -1;
     private String indexName;
 
     public IdentValue(String name) {
@@ -22,5 +22,13 @@ public class IdentValue extends Value {
 
     public String getName() {
         return name;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public String getIndexName() {
+        return indexName;
     }
 }

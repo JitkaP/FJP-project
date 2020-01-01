@@ -11,6 +11,7 @@ public class ExpressionGenerator extends Generator {
 
     private Expression expression;
     private Value value = null;
+    private boolean boolContinue = false;
 
     public ExpressionGenerator(Expression expression) {
         this.expression = expression;
@@ -20,7 +21,7 @@ public class ExpressionGenerator extends Generator {
         if (expression instanceof NumberExpression) {
             this.value = (new NumberExpressionGenerator((NumberExpression) expression)).generate(index);
         } else if (expression instanceof BoolExpression) {
-            (new BoolExpressionGenerator((BoolExpression) expression)).generate();
+            this.boolContinue = (new BoolExpressionGenerator((BoolExpression) expression)).generate(index);
         } else if (expression instanceof StringExpression) {
             (new StringExpressionGenerator((StringExpression) expression)).generate(index);
         }
@@ -32,5 +33,9 @@ public class ExpressionGenerator extends Generator {
 
     public Value getValue() {
         return value;
+    }
+
+    public boolean isBoolContinue() {
+        return boolContinue;
     }
 }

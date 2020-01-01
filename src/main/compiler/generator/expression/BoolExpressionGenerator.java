@@ -1,9 +1,9 @@
 package main.compiler.generator.expression;
 
 import main.compiler.entity.expression.BoolExpression;
-import main.compiler.entity.value.BoolValue;
-import main.compiler.entity.value.IdentValue;
+import main.compiler.entity.value.*;
 import main.compiler.enums.EBoolOp;
+import main.compiler.enums.EErrorType;
 import main.compiler.enums.EInstruction;
 import main.compiler.enums.EInstructionOpr;
 import main.compiler.generator.Generator;
@@ -14,17 +14,21 @@ public class BoolExpressionGenerator extends Generator {
 
     private BoolExpression boolExpression;
 
+    private int index = -1;
+
     public BoolExpressionGenerator(BoolExpression boolExpression) {
         this.boolExpression = boolExpression;
     }
 
-    public void generate() {
+    public boolean generate(int index) {
+        this.index = index;
         Object left = null;
         Object right;
         List<Object> tokens = this.boolExpression.getTokens();
+        boolean result = false;
 
         if (tokens.size() == 1) {
-            generateValue(tokens.get(0));
+            result = generateValue(tokens.get(0));
         }
 
         for (int i = 0; i < tokens.size(); i++) { // !, &&, ||, ident, bool_value
@@ -61,18 +65,48 @@ public class BoolExpressionGenerator extends Generator {
             }
         }
 
+        return result;
     }
 
-    private void generateValue(Object token) {
+    private boolean generateValue(Object token) {
+        boolean result = false;
+
         if (token instanceof BoolValue) {
             boolean b = ((BoolValue) token).getBool();
             int intValue = (b) ? 1 : 0; // 1=true, 0=false
             addInstruction(EInstruction.LIT, 0, intValue);
         } else if (token instanceof IdentValue) {
-            String name = ((IdentValue) token).getName();
+            IdentValue identValue = ((IdentValue) token);
+            String name = identValue.getName();
             int address = getAddress(name);
             int level = getLevel(name);
+
+            int length = getLength(name);
+            int index = getIndex(identValue);
+            if (index < 0) { // whole array
+                Value value = getVariableValue(name);
+                if (value instanceof ArrayIntValue || value instanceof ArrayBoolValue || value instanceof ArrayCharValue) {
+                    if (this.index < length) {
+                        address += this.index;
+                    }
+
+                    if (this.index < length - 1) {
+                        result = true;
+                    }
+                }
+            } else { // index
+                if (index >= length) {
+                    throwError(EErrorType.INDEX_OUT_OF_BOUNDS);
+                }
+
+                if (index > 0) {
+                    address += index;
+                }
+            }
+
             addInstruction(EInstruction.LOD, level, address);
         }
+
+        return result;
     }
 }
