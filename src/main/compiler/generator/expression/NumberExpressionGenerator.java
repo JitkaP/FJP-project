@@ -7,6 +7,7 @@ import main.compiler.entity.value.IdentValue;
 import main.compiler.entity.value.IntValue;
 
 import main.compiler.entity.value.Value;
+import main.compiler.enums.EErrorType;
 import main.compiler.enums.EInstruction;
 import main.compiler.enums.EInstructionOpr;
 import main.compiler.enums.ENumberOp;
@@ -120,7 +121,12 @@ public class NumberExpressionGenerator extends Generator {
                 }
 
                 addInstruction(EInstruction.LOD, level, data);
-                returnValue = (IntValue) getVariableValue(name, this.index); // todo - really?
+                Value variableValue = getVariableValue(name, this.index);
+                if (variableValue instanceof IntValue) {
+                    returnValue = (IntValue) variableValue;
+                } else {
+                    throwError(EErrorType.INCOMPATIBLE_TYPES);
+                }
             }
         } else if (factor.getNumberExpression() != null){
             NumberExpression numberExpression = factor.getNumberExpression();
