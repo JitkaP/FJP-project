@@ -2,6 +2,9 @@ package main.compiler.entity.statement;
 
 import main.compiler.entity.Condition;
 
+/**
+ * This class represents if statement.
+ */
 public class IfStatement extends Statement {
 
     private Condition condition;

@@ -11,8 +11,16 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Visitor for ParallelStatement class.
+ */
 public class ParallelStatementVisitor extends LangBaseVisitor<AssignmentStatement> {
 
+    /**
+     * Method for visit ParallelStatement
+     * @param ctx context of the ParallelStatement
+     * @return object of AssignmentStatement class
+     */
     @Override
     public AssignmentStatement visitParallelstmt(LangParser.ParallelstmtContext ctx) {
 

@@ -18,6 +18,9 @@ import main.compiler.generator.expression.ExpressionGenerator;
 
 import java.util.List;
 
+/**
+ * Generator for assignment statements.
+ */
 public class AssignmentStatementGenerator extends Generator {
 
     private AssignmentStatement assignmentStatement;
@@ -26,6 +29,9 @@ public class AssignmentStatementGenerator extends Generator {
         this.assignmentStatement = assignmentStatement;
     }
 
+    /**
+     * Method for processing and generating instructions of assignment statements.
+     */
     public void generate() {
         for (AssignVariable assignVariable: this.assignmentStatement.getVariables()) {
             Variable variable = getVariable(assignVariable.getName());
@@ -36,6 +42,7 @@ public class AssignmentStatementGenerator extends Generator {
                 if (value instanceof IntValue) {
                     index = ((IntValue) value).getInteger();
                 } else {
+                    //TODO: pořešit
                     // chyba (nejspis)
                 }
             } else {
@@ -56,6 +63,9 @@ public class AssignmentStatementGenerator extends Generator {
         }
     }
 
+    /**
+     * Method for processing and generating instructions of arrays in assignment statements.
+     */
     private void generateArray(AssignVariable assignVariable) {
         Variable variable = getVariable(assignVariable.getName());
         int address = getAddress(assignVariable.getName());
@@ -81,6 +91,9 @@ public class AssignmentStatementGenerator extends Generator {
         getInstructions().get(row).setData(actualLength); // set length
     }
 
+    /**
+     * Method for checking assigning to correct data types.
+     */
     private void typeCheck(AssignVariable assignVariable, EVariableType variableType) {
         boolean check = false;
         Expression expression = assignVariable.getExpression();
@@ -106,6 +119,9 @@ public class AssignmentStatementGenerator extends Generator {
         if (!check) throwError(EErrorType.INCOMPATIBLE_TYPES, assignVariable.getName());
     }
 
+    /**
+     * Method for processing and generating instructions of non-arrays values in assignment statements.
+     */
     private void generateSimple(AssignVariable assignVariable, int index) {
         int size = getInstructions().size();
         ExpressionGenerator expressionGenerator = new ExpressionGenerator(assignVariable.getExpression());

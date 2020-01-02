@@ -12,15 +12,20 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import java.util.List;
 
-//Singleton
+/**
+ * Singleton Compiler launch all executive parts of the program
+ */
 public class Compiler {
 
-    private Compiler() {
-        //empty constructor
-    }
+    private Compiler() {}
 
     private static final Compiler INSTANCE = new Compiler();
 
+    /**
+     * Launches all executive parts of the program
+     * @param in input represented by String class
+     * @return list of generated instructions
+     */
     public List<Instruction> run(String in) {
         CharStream convertedInput = CharStreams.fromString(in);
 

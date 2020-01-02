@@ -12,6 +12,9 @@ import main.compiler.enums.EInstructionOpr;
 import main.compiler.generator.expression.BoolExpressionGenerator;
 import main.compiler.generator.expression.ExpressionGenerator;
 
+/**
+ * Generator for conditions.
+ */
 public class ConditionGenerator extends Generator {
 
     private Condition condition;
@@ -25,6 +28,9 @@ public class ConditionGenerator extends Generator {
         generate(0);
     }
 
+    /**
+     * Method for processing and generating instructions of conditions.
+     */
     public void generate(int index) {
         // bool_exp / 2x num exp / 2x exp
 

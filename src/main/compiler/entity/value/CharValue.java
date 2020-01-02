@@ -1,5 +1,8 @@
 package main.compiler.entity.value;
 
+/**
+ * This class represents character value.
+ */
 public class CharValue extends Value {
 
     private char c;

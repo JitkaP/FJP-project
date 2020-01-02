@@ -1,5 +1,8 @@
 package main.compiler.entity.value;
 
+/**
+ * This class represents array of character values (string).
+ */
 public class ArrayCharValue extends Value {
 
     private char[] array;

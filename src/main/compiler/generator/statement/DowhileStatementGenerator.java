@@ -8,6 +8,9 @@ import main.compiler.generator.Generator;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Generator for do while statements.
+ */
 public class DowhileStatementGenerator extends Generator {
 
     private DowhileStatement dowhileStatement;
@@ -16,6 +19,9 @@ public class DowhileStatementGenerator extends Generator {
         this.dowhileStatement = dowhileStatement;
     }
 
+    /**
+     * Method for processing and generating instructions of do while statement.
+     */
     public void generate() {
         int startRow = getNumberOfInstructions();
 

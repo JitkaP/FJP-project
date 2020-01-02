@@ -12,11 +12,29 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class represents for statement
+ */
 public class ForStatement extends Statement {
 
+    /**
+     * Name of the controlling variable
+     */
     private String name;
+
+    /**
+     * Number expression - represents initial state of controlling variable
+     */
     private NumberExpression from;
+
+    /**
+     * Condition in ForStatement
+     */
     private Condition condition;
+
+    /**
+     * Statement in ForStatement
+     */
     private Statement statement;
 
     public ForStatement(String name, NumberExpression from, NumberExpression to, Statement statement) {

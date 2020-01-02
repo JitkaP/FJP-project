@@ -8,6 +8,9 @@ import main.compiler.generator.Generator;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Generator for while statements.
+ */
 public class WhileStatementGenerator extends Generator {
 
     private WhileStatement whileStatement;
@@ -16,6 +19,9 @@ public class WhileStatementGenerator extends Generator {
         this.whileStatement = whileStatement;
     }
 
+    /**
+     * Method for processing and generating instructions of while statement.
+     */
     public void generate() {
         int startRow = getNumberOfInstructions();
 

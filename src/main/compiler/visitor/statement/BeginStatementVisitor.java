@@ -8,8 +8,16 @@ import main.compiler.entity.statement.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Visitor for BeginStatement class.
+ */
 public class BeginStatementVisitor extends LangBaseVisitor<BeginStatement> {
 
+    /**
+     * Method for visit BeginStatement
+     * @param ctx context of the BeginStatement
+     * @return object of BeginStatement class
+     */
     @Override
     public BeginStatement visitBeginstmt(LangParser.BeginstmtContext ctx) {
         List<Statement> statements = new ArrayList<>();
@@ -19,6 +27,6 @@ public class BeginStatementVisitor extends LangBaseVisitor<BeginStatement> {
             statements.add(statement);
         }
 
-        return new BeginStatement(statements); // prozatim, aby slo prelozit
+        return new BeginStatement(statements);
     }
 }

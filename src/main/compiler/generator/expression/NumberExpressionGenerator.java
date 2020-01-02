@@ -14,6 +14,9 @@ import main.compiler.generator.Generator;
 
 import java.util.List;
 
+/**
+ * Generator for number expressions.
+ */
 public class NumberExpressionGenerator extends Generator {
 
     private NumberExpression numberExpression;
@@ -23,6 +26,11 @@ public class NumberExpressionGenerator extends Generator {
         this.numberExpression = numberExpression;
     }
 
+    /**
+     * ???
+     * @param index
+     * @return
+     */
     public IntValue generate(int index) {
         this.index = index;
         IntValue value = null;
@@ -65,6 +73,11 @@ public class NumberExpressionGenerator extends Generator {
         return value;
     }
 
+    /**
+     * ???
+     * @param term
+     * @return
+     */
     public IntValue termGenerate(Term term) {
         IntValue value = null;
         IntValue left = null;
@@ -96,6 +109,11 @@ public class NumberExpressionGenerator extends Generator {
         return value;
     }
 
+    /**
+     * ???
+     * @param factor
+     * @return
+     */
     public IntValue factorGenerate(Factor factor) {
         // value - identvalue/intvalue, nebo numberexpression - todo numberexp
         Value value = factor.getValue();

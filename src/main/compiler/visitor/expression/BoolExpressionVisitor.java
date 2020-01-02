@@ -11,8 +11,16 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Visitor for BoolExpression class.
+ */
 public class BoolExpressionVisitor extends LangBaseVisitor<BoolExpression> {
 
+    /**
+     * Method for visit BoolExpression
+     * @param ctx context of the BoolExpression
+     * @return object of BoolExpression class
+     */
     @Override
     public BoolExpression visitBool_expression(LangParser.Bool_expressionContext ctx) {
         List<Object> tokens = new ArrayList<>();
@@ -42,6 +50,7 @@ public class BoolExpressionVisitor extends LangBaseVisitor<BoolExpression> {
                     token = new IdentValue(name, indexName);
                 }
             }else { //if (tree instanceof TerminalNode) { // should be BOOLEAN
+                //TODO: ???
                 token = new BoolValue(Boolean.parseBoolean(tree.getText()));
             }
 

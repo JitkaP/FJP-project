@@ -6,26 +6,41 @@ import main.compiler.enums.EVariableType;
 
 import java.util.List;
 
+/**
+ * This class represents variable.
+ */
 public class Variable extends Symbol {
 
     // assignment - either value or expression is set (other is null)
+    /**
+     * Value of the Variable
+     */
     private Value value = null;
+
+    /**
+     * Expression of the Variable
+     */
     private Expression expression = null;
 
+    /**
+     * Is Variable constant
+     */
     private boolean isConst;
+
+    /**
+     * Type of the Variable
+     */
     private EVariableType type;
 
+    /**
+     * Length of the Variable - if Variable represents array
+     */
     private int length = 0;
-    private String lengthName = null;
 
-    @Override
-    public int getAddress() {
-        if (type == EVariableType.BOOL || type == EVariableType.CHAR || type == EVariableType.INT) {
-            return super.getAddress();
-        } else { // arrays
-            return super.getAddress() + 1; // at address[0] is stored array length
-        }
-    }
+    /**
+     * Length of the Variable - if Variable represents array and index of the Variable is represented by identificator
+     */
+    private String lengthName = null;
 
     private Variable(String name, EVariableType type, boolean isConst)
     {
@@ -59,10 +74,28 @@ public class Variable extends Symbol {
         setValue(values);
     }
 
+    /**
+     * Returns address of the Variable. If the Variable is array, returns address of the first element in the array.
+     * @return address of the Variable
+     */
+    @Override
+    public int getAddress() {
+        if (type == EVariableType.BOOL || type == EVariableType.CHAR || type == EVariableType.INT) {
+            return super.getAddress();
+        } else { // arrays
+            return super.getAddress() + 1; // at address[0] is stored array length
+        }
+    }
+
     public Value getValue() {
         return value;
     }
 
+    /**
+     * Returns value at index. Useful for arrays.
+     * @param index index of the wanted value
+     * @return value at entered index
+     */
     public Value getValue(int index) {
         if (index < 0) return getValue();
         if (this.type == null) return null; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
@@ -82,6 +115,11 @@ public class Variable extends Symbol {
         return null;
     }
 
+    /**
+     * Sets entered value at entered index, Variable has to be array.
+     * @param value value to set
+     * @param index index in the Variable array
+     */
     public void setValue(Value value, int index) {
         if (this.type == null) return; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
 
@@ -97,16 +135,19 @@ public class Variable extends Symbol {
                 return;
             case CHAR:
                 if (!(value instanceof CharValue)) {
+                    //TODO
                     // vyjimka
                 }
                 break;
             case BOOL:
                 if (!(value instanceof BoolValue)) {
+                    //TODO
                     // vyjimka
                 }
                 break;
             case INT:
                 if (!(value instanceof IntValue)) {
+                    //TODO
                     // vyjimka
                 }
                 break;
@@ -115,10 +156,13 @@ public class Variable extends Symbol {
         this.value = value;
     }
 
-    // type system check
+    /**
+     * Sets entered value represented by String class. Variable has not to be array.
+     * @param valueString entered value represented by String class
+     */
     public void setValue(String valueString) {
         if (this.type == null) return; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
-        if (valueString == null || valueString.isEmpty()) return; // mozna pak odebrat?
+        if (valueString == null || valueString.isEmpty()) return; // TODO mozna pak odebrat?
 
         switch (this.type) {
             case CHAR:
@@ -135,6 +179,10 @@ public class Variable extends Symbol {
         }
     }
 
+    /**
+     * Sets the length of the Variable. Variable has to be array.
+     * @param length length of the Variable
+     */
     public void setValueWithLength(int length) {
         if (this.type == null) return; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
 
@@ -151,6 +199,10 @@ public class Variable extends Symbol {
         }
     }
 
+    /**
+     * Sets values to the Variable. Variable has to be array.
+     * @param values list of values to set
+     */
     public void setValue(List<Object> values) {
         if (this.type == null) return; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
 

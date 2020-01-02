@@ -9,8 +9,16 @@ import main.compiler.visitor.statement.StatementVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Visitor for Block class.
+ */
 public class BlockVisitor extends LangBaseVisitor<Block> {
 
+    /**
+     * Method for visit Block
+     * @param ctx context of the Block
+     * @return object of Block class
+     */
     @Override
     public Block visitBlock(LangParser.BlockContext ctx) {
 
@@ -38,7 +46,7 @@ public class BlockVisitor extends LangBaseVisitor<Block> {
                 procedures.add(currentProcedure);
             }
             else {
-                //vyhodit vyjimku
+                //TODO: vyhodit vyjimku? Error? nebo tak něco?
             }
 
         }
@@ -57,7 +65,7 @@ public class BlockVisitor extends LangBaseVisitor<Block> {
                 if (!containsVariable(variables, currentVariable)) {
                     variables.add(currentVariable);
                 } else {
-                    // vyhodit vyjimku
+                    //TODO: vyhodit vyjimku? Error? nebo tak něco?
                 }
             }
         }

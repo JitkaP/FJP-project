@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Generator for for statements.
+ */
 public class ForStatementGenerator extends Generator {
 
     private ForStatement forStatement;
@@ -24,6 +27,9 @@ public class ForStatementGenerator extends Generator {
         this.forStatement = forStatement;
     }
 
+    /**
+     * Method for processing and generating instructions of for statement.
+     */
     public void generate() {
         NumberExpression expression = forStatement.getFrom();
 

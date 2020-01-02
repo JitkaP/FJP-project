@@ -5,8 +5,16 @@ import antlr.gen.LangParser;
 import main.compiler.entity.statement.Statement;
 import main.compiler.enums.EStatementType;
 
+/**
+ * Visitor for Statement class.
+ */
 public class StatementVisitor extends LangBaseVisitor<Statement> {
 
+    /**
+     * Method for visit Statement
+     * @param ctx context of the Statement
+     * @return object of the Statement class
+     */
     @Override public Statement visitStatement(LangParser.StatementContext ctx) {
         Statement statement = null;
 

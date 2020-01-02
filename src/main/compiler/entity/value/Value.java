@@ -1,5 +1,8 @@
 package main.compiler.entity.value;
 
+/**
+ * Abstract class represents value, extended by specific values classes.
+ */
 public abstract class Value {
 
     private Object value;
@@ -14,7 +17,7 @@ public abstract class Value {
 
     @Override
     public String toString() {
-        if (value == null) return ""; // asi jen docasne?
+        if (value == null) return ""; // TODO: asi jen docasne?
 
         return value.toString();
     }

@@ -6,6 +6,9 @@ import main.compiler.generator.Generator;
 
 import java.util.List;
 
+/**
+ * Generator for begin statements.
+ */
 public class BeginStatementGenerator extends Generator {
 
     private BeginStatement beginStatement;
@@ -14,6 +17,9 @@ public class BeginStatementGenerator extends Generator {
         this.beginStatement = beginStatement;
     }
 
+    /**
+     * Method for processing and generating instructions of begin statement.
+     */
     public void generate() {
         List<Statement> statements = this.beginStatement.getStatements();
         for (Statement statement: statements) {

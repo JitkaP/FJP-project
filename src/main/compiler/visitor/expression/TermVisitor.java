@@ -9,8 +9,16 @@ import main.compiler.enums.ENumberOp;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Visitor for Term class.
+ */
 public class TermVisitor extends LangBaseVisitor<Term> {
 
+    /**
+     * Method for visit Term
+     * @param ctx context of the Term
+     * @return object of Term class
+     */
     @Override
     public Term visitTerm(LangParser.TermContext ctx) {
         List<Object> tokens = new ArrayList<>();

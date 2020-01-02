@@ -7,8 +7,17 @@ import main.compiler.entity.expression.Expression;
 import main.compiler.entity.expression.NumberExpression;
 import main.compiler.entity.expression.StringExpression;
 
+/**
+ * Visitor for Expression class.
+ */
 public class ExpressionVisitor extends LangBaseVisitor<Expression> {
 
+    /**
+     * Method for visit Expression
+     * @param ctx context of the Expression
+     * @return object of StringExpression, NumberExpression or
+     *         BoolExpression class (all of these classes extends Expression)
+     */
     @Override
     public Expression visitExpression(LangParser.ExpressionContext ctx) {
         if (ctx.string_expression() != null) {

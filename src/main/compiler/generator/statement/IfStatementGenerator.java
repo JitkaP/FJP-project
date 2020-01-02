@@ -9,6 +9,9 @@ import main.compiler.generator.Generator;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Generator for if statements.
+ */
 public class IfStatementGenerator extends Generator {
 
     private IfStatement ifStatement;
@@ -17,6 +20,9 @@ public class IfStatementGenerator extends Generator {
         this.ifStatement = ifStatement;
     }
 
+    /**
+     * Method for processing and generating instructions of if statement.
+     */
     public void generate() {
         ConditionGenerator conditionGenerator;
         List<Integer> jmcRows = new LinkedList<>();

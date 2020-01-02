@@ -9,6 +9,9 @@ import main.compiler.generator.Generator;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Generator for ternar statements.
+ */
 public class TernarStatementGenerator extends Generator {
     
     private TernarStatement ternarStatement;
@@ -16,8 +19,12 @@ public class TernarStatementGenerator extends Generator {
     public TernarStatementGenerator(TernarStatement ternarStatement) {
         this.ternarStatement = ternarStatement;
     }
-    
+
+    /**
+     * Method for processing and generating instructions of ternar statement.
+     */
     public void generate() {
+        //TODO: asi smazat hádam
         Variable var = getVariable(ternarStatement.getName());
 
         String name = ternarStatement.getName();
@@ -31,9 +38,9 @@ public class TernarStatementGenerator extends Generator {
         leftAssign.setType(EStatementType.ASSIGN);
 
         AssignVariable right = new AssignVariable(name, ternarStatement.getRightExpression(), index, indexName);
-        List<AssignVariable> rigthVar = new ArrayList<>();
-        rigthVar.add(right);
-        AssignmentStatement rightAssign = new AssignmentStatement(rigthVar);
+        List<AssignVariable> rightVar = new ArrayList<>();
+        rightVar.add(right);
+        AssignmentStatement rightAssign = new AssignmentStatement(rightVar);
         rightAssign.setType(EStatementType.ASSIGN);
 
         IfStatement ifStatement = new IfStatement(ternarStatement.getCondition(), leftAssign, rightAssign);

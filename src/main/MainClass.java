@@ -6,11 +6,18 @@ import main.compiler.entity.Instruction;
 import java.io.*;
 import java.util.List;
 
+/**
+ * Main class of the FJP project
+ */
 public class MainClass {
 
     private static String inputFile = "io_files/example_1.txt";
     private static String outputFile = "io_files/out_example_1.txt";
 
+    /**
+     * Entry point of the program
+     * @param args arguments of the command line
+     */
     public static void main(String[] args) {
 
         String inputStream = readFromFile(inputFile);
@@ -22,6 +29,11 @@ public class MainClass {
         }
     }
 
+    /**
+     * Load input from file
+     * @param inputFile input file
+     * @return loaded input represents by String class
+     */
     private static String readFromFile(String inputFile) {
         StringBuilder resultStringBuilder = new StringBuilder();
         try {
@@ -37,6 +49,11 @@ public class MainClass {
         return resultStringBuilder.toString();
     }
 
+    /**
+     * Save instructions to file
+     * @param outputFile output file
+     * @param instructions list of instructions
+     */
     private static void writeToFile(String outputFile, List<Instruction> instructions) {
         try {
             PrintStream out = new PrintStream(new File(outputFile), "UTF-8");

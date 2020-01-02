@@ -7,8 +7,16 @@ import main.compiler.entity.statement.ForStatement;
 import main.compiler.entity.statement.Statement;
 import main.compiler.visitor.expression.NumberExpressionVisitor;
 
+/**
+ * Visitor for ForStatement class.
+ */
 public class ForStatementVisitor extends LangBaseVisitor<ForStatement> {
 
+    /**
+     * Method for visit ForStatement
+     * @param ctx context of the ForStatement
+     * @return object of ForStatement class
+     */
     @Override
     public ForStatement visitForstmt(LangParser.ForstmtContext ctx) {
         String name = ctx.ident().getText();
@@ -18,5 +26,4 @@ public class ForStatementVisitor extends LangBaseVisitor<ForStatement> {
 
         return new ForStatement(name, from, to, statement);
     }
-
 }

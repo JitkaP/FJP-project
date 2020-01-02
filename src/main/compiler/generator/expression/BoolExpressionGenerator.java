@@ -10,6 +10,9 @@ import main.compiler.generator.Generator;
 
 import java.util.List;
 
+/**
+ * Generator for bool expressions.
+ */
 public class BoolExpressionGenerator extends Generator {
 
     private BoolExpression boolExpression;
@@ -20,6 +23,9 @@ public class BoolExpressionGenerator extends Generator {
         this.boolExpression = boolExpression;
     }
 
+    /**
+     * Method for processing and generating instructions of bool expression.
+     */
     public boolean generate(int index) {
         this.index = index;
         Object left = null;
@@ -68,6 +74,11 @@ public class BoolExpressionGenerator extends Generator {
         return result;
     }
 
+    /**
+     * Returns value of the token.
+     * @param token token
+     * @return value of the token
+     */
     private boolean generateValue(Object token) {
         boolean result = false;
 

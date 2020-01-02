@@ -8,8 +8,16 @@ import main.compiler.entity.value.IdentValue;
 import main.compiler.entity.value.IntValue;
 import main.compiler.entity.value.Value;
 
+/**
+ * Visitor for Factor class.
+ */
 public class FactorVisitor extends LangBaseVisitor<Factor> {
 
+    /**
+     * Method for visit Factor
+     * @param ctx context of the Factor
+     * @return object of Factor class
+     */
     @Override
     public Factor visitFactor(LangParser.FactorContext ctx) {
         // options: ident, NUMBER, number_expression
@@ -32,6 +40,7 @@ public class FactorVisitor extends LangBaseVisitor<Factor> {
             Value value = new IntValue(Integer.parseInt(ctx.NUMBER().getText()));
             return new Factor(value);
         } else { //if (ctx.number_expression() != null) {
+            //TODO: ? ok?
             NumberExpression numberExpression = new NumberExpressionVisitor().visit(ctx.number_expression());
             return new Factor(numberExpression);
         }

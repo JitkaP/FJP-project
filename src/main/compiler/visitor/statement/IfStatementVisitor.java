@@ -7,8 +7,16 @@ import main.compiler.entity.statement.IfStatement;
 import main.compiler.entity.statement.Statement;
 import main.compiler.visitor.ConditionVisitor;
 
+/**
+ * Visitor for IfStatement class.
+ */
 public class IfStatementVisitor extends LangBaseVisitor<IfStatement> {
 
+    /**
+     * Method for visit IfStatement
+     * @param ctx context of the IfStatement
+     * @return object of IfStatement class
+     */
     @Override
     public IfStatement visitIfstmt(LangParser.IfstmtContext ctx) {
         Condition condition = new ConditionVisitor().visit(ctx.condition());
@@ -21,5 +29,4 @@ public class IfStatementVisitor extends LangBaseVisitor<IfStatement> {
 
         return new IfStatement(condition, ifStatement, elseStatement);
     }
-
 }

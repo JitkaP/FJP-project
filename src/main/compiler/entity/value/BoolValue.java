@@ -1,5 +1,8 @@
 package main.compiler.entity.value;
 
+/**
+ * This class represents boolean value.
+ */
 public class BoolValue extends Value {
 
     private boolean bool;

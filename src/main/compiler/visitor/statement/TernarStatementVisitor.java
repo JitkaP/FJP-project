@@ -8,8 +8,16 @@ import main.compiler.entity.statement.TernarStatement;
 import main.compiler.visitor.ConditionVisitor;
 import main.compiler.visitor.expression.ExpressionVisitor;
 
+/**
+ * Visitor for TernarStatement class.
+ */
 public class TernarStatementVisitor extends LangBaseVisitor<TernarStatement> {
 
+    /**
+     * Method for visit TernarStatement
+     * @param ctx context of the TernarStatement
+     * @return object of TernarStatement class
+     */
     @Override
     public TernarStatement visitTernarstmt(LangParser.TernarstmtContext ctx) {
         Condition condition = new ConditionVisitor().visit(ctx.condition());

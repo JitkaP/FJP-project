@@ -1,5 +1,8 @@
 package main.compiler.entity.value;
 
+/**
+ * ???
+ */
 public class IdentValue extends Value {
 
     private String name;

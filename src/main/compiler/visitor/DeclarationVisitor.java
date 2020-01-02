@@ -8,8 +8,16 @@ import main.compiler.enums.EVariableType;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Visitor for Variable class. Represents declaration.
+ */
 public class DeclarationVisitor extends LangBaseVisitor<List<Variable>> {
 
+    /**
+     * Method for visit Declaration
+     * @param ctx context of the Declaration
+     * @return list of Variable objects
+     */
     @Override
     public List<Variable> visitDeclaration(LangParser.DeclarationContext ctx) {
         List<Variable> variables = new ArrayList<>();

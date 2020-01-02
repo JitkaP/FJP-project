@@ -2,12 +2,29 @@ package main.compiler.entity;
 
 import main.compiler.entity.expression.*;
 
+/**
+ * ???
+ */
 public class AssignVariable {
 
+    /**
+     * Name of the assign variable
+     */
     private String name;
+
+    /**
+     * ???
+     */
     private int index = -1;
+
+    /**
+     * ???
+     */
     private String indexName = null;
 
+    /**
+     * ???
+     */
     private Expression expression;
 
     public AssignVariable(String name, Expression exp) {

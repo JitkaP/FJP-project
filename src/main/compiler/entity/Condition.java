@@ -6,17 +6,44 @@ import main.compiler.entity.expression.NumberExpression;
 import main.compiler.enums.EConditionOperator;
 import main.compiler.enums.EConditionType;
 
+/**
+ * This class represents condition.
+ */
 public class Condition {
 
+    /**
+     * Type of the Condition
+     */
     private EConditionType type = null;
+
+    /**
+     * Operator in Condition
+     */
     private EConditionOperator operator = null;
 
+    /**
+     * Left number expression
+     */
     private NumberExpression leftNumberExpression = null;
+
+    /**
+     * Right number expression
+     */
     private NumberExpression rightNumberExpression = null;
 
+    /**
+     * Left expression
+     */
     private Expression leftExpression = null;
+
+    /**
+     * Right expression
+     */
     private Expression rightExpression = null;
 
+    /**
+     * Bool expression
+     */
     private BoolExpression boolExpression = null;
 
     public Condition(NumberExpression leftNumberExpression, NumberExpression rightNumberExpression, EConditionOperator operator, EConditionType type) {

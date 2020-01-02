@@ -4,6 +4,9 @@ import main.compiler.entity.Block;
 import main.compiler.enums.EInstruction;
 import main.compiler.generator.statement.StatementGenerator;
 
+/**
+ * Generator for blocks.
+ */
 public class BlockGenerator extends Generator {
 
     private Block block;
@@ -12,6 +15,9 @@ public class BlockGenerator extends Generator {
         this.block = block;
     }
 
+    /**
+     * Method for processing and generating instructions of blocks.
+     */
     public void generate() {
         addSymbolTable(block.getSymbolTable());
 

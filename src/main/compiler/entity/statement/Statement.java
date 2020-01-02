@@ -2,6 +2,9 @@ package main.compiler.entity.statement;
 
 import main.compiler.enums.EStatementType;
 
+/**
+ * This abstract class represents statement - extended by specific statements.
+ */
 public abstract class Statement {
     private EStatementType type;
 

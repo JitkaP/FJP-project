@@ -1,5 +1,8 @@
 package main.compiler.entity.value;
 
+/**
+ * This class represents array of boolean values.
+ */
 public class ArrayBoolValue extends Value {
 
     private boolean[] array;

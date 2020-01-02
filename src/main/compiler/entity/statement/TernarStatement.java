@@ -3,14 +3,39 @@ package main.compiler.entity.statement;
 import main.compiler.entity.Condition;
 import main.compiler.entity.expression.Expression;
 
+/**
+ * This class represents ternar statement.
+ */
 public class TernarStatement extends Statement {
 
+    /**
+     * Name of the identificator
+     */
     private String name;
+
+    /**
+     * Condition in TernarStatement
+     */
     private Condition condition;
+
+    /**
+     * Left expression in TernarStatement
+     */
     private Expression leftExpression;
+
+    /**
+     * Right expression in TernarStatement
+     */
     private Expression rightExpression;
 
+    /**
+     * ???
+     */
     private int index;
+
+    /**
+     * ???
+     */
     private String indexName;
 
     public TernarStatement(String name, Condition condition, Expression leftExpression, Expression rightExpression) {

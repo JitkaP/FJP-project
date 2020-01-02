@@ -12,10 +12,18 @@ import main.compiler.visitor.expression.BoolExpressionVisitor;
 import main.compiler.visitor.expression.ExpressionVisitor;
 import main.compiler.visitor.expression.NumberExpressionVisitor;
 
+/**
+ * Visitor for Condition class.
+ */
 public class ConditionVisitor extends LangBaseVisitor<Condition> {
 
     public static final byte operatorIndex = 2;
 
+    /**
+     * Method for visit Condition
+     * @param ctx context of the Condition
+     * @return object of Condition class
+     */
     @Override
     public Condition visitCondition(LangParser.ConditionContext ctx) {
 
@@ -41,7 +49,7 @@ public class ConditionVisitor extends LangBaseVisitor<Condition> {
             return new Condition(boolExpression, EConditionType.BOOL);
         }
         else {
-            return null; //pro test
+            return null;
         }
     }
 }

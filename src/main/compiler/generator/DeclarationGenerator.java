@@ -9,12 +9,19 @@ import main.compiler.enums.EInstruction;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Generator for declarations.
+ */
 public class DeclarationGenerator extends Generator {
 
     private static final int INT_OFFSET = 3;
 
     private int stackPointer = INT_OFFSET;
 
+    /**
+     * Method for processing and generating instructions of declarations.
+     * @return data for instruction INT - number of variables + offset
+     */
     public int generate() {
 
         int counter = 0;
@@ -34,6 +41,7 @@ public class DeclarationGenerator extends Generator {
                          counter += length + 1;
                          variable.setValueWithLength(length);
                      } else {
+                         //TODO: hodit vyjimku?
                          // chyba (nejspis)
                      }
                 } else {

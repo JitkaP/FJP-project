@@ -9,8 +9,16 @@ import main.compiler.enums.ENumberOp;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Visitor for NumberExpression class.
+ */
 public class NumberExpressionVisitor extends LangBaseVisitor<NumberExpression> {
 
+    /**
+     * Method for visit NumberExpression
+     * @param ctx context of the NumberExpression
+     * @return object of NumberExpression class
+     */
     @Override
     public NumberExpression visitNumber_expression(LangParser.Number_expressionContext ctx) {
         List<Object> tokens = new ArrayList<>();

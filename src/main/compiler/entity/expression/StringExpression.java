@@ -8,9 +8,15 @@ import main.compiler.enums.EInstruction;
 
 import java.util.List;
 
+/**
+ * This class represents string expression.
+ */
 public class StringExpression extends Expression {
 
-    private List<Value> values; // idents and string_values, only need to concatenate
+    /**
+     * List of values - idents and string values
+     */
+    private List<Value> values;
 
     public StringExpression(List<Value> values) {
         this.values = values;
@@ -20,6 +26,10 @@ public class StringExpression extends Expression {
         return values;
     }
 
+    /**
+     * Returns the length of the string.
+     * @return length of the string
+     */
     public int getLength() {
         int length = 0;
 

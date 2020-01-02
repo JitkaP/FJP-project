@@ -7,6 +7,9 @@ import main.compiler.visitor.statement.IfStatementVisitor;
 
 import java.util.List;
 
+/**
+ * Generator for statements.
+ */
 public class StatementGenerator extends Generator {
 
     private Statement statement;
@@ -15,6 +18,9 @@ public class StatementGenerator extends Generator {
         this.statement = statement;
     }
 
+    /**
+     * Method for processing and generating instructions of statement.
+     */
     public void generate() {
 
         if (this.statement == null) {

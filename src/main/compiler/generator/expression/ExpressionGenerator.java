@@ -11,6 +11,9 @@ import main.compiler.generator.Generator;
 
 import java.util.List;
 
+/**
+ * Generator for expressions.
+ */
 public class ExpressionGenerator extends Generator {
 
     private Expression expression;
@@ -21,6 +24,10 @@ public class ExpressionGenerator extends Generator {
         this.expression = expression;
     }
 
+    /**
+     * Method for processing and generating instructions ???
+     * @param index
+     */
     public void generate(int index) {
         if (expression instanceof BoolExpression) {
             List<Object> tokens = ((BoolExpression) expression).getTokens();
@@ -46,6 +53,9 @@ public class ExpressionGenerator extends Generator {
         }
     }
 
+    /**
+     * ???
+     */
     public void generate() {
         generate(0);
     }

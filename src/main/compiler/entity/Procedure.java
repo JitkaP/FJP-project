@@ -1,7 +1,13 @@
 package main.compiler.entity;
 
+/**
+ * This class represents procedure.
+ */
 public class Procedure extends Symbol {
 
+    /**
+     * Instance of Block
+     */
     private Block block;
 
     public Procedure(String name, Block block) {

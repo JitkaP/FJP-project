@@ -7,6 +7,9 @@ import main.compiler.generator.ProgramGenerator;
 
 import java.util.List;
 
+/**
+ * Main class of the generating instructions part
+ */
 public class InstructionGenerator {
 
     private Program program;
@@ -15,6 +18,10 @@ public class InstructionGenerator {
         this.program = program;
     }
 
+    /**
+     * Generates instructions
+     * @return list of instructions
+     */
     public List<Instruction> generate() {
         ProgramGenerator programGenerator = new ProgramGenerator(program);
         programGenerator.generate();

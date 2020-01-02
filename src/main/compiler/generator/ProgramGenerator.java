@@ -1,8 +1,10 @@
 package main.compiler.generator;
 
 import main.compiler.entity.*;
-import main.compiler.enums.EInstruction;
 
+/**
+ * Generator for program.
+ */
 public class ProgramGenerator extends Generator {
 
     private Program program;
@@ -11,6 +13,9 @@ public class ProgramGenerator extends Generator {
         this.program = program;
     }
 
+    /**
+     * Method for processing and generating instructions of program.
+     */
     public void generate() {
         Block block = program.getBlock();
 

@@ -12,8 +12,16 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Visitor for StringExpression class.
+ */
 public class StringExpressionVisitor extends LangBaseVisitor<StringExpression> {
 
+    /**
+     * Method for visit StringExpression
+     * @param ctx context of the StringExpression
+     * @return object of StringExpression class
+     */
     @Override
     public StringExpression visitString_expression(LangParser.String_expressionContext ctx) {
         List<Value> values = new ArrayList<>();
