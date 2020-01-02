@@ -29,9 +29,8 @@ public class WhileStatementGenerator extends Generator {
             int jmcRow = getNumberOfInstructions();
             jmcRows.add(jmcRow);
             addInstruction(EInstruction.JMC, 0, -1);
+            new StatementGenerator(whileStatement.getStatement()).generate();
         } while (conditionGenerator.isBoolContinue());
-
-        new StatementGenerator(whileStatement.getStatement()).generate();
 
         addInstruction(EInstruction.JMP, 0, startRow);
 

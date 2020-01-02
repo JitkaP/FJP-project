@@ -8,8 +8,8 @@ import java.util.List;
 
 public class MainClass {
 
-    private static String inputFile = "io_files/input.txt";
-    private static String outputFile = "io_files/output.txt";
+    private static String inputFile = "io_files/example_1.txt";
+    private static String outputFile = "io_files/out_example_1.txt";
 
     public static void main(String[] args) {
 

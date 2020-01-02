@@ -29,7 +29,7 @@ vars
    ;
 
 statement
-   : (assignstmt | parallelstmt | callstmt | beginstmt | ifstmt | whilestmt | dowhilestmt | forstmt | ternarstmt | writestmt | readstmt)?
+   : (assignstmt | parallelstmt | callstmt | beginstmt | ifstmt | whilestmt | dowhilestmt | forstmt | ternarstmt)?
    ;
 
 assignstmt
@@ -66,14 +66,6 @@ forstmt
 
 ternarstmt
     : (ident | ident_arr) ':=' condition '?' expression ':' expression
-    ;
-
-writestmt
-    : WRITE '(' string_expression ')'
-    ;
-
-readstmt
-    : READ '(' (ident | ident_arr) ')'
     ;
 
 condition
@@ -171,14 +163,6 @@ TO
 
 IF
     : 'if'
-    ;
-
-READ
-    : 'read'
-    ;
-
-WRITE
-    : 'write'
     ;
 
 CONST

@@ -20,7 +20,7 @@ public class DeclarationVisitor extends LangBaseVisitor<List<Variable>> {
             EVariableType type = EVariableType.valueOf(ctx.consts().TYPE().getText().toUpperCase());
             String valueString = ctx.consts().value().getText();
 
-            Variable variable = new Variable(name, valueString, type,true);
+            Variable variable = new Variable(name, type,true, valueString);
             variables.add(variable);
 
         // constarrays

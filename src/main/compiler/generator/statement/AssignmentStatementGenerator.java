@@ -7,6 +7,7 @@ import main.compiler.entity.expression.Expression;
 import main.compiler.entity.expression.NumberExpression;
 import main.compiler.entity.expression.StringExpression;
 import main.compiler.entity.statement.AssignmentStatement;
+import main.compiler.entity.value.IdentValue;
 import main.compiler.entity.value.IntValue;
 import main.compiler.entity.value.Value;
 import main.compiler.enums.EErrorType;
@@ -14,6 +15,8 @@ import main.compiler.enums.EInstruction;
 import main.compiler.enums.EVariableType;
 import main.compiler.generator.Generator;
 import main.compiler.generator.expression.ExpressionGenerator;
+
+import java.util.List;
 
 public class AssignmentStatementGenerator extends Generator {
 
@@ -81,6 +84,17 @@ public class AssignmentStatementGenerator extends Generator {
     private void typeCheck(AssignVariable assignVariable, EVariableType variableType) {
         boolean check = false;
         Expression expression = assignVariable.getExpression();
+
+        if (expression instanceof BoolExpression) {
+            List<Object> tokens = ((BoolExpression) expression).getTokens();
+            if (tokens.size() == 1) {
+                Object object = tokens.get(0);
+                if (object instanceof IdentValue) {
+                    return; // je to ok
+                }
+            }
+        }
+
         if (variableType == EVariableType.INT || variableType == EVariableType.ARRAY_INT) {
             check = expression instanceof NumberExpression;
         } else if (variableType == EVariableType.BOOL || variableType == EVariableType.ARRAY_BOOL) {
@@ -103,6 +117,12 @@ public class AssignmentStatementGenerator extends Generator {
         if (size < getInstructions().size()) {
             addInstruction(EInstruction.STO, level, address + index);
             Variable variable = getVariable(assignVariable.getName());
+
+            int length = getLength(variable.getName());
+            if (length > 0 && index >= length) {
+                throwError(EErrorType.INDEX_OUT_OF_BOUNDS);
+            }
+
             variable.setValue(value, index);
         }
     }

@@ -1,12 +1,11 @@
 package main.compiler.generator.expression;
 
+import main.compiler.entity.Variable;
 import main.compiler.entity.expression.Factor;
 import main.compiler.entity.expression.NumberExpression;
 import main.compiler.entity.expression.Term;
-import main.compiler.entity.value.IdentValue;
-import main.compiler.entity.value.IntValue;
+import main.compiler.entity.value.*;
 
-import main.compiler.entity.value.Value;
 import main.compiler.enums.EErrorType;
 import main.compiler.enums.EInstruction;
 import main.compiler.enums.EInstructionOpr;
@@ -22,10 +21,6 @@ public class NumberExpressionGenerator extends Generator {
 
     public NumberExpressionGenerator(NumberExpression numberExpression) {
         this.numberExpression = numberExpression;
-    }
-
-    public IntValue generate() {
-        return generate(-1);
     }
 
     public IntValue generate(int index) {
@@ -111,19 +106,39 @@ public class NumberExpressionGenerator extends Generator {
                 addInstruction(EInstruction.LIT, 0, ((IntValue) value).getInteger());
                 returnValue = (IntValue) value;
             } else if (value instanceof IdentValue) {
-                String name = ((IdentValue) value).getName();
-                int address = getAddress(name);
-                int level = getLevel(name);
+                IdentValue identValue = (IdentValue) value;
+                String name = identValue.getName();
+                Variable variable = getVariable(name);
+                Value variableValue = variable.getValue();
 
-                int data = address;
-                if (this.index > 0) {
-                    data += index;
+                int index = getIndex(identValue);
+
+                if (variable.isConst()) {
+                    if (variableValue instanceof IntValue) {
+                        addInstruction(EInstruction.LIT, 0, ((IntValue) variableValue).getInteger());
+                    }
+                } else {
+
+                    int address = getAddress(name);
+                    int level = getLevel(name);
+
+                    int data = address;
+                    if (variableValue instanceof ArrayIntValue) {
+                        if (this.index > 0) {
+                            data += this.index;
+                        } else if (index > 0) {
+                            data += index;
+                        }
+                    }
+
+                    addInstruction(EInstruction.LOD, level, data);
+                    //Value variableValue = getVariableValue(name, this.index);
                 }
 
-                addInstruction(EInstruction.LOD, level, data);
-                Value variableValue = getVariableValue(name, this.index);
                 if (variableValue instanceof IntValue) {
                     returnValue = (IntValue) variableValue;
+                } else if (variableValue instanceof ArrayIntValue && this.index >= 0) {
+                    returnValue = new IntValue(((ArrayIntValue) variableValue).getArray()[this.index]);
                 } else {
                     throwError(EErrorType.INCOMPATIBLE_TYPES);
                 }

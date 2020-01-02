@@ -3,7 +3,9 @@ package main.compiler.generator;
 import main.compiler.entity.Condition;
 import main.compiler.entity.expression.BoolExpression;
 import main.compiler.entity.expression.Expression;
-import main.compiler.entity.expression.NumberExpression;
+import main.compiler.entity.value.IdentValue;
+import main.compiler.entity.value.IntValue;
+import main.compiler.entity.value.Value;
 import main.compiler.enums.EConditionOperator;
 import main.compiler.enums.EInstruction;
 import main.compiler.enums.EInstructionOpr;
@@ -52,15 +54,34 @@ public class ConditionGenerator extends Generator {
                     break;
             }
         } else if (this.condition.getLeftNumberExpression() != null && this.condition.getRightNumberExpression() != null) {
-            NumberExpression left = this.condition.getLeftNumberExpression();
-            new ExpressionGenerator(left).generate(index);
-            NumberExpression right = this.condition.getRightNumberExpression();
-            new ExpressionGenerator(right).generate(index);
+            Expression leftNumberExpression = this.condition.getLeftNumberExpression();
+            ExpressionGenerator leftExpressionGen = new ExpressionGenerator(leftNumberExpression);
+            leftExpressionGen.generate(index);
+            Value leftValue = leftExpressionGen.getValue();
+
+            Expression rightNumberExpression = this.condition.getRightNumberExpression();
+            ExpressionGenerator rightExpressionGen = new ExpressionGenerator(rightNumberExpression);
+            rightExpressionGen.generate(index);
+            Value rightValue = rightExpressionGen.getValue();
+
+            int left = -1, right = -1;
+            if (leftValue instanceof IntValue) {
+                left = ((IntValue) leftValue).getInteger();
+            } else if (leftValue instanceof IdentValue) {
+                left = ((IntValue) leftValue.getValue()).getInteger();
+            }
+
+            if (rightValue instanceof IntValue) {
+                right = ((IntValue) rightValue).getInteger();
+            } else if (rightValue instanceof IdentValue) {
+                right = ((IntValue) rightValue.getValue()).getInteger();
+            }
 
             EConditionOperator op = this.condition.getOperator();
             switch (op) {
                 case LESS:
                     addInstruction(EInstruction.OPR, 0, EInstructionOpr.LESS.getValue());
+                    this.boolContinue = (left < right - 1);
                     break;
                 case LESS_EQ:
                     addInstruction(EInstruction.OPR, 0, EInstructionOpr.LESS_EQUAL.getValue());

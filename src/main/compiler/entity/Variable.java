@@ -47,6 +47,12 @@ public class Variable extends Symbol {
         this.lengthName = lengthName;
     }
 
+    public Variable(String name, EVariableType type, boolean isConst, String valueString)
+    {
+        this(name, type, isConst);
+        setValue(valueString);
+    }
+
     public Variable(String name, List<Object> values, EVariableType type, boolean isConst)
     {
         this(name, type, isConst);
@@ -82,18 +88,13 @@ public class Variable extends Symbol {
         switch (this.type) {
             case ARRAY_CHAR:
                 ((ArrayCharValue) this.value).getArray()[index] = ((CharValue) value).getChar();
-                break;
+                return;
             case ARRAY_BOOL:
                 ((ArrayBoolValue) this.value).getArray()[index] = ((BoolValue) value).getBool();
-                break;
+                return;
             case ARRAY_INT:
                 ((ArrayIntValue) this.value).getArray()[index] = ((IntValue) value).getInteger();
-                break;
-        }
-    }
-
-    public void setValue(Value value) {
-        switch (this.type) {
+                return;
             case CHAR:
                 if (!(value instanceof CharValue)) {
                     // vyjimka
@@ -110,6 +111,7 @@ public class Variable extends Symbol {
                 }
                 break;
         }
+
         this.value = value;
     }
 
@@ -133,7 +135,7 @@ public class Variable extends Symbol {
         }
     }
 
-    private void setValueWithLength(int length) {
+    public void setValueWithLength(int length) {
         if (this.type == null) return; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
 
         switch (this.type) {

@@ -32,6 +32,7 @@ public class DeclarationGenerator extends Generator {
                      if (value instanceof IntValue) {
                          int length = ((IntValue) value).getInteger();
                          counter += length + 1;
+                         variable.setValueWithLength(length);
                      } else {
                          // chyba (nejspis)
                      }
@@ -42,7 +43,6 @@ public class DeclarationGenerator extends Generator {
             }
         }
 
-        //addInstruction(EInstruction.INT, 0, (counter + INT_OFFSET));
         return counter + INT_OFFSET;
     }
 }
