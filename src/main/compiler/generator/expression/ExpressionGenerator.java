@@ -24,8 +24,8 @@ public class ExpressionGenerator extends Generator {
     }
 
     /**
-     * Method for processing and generating instructions ???
-     * @param index
+     * Generates instructions for given expression.
+     * @param index index in array
      */
     public void generate(int index) {
         if (expression instanceof BoolExpression) {
@@ -69,7 +69,7 @@ public class ExpressionGenerator extends Generator {
     }
 
     /**
-     * ???
+     * Generates instructions for given expression.
      */
     public void generate() {
         generate(0);
@@ -79,6 +79,11 @@ public class ExpressionGenerator extends Generator {
         return value;
     }
 
+    /**
+     * Whether to call method for generating instructions again
+     * - usually needed when working with arrays or in loops.
+     * @return true if needed to call method {@link #generate()} again
+     */
     public boolean isBoolContinue() {
         return boolContinue;
     }

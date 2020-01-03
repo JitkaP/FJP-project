@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Generator for ternar statements.
+ * Generator for ternary statements.
  */
 public class TernarStatementGenerator extends Generator {
     
@@ -21,12 +21,9 @@ public class TernarStatementGenerator extends Generator {
     }
 
     /**
-     * Method for processing and generating instructions of ternar statement.
+     * Method for processing and generating instructions of ternary statement.
      */
     public void generate() {
-        //TODO: asi smazat hádam
-        Variable var = getVariable(ternarStatement.getName());
-
         String name = ternarStatement.getName();
         int index = ternarStatement.getIndex();
         String indexName = ternarStatement.getIndexName();

@@ -1,7 +1,7 @@
 package main.compiler.entity.value;
 
 /**
- * ???
+ * This class represents value as identificator name (with index - for arrays).
  */
 public class IdentValue extends Value {
 

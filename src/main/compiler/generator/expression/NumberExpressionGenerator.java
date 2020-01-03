@@ -27,9 +27,9 @@ public class NumberExpressionGenerator extends Generator {
     }
 
     /**
-     * ???
-     * @param index
-     * @return
+     * Generates instructions for processing number expression.
+     * @param index index in array
+     * @return int value of whole evaluated expression
      */
     public IntValue generate(int index) {
         this.index = index;
@@ -74,9 +74,9 @@ public class NumberExpressionGenerator extends Generator {
     }
 
     /**
-     * ???
-     * @param term
-     * @return
+     * Processes term and generates instructions.
+     * @param term term
+     * @return int value of evaluated term
      */
     public IntValue termGenerate(Term term) {
         IntValue value = null;
@@ -110,12 +110,11 @@ public class NumberExpressionGenerator extends Generator {
     }
 
     /**
-     * ???
-     * @param factor
-     * @return
+     * Processes factor and generates instructions.
+     * @param factor factor
+     * @return int value of evaluated factor
      */
     public IntValue factorGenerate(Factor factor) {
-        // value - identvalue/intvalue, nebo numberexpression - todo numberexp
         Value value = factor.getValue();
         IntValue returnValue = null;
 
@@ -150,7 +149,6 @@ public class NumberExpressionGenerator extends Generator {
                     }
 
                     addInstruction(EInstruction.LOD, level, data);
-                    //Value variableValue = getVariableValue(name, this.index);
                 }
 
                 if (variableValue instanceof IntValue) {

@@ -1,5 +1,8 @@
 package main.compiler.enums;
 
+/**
+ * Types of variables.
+ */
 public enum EVariableType {
 
     INT,

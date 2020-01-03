@@ -161,8 +161,7 @@ public abstract class Generator {
             if (value instanceof IntValue) {
                 index = ((IntValue) value).getInteger();
             } else {
-                //TODO: opravit?
-                // chyba (nejspis)
+                throwError(EErrorType.INCOMPATIBLE_TYPES, identValue.getIndexName());
             }
         } else {
             index = identValue.getIndex();
@@ -185,8 +184,7 @@ public abstract class Generator {
             if (value instanceof IntValue) {
                 length = ((IntValue) value).getInteger();
             } else {
-                //TODO: opravit?
-                // chyba (nejspis)
+                throwError(EErrorType.INCOMPATIBLE_TYPES, variable.getLengthName());
             }
         } else {
             length = variable.getLength();

@@ -42,8 +42,7 @@ public class AssignmentStatementGenerator extends Generator {
                 if (value instanceof IntValue) {
                     index = ((IntValue) value).getInteger();
                 } else {
-                    //TODO: pořešit
-                    // chyba (nejspis)
+                    throwError(EErrorType.INCOMPATIBLE_TYPES, assignVariable.getIndexName());
                 }
             } else {
                 index = assignVariable.getIndex();

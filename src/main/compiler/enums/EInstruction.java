@@ -1,5 +1,8 @@
 package main.compiler.enums;
 
+/**
+ * Enum for all instructions.
+ */
 public enum EInstruction {
 
     LIT,
@@ -10,7 +13,6 @@ public enum EInstruction {
     INT,
     JMP,
     JMC,
-    RET,
-    SIO
+    RET
 
 }

@@ -1,5 +1,8 @@
 package main.compiler.enums;
 
+/**
+ * Types of statements.
+ */
 public enum EStatementType {
 
     ASSIGN,

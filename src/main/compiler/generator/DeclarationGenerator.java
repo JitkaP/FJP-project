@@ -4,6 +4,7 @@ import main.compiler.entity.Symbol;
 import main.compiler.entity.Variable;
 import main.compiler.entity.value.IntValue;
 import main.compiler.entity.value.Value;
+import main.compiler.enums.EErrorType;
 import main.compiler.enums.EInstruction;
 
 import java.util.HashMap;
@@ -41,8 +42,7 @@ public class DeclarationGenerator extends Generator {
                          counter += length + 1;
                          variable.setValueWithLength(length);
                      } else {
-                         //TODO: hodit vyjimku?
-                         // chyba (nejspis)
+                         throwError(EErrorType.INCOMPATIBLE_TYPES, variable.getLengthName());
                      }
                 } else {
                     counter += variable.getLength() + 1;

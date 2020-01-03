@@ -1,5 +1,8 @@
 package main.compiler.enums;
 
+/**
+ * Error types with error messages.
+ */
 public enum EErrorType {
 
     VARIABLE_NOT_DECLARED("Usage of not declared variable."),

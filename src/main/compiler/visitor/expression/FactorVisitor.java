@@ -39,8 +39,7 @@ public class FactorVisitor extends LangBaseVisitor<Factor> {
         } else if (ctx.NUMBER() != null) {
             Value value = new IntValue(Integer.parseInt(ctx.NUMBER().getText()));
             return new Factor(value);
-        } else { //if (ctx.number_expression() != null) {
-            //TODO: ? ok?
+        } else {
             NumberExpression numberExpression = new NumberExpressionVisitor().visit(ctx.number_expression());
             return new Factor(numberExpression);
         }

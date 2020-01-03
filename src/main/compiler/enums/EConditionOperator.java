@@ -1,5 +1,8 @@
 package main.compiler.enums;
 
+/**
+ * Enum for expression operators when comparing.
+ */
 public enum EConditionOperator {
 
     LESS("<"),

@@ -98,7 +98,6 @@ public class Variable extends Symbol {
      */
     public Value getValue(int index) {
         if (index < 0) return getValue();
-        if (this.type == null) return null; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
 
         switch (this.type) {
             case ARRAY_CHAR:
@@ -121,8 +120,6 @@ public class Variable extends Symbol {
      * @param index index in the Variable array
      */
     public void setValue(Value value, int index) {
-        if (this.type == null) return; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
-
         switch (this.type) {
             case ARRAY_CHAR:
                 ((ArrayCharValue) this.value).getArray()[index] = ((CharValue) value).getChar();
@@ -133,27 +130,13 @@ public class Variable extends Symbol {
             case ARRAY_INT:
                 ((ArrayIntValue) this.value).getArray()[index] = ((IntValue) value).getInteger();
                 return;
+
             case CHAR:
-                if (!(value instanceof CharValue)) {
-                    //TODO
-                    // vyjimka
-                }
-                break;
             case BOOL:
-                if (!(value instanceof BoolValue)) {
-                    //TODO
-                    // vyjimka
-                }
-                break;
             case INT:
-                if (!(value instanceof IntValue)) {
-                    //TODO
-                    // vyjimka
-                }
+                this.value = value;
                 break;
         }
-
-        this.value = value;
     }
 
     /**
@@ -161,8 +144,7 @@ public class Variable extends Symbol {
      * @param valueString entered value represented by String class
      */
     public void setValue(String valueString) {
-        if (this.type == null) return; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
-        if (valueString == null || valueString.isEmpty()) return; // TODO mozna pak odebrat?
+        if (valueString == null || valueString.isEmpty()) return;
 
         switch (this.type) {
             case CHAR:
@@ -184,8 +166,6 @@ public class Variable extends Symbol {
      * @param length length of the Variable
      */
     public void setValueWithLength(int length) {
-        if (this.type == null) return; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
-
         switch (this.type) {
             case ARRAY_CHAR:
                 this.value = new ArrayCharValue(new char[length]);
@@ -204,8 +184,6 @@ public class Variable extends Symbol {
      * @param values list of values to set
      */
     public void setValue(List<Object> values) {
-        if (this.type == null) return; // todo! nyni pouze aby to slo prelozit, potom by to vlastne nemelo nastat
-
         Object[] array = values.toArray();
         switch (this.type) {
             case ARRAY_CHAR:

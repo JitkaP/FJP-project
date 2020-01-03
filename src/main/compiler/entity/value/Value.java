@@ -17,8 +17,6 @@ public abstract class Value {
 
     @Override
     public String toString() {
-        if (value == null) return ""; // TODO: asi jen docasne?
-
         return value.toString();
     }
 }

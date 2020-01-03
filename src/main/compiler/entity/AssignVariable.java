@@ -3,7 +3,7 @@ package main.compiler.entity;
 import main.compiler.entity.expression.*;
 
 /**
- * ???
+ * This class represents variable in assignment statement.
  */
 public class AssignVariable {
 
@@ -13,18 +13,15 @@ public class AssignVariable {
     private String name;
 
     /**
-     * ???
+     * Index in array (if it is array).
      */
     private int index = -1;
 
     /**
-     * ???
+     * Ident name for index in array (if it is array).
      */
     private String indexName = null;
 
-    /**
-     * ???
-     */
     private Expression expression;
 
     public AssignVariable(String name, Expression exp) {

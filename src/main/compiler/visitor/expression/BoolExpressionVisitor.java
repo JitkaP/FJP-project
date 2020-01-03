@@ -49,8 +49,7 @@ public class BoolExpressionVisitor extends LangBaseVisitor<BoolExpression> {
                     String indexName = arr_ctx.ident(1).getText();
                     token = new IdentValue(name, indexName);
                 }
-            }else { //if (tree instanceof TerminalNode) { // should be BOOLEAN
-                //TODO: ???
+            }else {
                 token = new BoolValue(Boolean.parseBoolean(tree.getText()));
             }
 

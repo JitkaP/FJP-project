@@ -14,7 +14,7 @@ import java.util.List;
 public class StringExpression extends Expression {
 
     /**
-     * List of values - idents and string values
+     * List of values - idents and string values.
      */
     private List<Value> values;
 

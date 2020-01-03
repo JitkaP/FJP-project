@@ -8,7 +8,7 @@ import java.util.List;
 public class Term {
 
     /**
-     * List of tokens
+     * List of tokens.
      */
     private List<Object> tokens; // *, /, factor
 

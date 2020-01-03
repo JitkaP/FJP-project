@@ -19,7 +19,7 @@ public class StringExpressionGenerator extends Generator {
     }
 
     /**
-     * Method for processing and generating instructions of ???
+     * Generates instructions for string expression.
      */
     public void generate() {
         int tokenPointer = this.stringExpression.getTokenPointer();

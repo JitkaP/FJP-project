@@ -25,6 +25,8 @@ public class BoolExpressionGenerator extends Generator {
 
     /**
      * Method for processing and generating instructions of bool expression.
+     * @param index index in array
+     * @return true if array wasn't loaded whole (so this has to be called again)
      */
     public boolean generate(int index) {
         this.index = index;
@@ -75,9 +77,9 @@ public class BoolExpressionGenerator extends Generator {
     }
 
     /**
-     * Returns value of the token.
+     * Generates value of given token. Returns if whole array wasn't loaded.
      * @param token token
-     * @return value of the token
+     * @return true if whole array wasn't loaded (so this has to be called again)
      */
     private boolean generateValue(Object token) {
         boolean result = false;

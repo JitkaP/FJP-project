@@ -1,5 +1,8 @@
 package main.compiler.enums;
 
+/**
+ * Enum for instruction operators.
+ */
 public enum EInstructionOpr {
 
     UN_MINUS(1),

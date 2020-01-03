@@ -11,16 +11,6 @@ import java.util.List;
 public class Block {
 
     /**
-     * List of variables in Block
-     */
-    private List<Variable> variables;
-
-    /**
-     * List of procedures in Block
-     */
-    private List<Procedure> procedures;
-
-    /**
      * Statement in Block
      */
     private Statement statement;
@@ -31,8 +21,6 @@ public class Block {
     private HashMap<String, Symbol> symbolTable = new HashMap<>();
 
     public Block(List<Variable> variables, List<Procedure> procedures, Statement statement) {
-        this.variables = variables;
-        this.procedures = procedures;
         this.statement = statement;
         addToHashMap(variables, procedures);
     }
@@ -54,14 +42,6 @@ public class Block {
 
     public HashMap<String, Symbol> getSymbolTable() {
         return symbolTable;
-    }
-
-    public List<Variable> getVariables() {
-        return variables;
-    }
-
-    public List<Procedure> getProcedures() {
-        return procedures;
     }
 
     public Statement getStatement() {
