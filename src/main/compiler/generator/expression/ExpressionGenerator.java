@@ -1,5 +1,6 @@
 package main.compiler.generator.expression;
 
+import main.compiler.entity.Variable;
 import main.compiler.entity.expression.BoolExpression;
 import main.compiler.entity.expression.Expression;
 import main.compiler.entity.expression.NumberExpression;
@@ -36,6 +37,7 @@ public class ExpressionGenerator extends Generator {
                     IdentValue identValue = (IdentValue) object;
                     String name = identValue.getName();
 
+                    Variable variable = getVariable(name);
                     Value value = getVariableValue(name);
                     if (value instanceof ArrayIntValue || value instanceof ArrayBoolValue || value instanceof ArrayCharValue) {
                         int varIndex = getIndex(identValue);
@@ -44,14 +46,26 @@ public class ExpressionGenerator extends Generator {
                         int length = getLength(name);
 
                         if (index < length) {
-                            addInstruction(EInstruction.LOD, getLevel(name), getAddress(name) + index);
+                            if (variable.isConst()) {
+                                Value indexValue = getVariableValue(name, index);
+                                int number = getInt(indexValue);
+                                addInstruction(EInstruction.LIT, getLevel(name), number);
+                            } else {
+                                addInstruction(EInstruction.LOD, getLevel(name), getAddress(name) + index);
+                            }
+
                             if (index < length - 1) {
                                 this.boolContinue = true;
                             }
                         }
                     } else {
                         this.value = value;
-                        addInstruction(EInstruction.LOD, getLevel(name), getAddress(name));
+
+                        if (variable.isConst()) {
+                            addInstruction(EInstruction.LIT, getLevel(name), getInt(value));
+                        } else {
+                            addInstruction(EInstruction.LOD, getLevel(name), getAddress(name));
+                        }
                     }
 
                     return;
@@ -86,5 +100,19 @@ public class ExpressionGenerator extends Generator {
      */
     public boolean isBoolContinue() {
         return boolContinue;
+    }
+
+    private int getInt(Value value) {
+        int number = 0;
+        if (value instanceof IntValue) {
+            number = ((IntValue) value).getInteger();
+        } else if (value instanceof BoolValue) {
+            boolean b = ((BoolValue) value).getBool();
+            number = (b) ? 1 : 0; // 1=true, 0=false
+        } else if (value instanceof CharValue) {
+            number = ((CharValue) value).getChar();
+        }
+
+        return number;
     }
 }
