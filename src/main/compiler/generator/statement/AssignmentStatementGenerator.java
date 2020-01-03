@@ -1,5 +1,6 @@
 package main.compiler.generator.statement;
 
+import main.compiler.ErrorHandler;
 import main.compiler.entity.AssignVariable;
 import main.compiler.entity.Variable;
 import main.compiler.entity.expression.BoolExpression;
@@ -42,7 +43,7 @@ public class AssignmentStatementGenerator extends Generator {
                 if (value instanceof IntValue) {
                     index = ((IntValue) value).getInteger();
                 } else {
-                    throwError(EErrorType.INCOMPATIBLE_TYPES, assignVariable.getIndexName());
+                    ErrorHandler.throwError(EErrorType.INCOMPATIBLE_TYPES, assignVariable.getIndexName());
                 }
             } else {
                 index = assignVariable.getIndex();
@@ -115,7 +116,7 @@ public class AssignmentStatementGenerator extends Generator {
             check = expression instanceof StringExpression;
         }
 
-        if (!check) throwError(EErrorType.INCOMPATIBLE_TYPES, assignVariable.getName());
+        if (!check) ErrorHandler.throwError(EErrorType.INCOMPATIBLE_TYPES, assignVariable.getName());
     }
 
     /**
@@ -135,7 +136,7 @@ public class AssignmentStatementGenerator extends Generator {
 
             int length = getLength(variable.getName());
             if (length > 0 && index >= length) {
-                throwError(EErrorType.INDEX_OUT_OF_BOUNDS);
+                ErrorHandler.throwError(EErrorType.INDEX_OUT_OF_BOUNDS);
             }
 
             variable.setValue(value, index);

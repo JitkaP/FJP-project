@@ -1,5 +1,6 @@
 package main.compiler.generator;
 
+import main.compiler.ErrorHandler;
 import main.compiler.entity.Symbol;
 import main.compiler.entity.Variable;
 import main.compiler.entity.value.IntValue;
@@ -42,7 +43,7 @@ public class DeclarationGenerator extends Generator {
                          counter += length + 1;
                          variable.setValueWithLength(length);
                      } else {
-                         throwError(EErrorType.INCOMPATIBLE_TYPES, variable.getLengthName());
+                         ErrorHandler.throwError(EErrorType.INCOMPATIBLE_TYPES, variable.getLengthName());
                      }
                 } else {
                     counter += variable.getLength() + 1;

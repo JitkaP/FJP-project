@@ -1,5 +1,6 @@
 package main.compiler.generator.expression;
 
+import main.compiler.ErrorHandler;
 import main.compiler.entity.Variable;
 import main.compiler.entity.expression.Factor;
 import main.compiler.entity.expression.NumberExpression;
@@ -156,7 +157,7 @@ public class NumberExpressionGenerator extends Generator {
                 } else if (variableValue instanceof ArrayIntValue && this.index >= 0) {
                     returnValue = new IntValue(((ArrayIntValue) variableValue).getArray()[this.index]);
                 } else {
-                    throwError(EErrorType.INCOMPATIBLE_TYPES);
+                    ErrorHandler.throwError(EErrorType.INCOMPATIBLE_TYPES);
                 }
             }
         } else if (factor.getNumberExpression() != null){

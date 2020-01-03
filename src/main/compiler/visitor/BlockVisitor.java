@@ -2,8 +2,10 @@ package main.compiler.visitor;
 
 import antlr.gen.LangBaseVisitor;
 import antlr.gen.LangParser;
+import main.compiler.ErrorHandler;
 import main.compiler.entity.*;
 import main.compiler.entity.statement.Statement;
+import main.compiler.enums.EErrorType;
 import main.compiler.visitor.statement.StatementVisitor;
 
 import java.util.ArrayList;
@@ -46,7 +48,7 @@ public class BlockVisitor extends LangBaseVisitor<Block> {
                 procedures.add(currentProcedure);
             }
             else {
-                //TODO: vyhodit vyjimku? Error? nebo tak něco?
+                ErrorHandler.throwError(EErrorType.PROCEDURE_ALREADY_DECLARED);
             }
 
         }
@@ -65,7 +67,7 @@ public class BlockVisitor extends LangBaseVisitor<Block> {
                 if (!containsVariable(variables, currentVariable)) {
                     variables.add(currentVariable);
                 } else {
-                    //TODO: vyhodit vyjimku? Error? nebo tak něco?
+                    ErrorHandler.throwError(EErrorType.VARIABLE_ALREADY_DECLARED);
                 }
             }
         }

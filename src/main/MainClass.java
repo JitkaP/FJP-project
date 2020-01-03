@@ -27,7 +27,15 @@ public class MainClass {
 
         List<Instruction> instructions = Compiler.getInstance().run(inputStream);
         if (instructions != null) {
-            writeToFile("output_" + inputFile, instructions);
+            int dotIndex = inputFile.lastIndexOf(".");
+            String extension = "";
+            if (dotIndex != -1) {
+                extension = inputFile.substring(dotIndex);
+                inputFile = inputFile.substring(0, dotIndex);
+            }
+
+            String outputFile = inputFile + "_output" + extension;
+            writeToFile(outputFile, instructions);
         }
     }
 

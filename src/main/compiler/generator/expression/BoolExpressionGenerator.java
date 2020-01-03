@@ -1,5 +1,6 @@
 package main.compiler.generator.expression;
 
+import main.compiler.ErrorHandler;
 import main.compiler.entity.expression.BoolExpression;
 import main.compiler.entity.value.*;
 import main.compiler.enums.EBoolOp;
@@ -109,7 +110,7 @@ public class BoolExpressionGenerator extends Generator {
                 }
             } else { // index
                 if (index >= length) {
-                    throwError(EErrorType.INDEX_OUT_OF_BOUNDS);
+                    ErrorHandler.throwError(EErrorType.INDEX_OUT_OF_BOUNDS);
                 }
 
                 if (index > 0) {

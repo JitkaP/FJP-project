@@ -48,9 +48,7 @@ public class AssignmentStatementVisitor extends LangBaseVisitor<AssignmentStatem
 
             assignVariables.add(variable);
         }
-        //TODO: nevim, co tim chtel basnik rici, ale asi bychom to meli poresit
-        // vsechny promenne maji type = null, zde jen prirazujeme (a nevime ani, do ceho),
-        // ale v tabulce symbolu by ovsem tato promenna uz mela byt (vcetne toho typu)
+
         return new AssignmentStatement(assignVariables);
     }
 }

@@ -1,5 +1,6 @@
 package main.compiler.generator;
 
+import main.compiler.ErrorHandler;
 import main.compiler.entity.Instruction;
 import main.compiler.entity.Symbol;
 import main.compiler.entity.Variable;
@@ -75,7 +76,7 @@ public abstract class Generator {
             }
         }
 
-        throwError(EErrorType.VARIABLE_NOT_DECLARED, name);
+        ErrorHandler.throwError(EErrorType.VARIABLE_NOT_DECLARED, name);
         return null;
     }
 
@@ -95,7 +96,7 @@ public abstract class Generator {
             count++;
         }
 
-        throwError(EErrorType.VARIABLE_NOT_DECLARED, name);
+        ErrorHandler.throwError(EErrorType.VARIABLE_NOT_DECLARED, name);
         return -1;
     }
 
@@ -111,7 +112,7 @@ public abstract class Generator {
             }
         }
 
-        throwError(EErrorType.VARIABLE_NOT_DECLARED, name);
+        ErrorHandler.throwError(EErrorType.VARIABLE_NOT_DECLARED, name);
         return -1;
     }
 
@@ -141,7 +142,7 @@ public abstract class Generator {
             }
         }
 
-        throwError(EErrorType.VARIABLE_NOT_DECLARED, name);
+        ErrorHandler.throwError(EErrorType.VARIABLE_NOT_DECLARED, name);
         return null;
     }
 
@@ -161,7 +162,7 @@ public abstract class Generator {
             if (value instanceof IntValue) {
                 index = ((IntValue) value).getInteger();
             } else {
-                throwError(EErrorType.INCOMPATIBLE_TYPES, identValue.getIndexName());
+                ErrorHandler.throwError(EErrorType.INCOMPATIBLE_TYPES, identValue.getIndexName());
             }
         } else {
             index = identValue.getIndex();
@@ -184,7 +185,7 @@ public abstract class Generator {
             if (value instanceof IntValue) {
                 length = ((IntValue) value).getInteger();
             } else {
-                throwError(EErrorType.INCOMPATIBLE_TYPES, variable.getLengthName());
+                ErrorHandler.throwError(EErrorType.INCOMPATIBLE_TYPES, variable.getLengthName());
             }
         } else {
             length = variable.getLength();
@@ -193,14 +194,4 @@ public abstract class Generator {
         return length;
     }
 
-    public static void throwError(EErrorType type) {
-        System.err.println(type);
-        System.exit(1);
-    }
-    //TODO: tohle tu má bejt?
-    protected static void throwError(EErrorType type, String name) {
-        System.err.print("ERROR: " + type);
-        System.err.println(" Variable name = \"" + name + "\".");
-        System.exit(1);
-    }
 }
