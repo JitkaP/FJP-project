@@ -162,19 +162,31 @@ public class Variable extends Symbol {
     }
 
     /**
-     * Sets the length of the Variable. Variable has to be array.
+     * Sets the length of the Variable and initializes whole array to 0. Variable has to be array.
      * @param length length of the Variable
      */
     public void setValueWithLength(int length) {
         switch (this.type) {
             case ARRAY_CHAR:
-                this.value = new ArrayCharValue(new char[length]);
+                char[] char_array = new char[length];
+                for (int i = 0; i < char_array.length; i++) {
+                    char_array[i] = 0;
+                }
+                this.value = new ArrayCharValue(char_array);
                 break;
             case ARRAY_BOOL:
-                this.value = new ArrayBoolValue(new boolean[length]);
+                boolean[] bool_array = new boolean[length];
+                for (int i = 0; i < bool_array.length; i++) {
+                    bool_array[i] = false;
+                }
+                this.value = new ArrayBoolValue(bool_array);
                 break;
             case ARRAY_INT:
-                this.value = new ArrayIntValue(new int[length]);
+                int[] int_array = new int[length];
+                for (int i = 0; i < int_array.length; i++) {
+                    int_array[i] = 0;
+                }
+                this.value = new ArrayIntValue(int_array);
                 break;
         }
     }

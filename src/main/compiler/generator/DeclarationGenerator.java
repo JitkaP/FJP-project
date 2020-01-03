@@ -5,7 +5,6 @@ import main.compiler.entity.Variable;
 import main.compiler.entity.value.IntValue;
 import main.compiler.entity.value.Value;
 import main.compiler.enums.EErrorType;
-import main.compiler.enums.EInstruction;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +33,7 @@ public class DeclarationGenerator extends Generator {
             if (symbol instanceof Variable && !((Variable) symbol).isConst()) {
                 Variable variable = (Variable) symbol;
                 variable.setAddress(stackPointer);
+                variable.setValue("0"); // set default value to 0
 
                 if (variable.getLengthName() != null && !variable.getLengthName().isEmpty()) {
                      Value value = getVariableValue(variable.getLengthName());
