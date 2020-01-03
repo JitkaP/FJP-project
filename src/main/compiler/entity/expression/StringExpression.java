@@ -57,4 +57,19 @@ public class StringExpression extends Expression {
         return length;
     }
 
+    public int getPointerInsideToken() {
+        return pointerInsideToken;
+    }
+
+    public int getTokenPointer() {
+        return tokenPointer;
+    }
+
+    public void setPointerInsideToken(int pointerInsideToken) {
+        this.pointerInsideToken = pointerInsideToken;
+    }
+
+    public void setTokenPointer(int tokenPointer) {
+        this.tokenPointer = tokenPointer;
+    }
 }

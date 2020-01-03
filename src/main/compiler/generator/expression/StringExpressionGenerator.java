@@ -21,22 +21,51 @@ public class StringExpressionGenerator extends Generator {
     /**
      * Method for processing and generating instructions of ???
      */
-    public void generate(int index) {
-        for (Object token: this.stringExpression.getValues()) { // idents and string_values, only need to concatenate
-            if (token instanceof CharValue) {
-                char c = ((CharValue) token).getChar();
+    public void generate() {
+        int tokenPointer = this.stringExpression.getTokenPointer();
+        int pointerInsideToken = this.stringExpression.getPointerInsideToken();
+
+        if (tokenPointer >= this.stringExpression.getValues().size()) return;
+        Object token = this.stringExpression.getValues().get(tokenPointer);
+
+        if (token instanceof CharValue) {
+            char c = ((CharValue) token).getChar();
+            addInstruction(EInstruction.LIT, 0, c);
+        } else if (token instanceof ArrayCharValue) {
+            char[] array = ((ArrayCharValue) token).getArray();
+            if (pointerInsideToken < array.length) {
+                char c = array[pointerInsideToken];
                 addInstruction(EInstruction.LIT, 0, c);
-            } else if (token instanceof ArrayCharValue) {
-                char[] array = ((ArrayCharValue) token).getArray();
-                if (index < array.length) {
-                    char c = array[index];
-                    addInstruction(EInstruction.LIT, 0, c);
+
+                if (pointerInsideToken < array.length - 1) {
+                    pointerInsideToken++;
+                    this.stringExpression.setPointerInsideToken(pointerInsideToken);
+                } else {
+                    pointerInsideToken = 0;
+                    this.stringExpression.setPointerInsideToken(pointerInsideToken);
+                    tokenPointer++;
+                    this.stringExpression.setTokenPointer(tokenPointer);
                 }
-            } else if (token instanceof IdentValue) {
-                String name = ((IdentValue) token).getName();
-                int address = getAddress(name);
-                int level = getLevel(name);
-                addInstruction(EInstruction.LOD, level, address);
+            }
+        } else if (token instanceof IdentValue) {
+            String name = ((IdentValue) token).getName();
+            int address = getAddress(name);
+            int level = getLevel(name);
+
+            int length = getLength(name);
+
+            if (pointerInsideToken < length) {
+                addInstruction(EInstruction.LOD, level, address + pointerInsideToken);
+
+                if (pointerInsideToken < length - 1) {
+                    pointerInsideToken++;
+                    this.stringExpression.setPointerInsideToken(pointerInsideToken);
+                } else {
+                    pointerInsideToken = 0;
+                    this.stringExpression.setPointerInsideToken(pointerInsideToken);
+                    tokenPointer++;
+                    this.stringExpression.setTokenPointer(tokenPointer);
+                }
             }
         }
     }

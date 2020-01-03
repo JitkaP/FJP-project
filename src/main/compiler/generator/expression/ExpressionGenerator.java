@@ -64,7 +64,7 @@ public class ExpressionGenerator extends Generator {
         } else if (expression instanceof BoolExpression) {
             this.boolContinue = (new BoolExpressionGenerator((BoolExpression) expression)).generate(index);
         } else if (expression instanceof StringExpression) {
-            (new StringExpressionGenerator((StringExpression) expression)).generate(index);
+            (new StringExpressionGenerator((StringExpression) expression)).generate();
         }
     }
 
