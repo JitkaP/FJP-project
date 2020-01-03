@@ -1,3 +1,7 @@
+// Program fills array from 0 to length of array (SIZE).
+// Then program calculates sum of whole array.
+// E.g. if size = 3 -> array = {0,1,2} -> sum = 0+1+2 = 3
+
 const int SIZE := 5;
 var int array[SIZE];
 

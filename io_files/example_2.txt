@@ -1,0 +1,35 @@
+// Program calculates binary form of input number.
+
+const int digits := 4; // store number as binary
+var int number, cursor;
+
+procedure helper;
+    var bool bit;
+    begin
+        bit := false;
+
+        if ((number / 2) * 2 != number) then // if number is not even
+            bit := true;
+
+        number := number / 2;
+
+        if (cursor > 0) then
+            begin
+                cursor := cursor - 1;
+                call helper; // recursion
+            end;
+
+  bit := !bit;
+end;
+
+procedure binary;
+    begin
+        cursor := digits;
+        call helper;
+    end;
+
+begin
+    number := 5; // input number, output in binary for 5 should be 0101
+    call binary;
+end
+.
