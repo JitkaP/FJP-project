@@ -11,29 +11,23 @@ import java.util.List;
  */
 public class MainClass {
 
-    private static String inputFile = "io_files/input.txt";
-    private static String outputFile = "io_files/output.txt";
-
     /**
      * Entry point of the program
      * @param args arguments of the command line
      */
     public static void main(String[] args) {
 
-        if (args.length < 2) {
-            System.out.println("malo");
+        if (args.length < 1) {
+            System.out.println("Not enough arguments. Usage: <input_file>");
             System.exit(1);
         }
 
-        inputFile = args[0];
-        outputFile = args[1];
-
+        String inputFile = args[0];
         String inputStream = readFromFile(inputFile);
 
         List<Instruction> instructions = Compiler.getInstance().run(inputStream);
-
         if (instructions != null) {
-            writeToFile(outputFile, instructions);
+            writeToFile("output_" + inputFile, instructions);
         }
     }
 
