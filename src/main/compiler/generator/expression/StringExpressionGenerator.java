@@ -20,7 +20,6 @@ public class StringExpressionGenerator extends Generator {
 
     /**
      * Method for processing and generating instructions of ???
-     * @param index
      */
     public void generate(int index) {
         for (Object token: this.stringExpression.getValues()) { // idents and string_values, only need to concatenate

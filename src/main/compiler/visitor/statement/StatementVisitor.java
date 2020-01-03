@@ -49,14 +49,6 @@ public class StatementVisitor extends LangBaseVisitor<Statement> {
         else if (ctx.ternarstmt() != null) {
             statement = new TernarStatementVisitor().visit(ctx.ternarstmt());
             statement.setType(EStatementType.TERNAR);
-        }
-        else if (ctx.writestmt() != null) {
-            statement = new WriteStatementVisitor().visit(ctx.writestmt());
-            statement.setType(EStatementType.WRITE);
-        }
-        else if (ctx.readstmt() != null) {
-            statement = new ReadStatementVisitor().visit(ctx.readstmt());
-            statement.setType(EStatementType.READ);
         } else if (ctx.parallelstmt() != null) {
             statement = new ParallelStatementVisitor().visit(ctx.parallelstmt());
             statement.setType(EStatementType.PARALLEL);

@@ -50,12 +50,6 @@ public class StatementGenerator extends Generator {
             case CALL:
                 new CallStatementGenerator((CallStatement) this.statement).generate();
                 break;
-            case READ:
-                new ReadStatementGenerator((ReadStatement) this.statement).generate();
-                break;
-            case WRITE:
-                new WriteStatementGenerator((WriteStatement) this.statement).generate();
-                break;
             case TERNAR:
                 new TernarStatementGenerator((TernarStatement) this.statement).generate();
                 break;

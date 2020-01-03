@@ -4,8 +4,7 @@ import main.compiler.entity.expression.BoolExpression;
 import main.compiler.entity.expression.Expression;
 import main.compiler.entity.expression.NumberExpression;
 import main.compiler.entity.expression.StringExpression;
-import main.compiler.entity.value.IdentValue;
-import main.compiler.entity.value.Value;
+import main.compiler.entity.value.*;
 import main.compiler.enums.EInstruction;
 import main.compiler.generator.Generator;
 
@@ -36,10 +35,26 @@ public class ExpressionGenerator extends Generator {
                 if (object instanceof IdentValue) {
                     IdentValue identValue = (IdentValue) object;
                     String name = identValue.getName();
-                    this.value = getVariableValue(name);
-                    //int index = getIndex(identValue);
-                    addInstruction(EInstruction.LOD, getLevel(name), getAddress(name) + index);
-                    return; // je to ok
+
+                    Value value = getVariableValue(name);
+                    if (value instanceof ArrayIntValue || value instanceof ArrayBoolValue || value instanceof ArrayCharValue) {
+                        int varIndex = getIndex(identValue);
+                        this.value = getVariableValue(name, varIndex);
+
+                        int length = getLength(name);
+
+                        if (index < length) {
+                            addInstruction(EInstruction.LOD, getLevel(name), getAddress(name) + index);
+                            if (index < length - 1) {
+                                this.boolContinue = true;
+                            }
+                        }
+                    } else {
+                        this.value = value;
+                        addInstruction(EInstruction.LOD, getLevel(name), getAddress(name));
+                    }
+
+                    return;
                 }
             }
         }

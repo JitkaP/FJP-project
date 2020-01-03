@@ -18,6 +18,16 @@ public class StringExpression extends Expression {
      */
     private List<Value> values;
 
+    /**
+     * Pointer to current token in list of values.
+     */
+    private int tokenPointer = 0;
+
+    /**
+     * Index inside current token.
+     */
+    private int pointerInsideToken = 0;
+
     public StringExpression(List<Value> values) {
         this.values = values;
     }
