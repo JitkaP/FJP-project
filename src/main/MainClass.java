@@ -70,7 +70,6 @@ public class MainClass {
 
             for (int i = 0; i < instructions.size(); i++) {
                 out.print(instructions.get(i));
-                System.out.print(instructions.get(i)); // todo: jen pro test! pak smazat!
             }
 
             out.close();
