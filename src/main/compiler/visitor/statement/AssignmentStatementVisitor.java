@@ -24,13 +24,12 @@ public class AssignmentStatementVisitor extends LangBaseVisitor<AssignmentStatem
     @Override
     public AssignmentStatement visitAssignstmt(LangParser.AssignstmtContext ctx) {
         List<AssignVariable> assignVariables = new ArrayList<>();
-        Expression exp = new ExpressionVisitor().visit(ctx.expression());
 
         List<LangParser.IdentContext> names = ctx.ident();
         for (LangParser.IdentContext identContext: names) {
             String name = identContext.getText();
 
-            AssignVariable variable = new AssignVariable(name, exp);
+            AssignVariable variable = new AssignVariable(name,  new ExpressionVisitor().visit(ctx.expression()));
             assignVariables.add(variable);
         }
 
@@ -40,10 +39,10 @@ public class AssignmentStatementVisitor extends LangBaseVisitor<AssignmentStatem
             AssignVariable variable;
             if (ident_arrContext.NUMBER() != null) {
                 int index = Integer.parseInt(ident_arrContext.NUMBER().getText());
-                variable = new AssignVariable(name, exp, index);
+                variable = new AssignVariable(name,  new ExpressionVisitor().visit(ctx.expression()), index);
             } else {
                 String indexName = ident_arrContext.ident(1).getText();
-                variable = new AssignVariable(name, exp, indexName);
+                variable = new AssignVariable(name,  new ExpressionVisitor().visit(ctx.expression()), indexName);
             }
 
             assignVariables.add(variable);

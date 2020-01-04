@@ -47,8 +47,7 @@ public class ExpressionGenerator extends Generator {
 
                         if (index < length) {
                             if (variable.isConst()) {
-                                Value indexValue = getVariableValue(name, index);
-                                int number = getInt(indexValue);
+                                int number = getInt(this.value);
                                 addInstruction(EInstruction.LIT, getLevel(name), number);
                             } else {
                                 addInstruction(EInstruction.LOD, getLevel(name), getAddress(name) + index);

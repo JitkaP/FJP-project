@@ -1,6 +1,7 @@
 package main.compiler.generator.expression;
 
 import main.compiler.ErrorHandler;
+import main.compiler.entity.Variable;
 import main.compiler.entity.expression.BoolExpression;
 import main.compiler.entity.value.*;
 import main.compiler.enums.EBoolOp;
@@ -45,16 +46,19 @@ public class BoolExpressionGenerator extends Generator {
 
             if (token instanceof EBoolOp) {
                 if (token == EBoolOp.NEG) {
-                    Object after = tokens.get(i+1);
-                    generateValue(after);
+                    if (left == null) {
+                        left = tokens.get(i+1);
+                        generateValue(left);
+                    }
 
                     addInstruction(EInstruction.LIT, 0, 0);
                     addInstruction(EInstruction.OPR, 0, EInstructionOpr.EQUAL.getValue());
                 } else if (token == EBoolOp.AND) {
                     if (left == null) {
                         left = tokens.get(i - 1);
+                        generateValue(left);
                     }
-                    generateValue(left);
+
                     right = tokens.get(i+1);
                     generateValue(right);
 
@@ -62,8 +66,9 @@ public class BoolExpressionGenerator extends Generator {
                 } else if (token == EBoolOp.OR) {
                     if (left == null) {
                         left = tokens.get(i - 1);
+                        generateValue(left);
                     }
-                    generateValue(left);
+
                     right = tokens.get(i+1);
                     generateValue(right);
 
@@ -97,30 +102,55 @@ public class BoolExpressionGenerator extends Generator {
 
             int length = getLength(name);
             int index = getIndex(identValue);
-            if (index < 0) { // whole array
-                Value value = getVariableValue(name);
-                if (value instanceof ArrayIntValue || value instanceof ArrayBoolValue || value instanceof ArrayCharValue) {
-                    if (this.index < length) {
-                        address += this.index;
-                    }
 
-                    if (this.index < length - 1) {
-                        result = true;
+            Variable variable = getVariable(name);
+            Value value = getVariableValue(name);
+            if ((index < 0) && (value instanceof ArrayIntValue || value instanceof ArrayBoolValue || value instanceof ArrayCharValue)) { // whole array
+                if (this.index < length) {
+                    if (variable.isConst()) {
+                        Value indexValue = getVariableValue(name, this.index);
+                        addInstruction(EInstruction.LIT, 0, getInt(indexValue));
+                    } else {
+                        address += this.index;
+                        addInstruction(EInstruction.LOD, level, address);
                     }
+                }
+
+                if (this.index < length - 1) {
+                    result = true;
                 }
             } else { // index
                 if (index >= length) {
                     ErrorHandler.throwError(EErrorType.INDEX_OUT_OF_BOUNDS);
                 }
 
-                if (index > 0) {
-                    address += index;
+                if (variable.isConst()) {
+                    Value indexValue = getVariableValue(name, index);
+                    addInstruction(EInstruction.LIT, 0, getInt(indexValue));
+                } else {
+                    if (index >= 0) {
+                        address += index;
+                    }
+                    addInstruction(EInstruction.LOD, level, address);
                 }
             }
 
-            addInstruction(EInstruction.LOD, level, address);
         }
 
         return result;
+    }
+
+    private int getInt(Value value) {
+        int number = 0;
+        if (value instanceof IntValue) {
+            number = ((IntValue) value).getInteger();
+        } else if (value instanceof BoolValue) {
+            boolean b = ((BoolValue) value).getBool();
+            number = (b) ? 1 : 0; // 1=true, 0=false
+        } else if (value instanceof CharValue) {
+            number = ((CharValue) value).getChar();
+        }
+
+        return number;
     }
 }

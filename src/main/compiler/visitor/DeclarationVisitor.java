@@ -33,7 +33,7 @@ public class DeclarationVisitor extends LangBaseVisitor<List<Variable>> {
 
         // constarrays
         } else if (ctx.constarrays() != null && !ctx.constarrays().isEmpty()) {
-            EVariableType type = EVariableType.valueOf(ctx.consts().TYPE().getText().toUpperCase());
+            EVariableType type = EVariableType.valueOf(("array_" + ctx.constarrays().TYPE().getText()).toUpperCase());
             String name = ctx.constarrays().ident().getText();
             List<LangParser.ValueContext> values = ctx.constarrays().value();
 

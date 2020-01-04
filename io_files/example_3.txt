@@ -1,0 +1,63 @@
+// Program demonstrates all kinds of possible constructions in our language,
+// Therefore this program as a whole does not do anything useful.
+
+const int ARRAY[] := { 44, 55, 66 };
+const bool BOOLARRAY[] := { true, false };
+var char str1[2], str2[4], str3[2];
+var char c1, c2, c3, c4;
+var int index, i, j, sum;
+var bool b;
+
+procedure swapFirst;
+var char temp;
+begin
+    temp := str1[0];
+    str1[0] := str2[0];
+    str2[0] := temp;
+end;
+
+begin
+    str1 := "aa";
+    str3 := str1;
+
+    // string concatenation
+    str2 := "cd" + str1;
+
+    call swapFirst;
+
+    index := ARRAY[1]; // should be 55
+
+    // ternary operator
+    index := (str1 = str3) ? 88 : 99;
+
+    // multiple assignment
+    c1 := c2 := "a";
+
+    // parallel assignment
+    { c3, c4 } := { "b", "c" };
+
+    // if-else, string comparison
+    if (str1 != str2) then
+        index := 88
+    else
+        index := 99
+    ;
+
+    // arithmetic expression
+    j := 2;
+    i := (10*4 + 3/6 - 2) * j + 7;
+
+    // logical expression
+    b := BOOLARRAY[1];
+    b := !b && BOOLARRAY[0];
+
+    // do-while loop
+    sum := 0;
+    do
+        begin
+            sum := (sum + j);
+            j := j - 1;
+        end
+    while (j >= 0);
+
+end.

@@ -197,20 +197,21 @@ public class Variable extends Symbol {
      */
     public void setValue(List<Object> values) {
         Object[] array = values.toArray();
+        this.length = array.length;
         switch (this.type) {
             case ARRAY_CHAR:
                 char[] char_arr = new char[array.length];
-                for(int i = 0; i < array.length; i++) char_arr[i] = (char) array[i];
+                for(int i = 0; i < array.length; i++) char_arr[i] = ((String) array[i]).charAt(0);
                 this.value = new ArrayCharValue(char_arr);
                 break;
             case ARRAY_BOOL:
                 boolean[] boolean_arr = new boolean[array.length];
-                for(int i = 0; i < array.length; i++) boolean_arr[i] = (boolean) array[i];
+                for(int i = 0; i < array.length; i++) boolean_arr[i] = Boolean.parseBoolean((String) array[i]);
                 this.value = new ArrayBoolValue(boolean_arr);
                 break;
             case ARRAY_INT:
                 int[] int_arr = new int[array.length];
-                for(int i = 0; i < array.length; i++) int_arr[i] = (int) array[i];
+                for(int i = 0; i < array.length; i++) int_arr[i] = Integer.parseInt((String) array[i]);
                 this.value = new ArrayIntValue(int_arr);
                 break;
         }
